@@ -9,6 +9,7 @@
   "author": "ilan $ tamar",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.12.4",
     "mongoose": "^4.0.3"
   }
 }

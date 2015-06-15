@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://db_usr:db_pass@ds031882.mongolab.com:31882/db_ringapp');
+var express = require('express');
+mongoose.connect('mongodb://db_usr:db_pass@ds031972.mongolab.com:31972/grades');
+var app = express();
 
-var user_schema = require('./schema').user_schema;
-mongoose.model('usersM', user_schema);
+var birthday_schema = require('./schema').birthday_schema;
+mongoose.model('birthdayM', birthday_schema);
 
 // var conn = mongoose.connection;
 
@@ -17,7 +19,23 @@ mongoose.model('usersM', user_schema);
 
 
 mongoose.connection.once('open', function(){
-	var Users = this.model('usersM');
+	var birhdayWishes = this.model('birthdayM');
 	console.log('connected');
-	mongoose.disconnect();
+	// mongoose.disconnect();
+
+	app.get('/', function(req, res){
+	birhdayWishes.find({}, function(err, docs){
+		if(err){
+			console.error(err);
+		}
+		res.json(docs);
+	})
+})
+})
+
+
+
+var port = process.env.PORT || 8080;
+app.listen(port, function(){
+	console.log("listenting to port " + port);
 })
