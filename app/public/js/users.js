@@ -1,5 +1,9 @@
 var User = {};
+var greetings=[];
+
     function Box(iCurrentBox,pageName) {
+        console.log(greetings);
+
         var iCount  = iCurrentBox;
         switch (pageName) {
 
@@ -56,7 +60,8 @@ var User = {};
                 var boxObj = document.createElement('article');//create an Element
                 var id = iCount + 1;
                 boxObj.className = 'user-row';
-                $(boxObj).append('<p>מקסימה ומיוחדת, מזל טוב ויומולדת מפנק עכשיו וכל השנה.. מכולנו באהבה ♥</p>');
+                console.log(iCount);
+                $(boxObj).append('<p>'+ greetings[iCount]+'</p>');
                 $('.user-body').append(boxObj);
                 break;
             default :
@@ -67,6 +72,8 @@ var User = {};
 
     function IBoxsManager(boxNum,pageName) {
         var iboxNum = boxNum; //how many Boxes when window on load
+        console.log(greetings);
+
         for (var i = 0; i < iboxNum; i++) {
             //Create new Box instance
             var box = new Box(i, pageName);
@@ -76,14 +83,43 @@ var User = {};
     }
 
     $(document).ready(function(){
+
+        $.ajax({
+            type: "get",
+            url: "http://localhost:3000/",// where you wanna post
+            dataType: "json",
+            error: function(jqXHR, textStatus, errorMessage) {
+                console.log(errorMessage)
+            },
+            success: function(data) {
+                // console.log("update success to add to the favorite");
+                //console.log(data)
+                console.log(data[0].greetingsValue);
+
+
+
+
+                $.each(data, function(key, val){
+                    console.log(val.greetingsValue);
+
+                    greetings.push(val.greetingsValue);
+
+                });
+                console.log(greetings);
+                path();
+            }
+
+         });
+        function path(){
         var title = document.getElementsByTagName("title")[0].innerHTML;
         switch (title){
             case "b-Day whishes system - user":
-                var numofUsers=8;
+
+                var numofUsers=9;
                 var iBoxsManager = new IBoxsManager(numofUsers,title);//create the commercials boxes
                 break;
             case "b-Day whishes system - users":
-                var numofUsers=8;
+                var numofUsers=9;
                 var iBoxsManager = new IBoxsManager(numofUsers,title);//create the commercials boxes
                 break;
             default :
@@ -93,6 +129,7 @@ var User = {};
 
 
 
+    };
     });
 
 function signinCallback(authResult) {

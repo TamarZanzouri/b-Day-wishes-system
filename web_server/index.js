@@ -23,19 +23,34 @@ mongoose.connection.once('open', function(){
 	console.log('connected');
 	// mongoose.disconnect();
 
+	app.use('/',function(req, res, next) {
+		res.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Headers", "X-Requested-With");
+		res.header("Access-Control-Allow-Headers", "Content-Type");
+		res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+		next();
+	});
 	app.get('/', function(req, res){
-	birhdayWishes.find({}, function(err, docs){
+
+
+		birhdayWishes.find({}, function(err, docs){
 		if(err){
 			console.error(err);
+			res.status(404);
+
 		}
-		res.json(docs);
-	})
-})
-})
+		else{
+			res.status(200);
+			res.json(docs);
+		}
+
+		});
+	});
+});
 
 
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 app.listen(port, function(){
 	console.log("listenting to port " + port);
-})
+});
