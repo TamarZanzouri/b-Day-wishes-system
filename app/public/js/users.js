@@ -153,10 +153,16 @@ function signinCallback(authResult) {
                 // (resp.emails)? resp.emails[0].value : "zanzouritamar@gmail.com";
                 //console.log("email!!!", Gemail)
                 console.log(User);
+                var img = $('<img>').attr("src",User.image);
+                $('#profile-pic').append(img);
+                $('#user-name').append(User.name);
                 // create_user(User);
+                var delay = 3000; //Your delay in milliseconds
 
+                setTimeout(function(){ window.location = "users.html"; }, delay);
             });
         });
+        // window.location.href = "users.html";
     } else {
         /*  Update the app to reflect a signed out user
          Possible error values:
@@ -167,3 +173,33 @@ function signinCallback(authResult) {
 
         }
     }
+
+// function create_user(User){
+//       $.ajax({
+//         type: "post",
+//         url: "http://localhost:3000/",// where you wanna post
+//         dataType: "json",
+//         error: function(jqXHR, textStatus, errorMessage) {
+//             console.log(errorMessage)
+//         },
+//         success: function(data) {
+//             // console.log("update success to add to the favorite");
+//             //console.log(data)
+//             console.log(data[0].greetingsValue);
+
+
+
+
+//             $.each(data, function(key, val){
+//                 console.log(val.greetingsValue);
+
+//                 greetings.push(val.greetingsValue);
+
+//             });
+//             console.log(greetings);
+//             path();
+//         }
+
+// });
+// }
+

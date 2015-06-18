@@ -46,10 +46,13 @@ a{
     width: 18.6%;
     height: 21.6%;
     background-color: rgba(204, 0, 102, 0);
-    border: 3px solid #333;
+    /*border: 3px solid #333;*/
     -moz-border-radius:75px;
     -webkit-border-radius: 75px;
+}
 
+#profile-pic > img{
+    border-radius: 50px;
 }
 #user-name{
     position: absolute;
@@ -79,8 +82,14 @@ a{
     text-decoration: none;
     color: #000000;
     line-height: 1.88;
-
+    display: none;
 }
+.logIn{
+    position: relative;
+    left: 30%;
+    top: 250px;
+}
+
 .login-footer{
     width: 100%;
     height: 20%;
