@@ -86,7 +86,7 @@ var greetings=[];
 
         $.ajax({
             type: "get",
-            url: "http://localhost:3000/",// where you wanna post
+            url: "https://mazal-tov.herokuapp.com/",// where you wanna post
             dataType: "json",
             error: function(jqXHR, textStatus, errorMessage) {
                 console.log(errorMessage)
