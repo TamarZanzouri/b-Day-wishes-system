@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="includes/bootstrap.min.css">
+    <script src="js/jquery-2.1.3.min.js"></script>
 
+    <script src="js/jquery-2.1.3.min.js"></script>
     <title>b-Day whishes system</title>
     <link rel="stylesheet" type="text/css" href="css/app.css">
     <link rel="shortcut icon" href="imgs/Birthday_cake.png">
@@ -13,33 +16,64 @@
 </head>
 <body>
 <div class="wrapper">
-    <section class="login-header">
-        <a href="#" id="logo">לוגו</a>
-    </section>
-    <section class="login-body">
-        <div class="profile-name">
-            <a href="#" id="profile-pic"></a>
-            <h3 id="user-name"></h3>
+    <section class="login-page">
+        <section class="login-header">
+            <a href="#" id="logo">לוגו</a>
+        </section>
+        <section class="login-body">
+            <div class="profile-name">
+                <a href="#" id="profile-pic"></a>
+                <h3 id="user-name"></h3>
 
-        </div>
-        <p id="welcome-txt">ברוך הבא לאפליקציית ״מזל טוב״!
-        <br>
-            האפליקציה שתעזור לברך את כל החברים
+            </div>
+            <p id="welcome-txt">ברוך הבא לאפליקציית ״מזל טוב״!
             <br>
-            בקלות ובלי לשכוח אף אחד.
-        </p>
-        <a href="users.html" id="facebook-login">התחבר עם פייסבוק </a>
-                    <div class="logIn"><span id="signinButton"> 
-                        <span
-                        class="g-signin"
-                        data-callback="signinCallback"
-                        data-clientid="666209132044-6elo4bn0otp9jpjet2ec4gj9f6m2ju85.apps.googleusercontent.com"
-                        data-cookiepolicy="single_host_origin"
-                        data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> 
-                    </span></div>
+                האפליקציה שתעזור לברך את כל החברים
+                <br>
+                בקלות ובלי לשכוח אף אחד.
+            </p>
+            <a href="users.html" id="facebook-login">התחבר עם פייסבוק </a>
+                        <div class="logIn"><span id="signinButton">
+                            <span
+                            class="g-signin"
+                            data-callback="signinCallback"
+                            data-clientid="666209132044-6elo4bn0otp9jpjet2ec4gj9f6m2ju85.apps.googleusercontent.com"
+                            data-cookiepolicy="single_host_origin"
+                            data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span>
+                        </span></div>
+        </section>
+        <section class="login-footer">
+            <a href="#" id="logout">התנתק</a>
+        </section>
     </section>
-    <section class="login-footer">
-        <a href="#" id="logout">התנתק</a>
+    <section class="user-page">
+        <section class="user-header">
+            <div class="profile-name">
+                <a href="#" id="profile-pic2"></a>
+                <h1 id="user-name2">יעל רז</h1>
+                <h5 id="bdayDate">15.7.15</h5>
+
+            </div>
+            <div id="remainingBox">עוד 20 ימים</div>
+
+        </section>
+        <section class="user-body">
+        </section>
+
+        <section class="user-footer">
+            <a href="#" id="next">הבא</a>
+            <div class="carousel-indicators">
+                <ul>
+                    <li id="active"></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <a href="users.html" id="prev">הקודם</a>
+        </section>
+    </section>
+    <section class="users-page">
+        <section class="user-list"></section>
     </section>
 
 </div>
