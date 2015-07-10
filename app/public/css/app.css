@@ -4,39 +4,57 @@
 }
 a{
     text-decoration: none;
+    color: inherit;
 }
-.wrapper{
-    width: 320px;
-    height: 480px;
+#wrapper{
+    width: 100%;
+ }
+body{
+    background-color: #fffdf6;
+
 }
 .login-header{
     position: relative;
     width: 100%;
-    height: 20%;
+    height: 60px;
 }
 #logo{
     position: absolute;
-    top:48%;
-    right: 13.7%;
-    width: 70.6%;
-    height: 44.25%;
-    border: 2px solid #000;
-    background-color: #FFF;
-    display: inline-block;
-    font-size: 24px;
-    text-align: center;
-    text-decoration: none;
-    color: #000000;
-    line-height: 1.88;
+    top:25.2%;
+    left: 31.5625%;
+    background-image: url("../imgs/logo.png");
+    height: 43px;
+    width: 118px;
 
 }
 .login{
     width: 70%;
 }
 .login-body{
+    background-image: url("../imgs/pattern.gif");
+    display: inline-block;
     position: relative;
     width:100%;
-    height: 60%;
+    height: 480px;
+    
+}
+#exist-user button,#new-user button{
+    height: 62px;
+    background-color: #fffbed;
+    border: 1px solid #dedbba;
+    direction: rtl;
+    font-family:  "Myriad Hebrew";
+    color: #979691;
+}
+#exist-user{
+    width: 38.125%;
+    font-size: 15pt;
+
+}
+#new-user{
+    width: 61.875%;
+    font-size: 17pt;
+
 }
 #profile-pic{
     position: absolute;
@@ -63,11 +81,14 @@ a{
 #welcome-txt{
     direction: rtl;
     position: absolute;
-    top: 45%;
-    right: 12%;
-    color: #000000;
+    top: 36.2%;
     text-align: center;
-    font-size: 14px;
+    width: 100%;
+    font-family: "Myriad Hebrew";
+    font-size: 13.12pt;
+    color: #fe925d;
+    border-radius: 0;
+
 }
 #facebook-login{
     position: absolute;
@@ -92,8 +113,8 @@ a{
 
 .login-footer{
     width: 100%;
-    height: 20%;
     position: relative;
+    top: 80%;
 }
 #logout{
     position: absolute;
@@ -102,6 +123,9 @@ a{
     text-decoration: none;
     color: #000000;
 
+}
+.ui-loader,.ui-corner-all,.ui-body-a,.ui-loader-default{
+    display: none;
 }
 .user-list{
     width: 100%;
