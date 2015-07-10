@@ -14,27 +14,41 @@
     <script src="js/users.js" type="text/javascript"></script>
 </head>
 <body ng-app="app" ng-controller="AuthCtrl">
-    <div id="login-page" data-role="page" ng-hide="user-friends">
-        <div data-role="header">
-            <a href="#" id="logo">לוגו</a>
-        </div>
-        <div data-role="content">
-            <div class="profile-name">
-                <a href="#" id="profile-pic"></a>
-                <h3 id="user-name"></h3>
-            </div>
-            <p id="welcome-txt">ברוך הבא לאפליקציית ״מזל טוב״!
-                <br>
-                האפליקציה שתעזור לברך את כל החברים
-                <br>
-                בקלות ובלי לשכוח אף אחד.
-            </p>
-            <a href="#user-friends" ng-click="login()">Login with Google Plus</a>
-        </div>
-        <div data-role="footer" data-position="fixed">
-            <a href="#" id="logout">התנתק</a>
-        </div>
-    </div>
+<div  data-role="none" id="wrapper">
+<!--      <div class="login-page" data-role="page">
+          <div data-role="content" class="login-body">
+
+             <div class="logo-section">
+                 <a href="#" class="logo"></a>
+                 <a href="#" class="welcome-txt">כותב לך את הברכה המושלמת...</a>
+             </div>
+             <div class="login-footer" data-role="footer" data-position="fixed">
+
+                 <div class="btn-group btn-group-justified"  role="group" aria-label="...">
+                     <div id="exist-user" class="btn-group" role="group">
+                         <button  type="button" data-role="none"class="btn btn-default">משתמש קיים</button>
+                     </div>
+                     <div id="new-user" class="btn-group" role="group">
+                         <button type="button" data-role="none"class="btn btn-default"> <a href="#user-friends" ng-click="login()">google+ צור חשבון דרך </a></button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+     </div> -->
+     <div class="loading" data-role="page">
+         <div class="app-header">
+             <a href="#" id="logo-header"></a>
+             <a href="#" id="settings"></a>
+             <a href="#" id="notifications"></a>
+         </div>
+         <div class="loading-body">
+             <a href="#" class="logo"></a>
+             <p class="welcome-txt">כותב לך את הברכה המושלמת...</p>
+             <a href="#"id="switching-icon"></a>
+         </div>
+
+     </div>
     <div id="user-friends" data-role="page" ng-hide="login-page">
         <div data-role="header">
         </div>
@@ -48,6 +62,7 @@
         <div data-role="footer" data-position="fixed">
         </div>
     </div>
+</div>
 </body>
 <!--     <section class="user-page">
         <section class="user-header">
