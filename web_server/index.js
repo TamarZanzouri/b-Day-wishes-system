@@ -1,54 +1,77 @@
 var mongoose = require('mongoose');
 var express = require('express');
-mongoose.connect('mongodb://db_usr:db_pass@ds031972.mongolab.com:31972/grades');
+var userWS = require('./modules/user_ws');
+var birthdayWishesWS = require('./modules/birthdayWishes_ws')
+var mongopath = 'mongodb://db_usr:db_pass@ds031972.mongolab.com:31972/grades';
 var app = express();
 
-var birthday_schema = require('./schema').birthday_schema;
-mongoose.model('birthdayM', birthday_schema);
+var birthday_schema = require('./models/birthdayWishesSchema').birthday_schema;
+var users_schema = require('./models/usersSchema').users_schema;
 
-// var conn = mongoose.connection;
-
-// conn.on('error', function(err){
-// 	console.log('connection error' + err);
-// });
-
-// conn.once('open', function(){
-// 	console.log('connected');
-// 	mongoose.disconnect();
-// })
+birhdayWishesSchema = mongoose.model('birthdayM', birthday_schema);
+usersSchema = mongoose.model('usersM', users_schema);
 
 
-mongoose.connection.once('open', function(){
-	var birhdayWishes = this.model('birthdayM');
-	console.log('connected');
-	// mongoose.disconnect();
+var options = {
+	db: { native_parser : true }
+}
 
-	app.use('/',function(req, res, next) {
-		res.header("Access-Control-Allow-Origin", "*");
-		res.header("Access-Control-Allow-Headers", "X-Requested-With");
-		res.header("Access-Control-Allow-Headers", "Content-Type");
-		res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
-		next();
-	});
-	app.get('/', function(req, res){
+mongoose.connect(mongopath,options);
+
+db = mongoose.connection;
 
 
-		birhdayWishes.find({}, function(err, docs){
-		if(err){
-			console.error(err);
-			res.status(404);
+db.on('error', console.error.bind(console, 'connection error:'));
 
-		}
-		else{
-			res.status(200);
-			res.json(docs);
-		}
+db.on('open', function () {
+	console.log("connected through mongoose");
+});
 
-		});
+db.on('disconnected', function()
+{
+	console.log("you are disconnected, reconnecting");
+	mongoose.connect(mongopath,options);
+});
+
+
+app.use('/',function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "X-Requested-With");
+	res.header("Access-Control-Allow-Headers", "Content-Type");
+	res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+	next();
+});
+
+app.get('/', function(req, res){
+
+	birhdayWishes.find({}, function(err, docs){
+	if(err){
+		console.error(err);
+		res.status(404);
+
+	}
+	else{
+		res.status(200);
+		res.json(docs);
+	}
+
 	});
 });
 
 
+app.param('user', function(req, res, next, value){
+	console.log("recieved user ", value);
+	next();
+});
+
+app.get('/create_user/:user', userWS.create_user);
+
+app.param('friendsMatch', function(req, res, next, value){
+	console.log("recieved user ", value);
+	next();
+});
+
+app.get('/getMyFriendsBirthDayWishes/:friendsMatch', birthdayWishesWS.getMyFriendsBirthDayWishes)
 
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
