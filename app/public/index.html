@@ -50,95 +50,119 @@
               <div data-role="footer" data-position="fixed">
           </div>
     </div>
-    <!-- <div id="loading"class="loading" data-role="page">
-          <div class="app-header">
-              <a href="#" class="logo-header"></a>
-              <a href="#" class="settings"></a>
-              <a href="#" class="notifications"></a>
-          </div>
-          <div class="loading-body">
-              <a href="#" class="logo"></a>
-              <p class="welcome-txt">כותב לך את הברכה המושלמת...</p>
-              <a href="#"id="switching-icon"></a>
-          </div>
+
+ <div id="user-friends" data-role="page">
+           <div data-role="header">
+               <div class="app-header">
+                   <a href="#" class="logo-header"></a>
+                   <a href="#" class="settings"></a>
+                   <a href="#" class="notifications"></a>
+               </div>
+           </div>
+           <div data-role="content">
+               <ul data-role="listview">
+                   <li class="friend-row">
+
+                        <div class="friend-img"><a href="#birthday-wishes" data-transition="slide" ng-click="" value="">{{user.image}}</a></div>
+                        <div class="friend-name"><a href="#birthday-wishes" data-transition="slide" ng-click="" value=""><h4>{{user.friendName}}</h4><h6>{{user.date}}</h6></a></div>
+                        <div class="friend-days-left"><a href="#birthday-wishes" data-transition="slide" ng-click="" value=""><h5>עוד יומיים</h5></a></div>
+
+                   </li>
+               </ul>
+           </div>
+           <div data-role="footer" data-position="fixed">
+
+       </div>
+ </div>
+ <!-- <div id="loading"class="loading" data-role="page">
+       <div class="app-header">
+           <a href="#" class="logo-header"></a>
+           <a href="#" class="settings"></a>
+           <a href="#" class="notifications"></a>
+       </div>
+       <div class="loading-body">
+           <a href="#" class="logo"></a>
+           <p class="welcome-txt">כותב לך את הברכה המושלמת...</p>
+           <a href="#"id="switching-icon"></a>
+       </div>
+  </div>
+<div id="birthday-wishes"class="wishes" data-role="page">
+   <div class="app-header">
+       <a href="#" class="logo-header"></a>
+       <a href="#" class="settings"></a>
+       <a href="#" class="notifications"></a>
+   </div>
+   <div class="birthday-wishes-body">
+         <div class="user-name">
+           <div class="vertical-line"></div>
+           <div class="name">
+               <h4>אולגה ולטר</h4>
+               <h6>21.6.15</h6>
+           </div>
+           <div class="days-left">
+               <h5>3 ימים!</h5>
+           </div>
+       </div>
      </div>
-  <div id="birthday-wishes"class="wishes" data-role="page">
-      <div class="app-header">
-          <a href="#" class="logo-header"></a>
-          <a href="#" class="settings"></a>
-          <a href="#" class="notifications"></a>
-      </div>
-      <div class="birthday-wishes-body">
-            <div class="user-name">
-              <div class="vertical-line"></div>
-              <div class="name">
-                  <h4>אולגה ולטר</h4>
-                  <h6>21.6.15</h6>
-              </div>
-              <div class="days-left">
-                  <h5>3 ימים!</h5>
-              </div>
-          </div>
-        </div>
-      </div>
-      <div class="app-footer">
-          <a href="#" id="arrow-right"></a>
-          <a href="#" id="arrow-left"></a>
+   </div>
+   <div class="app-footer">
+       <a href="#" id="arrow-right"></a>
+       <a href="#" id="arrow-left"></a>
 
-      </div>
-  </div>
-  <div id="picture-list"class="pictures" data-role="page">
-      <div class="app-header">
-          <a href="#" class="logo-header"></a>
-          <a href="#" class="settings"></a>
-          <a href="#" class="notifications"></a>
-      </div>
-      <div class="picture-list-body">
-                <div class="user-name">
-              <div class="vertical-line"></div>
-              <div class="name">
-                  <h4>אולגה ולטר</h4>
-                  <h6>21.6.15</h6>
-              </div>
-              <div class="days-left">
-                  <h5>3 ימים!</h5>
-              </div>
-          </div>
-          </div>
-      </div>
-      <div class="app-footer">
-          <a href="#" id="arrow-right"></a>
-          <a href="#" id="arrow-left"></a>
+   </div>
+</div>
+<div id="picture-list"class="pictures" data-role="page">
+   <div class="app-header">
+       <a href="#" class="logo-header"></a>
+       <a href="#" class="settings"></a>
+       <a href="#" class="notifications"></a>
+   </div>
+   <div class="picture-list-body">
+             <div class="user-name">
+           <div class="vertical-line"></div>
+           <div class="name">
+               <h4>אולגה ולטר</h4>
+               <h6>21.6.15</h6>
+           </div>
+           <div class="days-left">
+               <h5>3 ימים!</h5>
+           </div>
+       </div>
+       </div>
+   </div>
+   <div class="app-footer">
+       <a href="#" id="arrow-right"></a>
+       <a href="#" id="arrow-left"></a>
 
-      </div>
-  </div>
-  <div id="confirm-page"class="confirm" data-role="page">
-      <div class="app-header">
-          <a href="#" class="logo-header"></a>
-          <a href="#" class="settings"></a>
-          <a href="#" class="notifications"></a>
-      </div>
-      <div class="confirm-list-body">
-          <div class="user-name">
-              <div class="vertical-line"></div>
-              <div class="name">
-                  <h4>אולגה ולטר</h4>
-                  <h6>21.6.15</h6>
-              </div>
-              <div class="days-left">
-                  <h5>3 ימים!</h5>
-              </div>
-          </div>
-      </div>
-      <div class="app-footer">
-          <a href="#" id="arrow-right"></a>
-          <div id="publish">
-              <a href="#" data-role="none">פרסם</a>
-          </div>
+   </div>
+</div>
+<div id="confirm-page"class="confirm" data-role="page">
+   <div class="app-header">
+       <a href="#" class="logo-header"></a>
+       <a href="#" class="settings"></a>
+       <a href="#" class="notifications"></a>
+   </div>
+   <div class="confirm-list-body">
+       <div class="user-name">
+           <div class="vertical-line"></div>
+           <div class="name">
+               <h4>אולגה ולטר</h4>
+               <h6>21.6.15</h6>
+           </div>
+           <div class="days-left">
+               <h5>3 ימים!</h5>
+           </div>
+       </div>
+   </div>
+   <div class="app-footer">
+       <a href="#" id="arrow-right"></a>
+       <div id="publish">
+           <a href="#" data-role="none">פרסם</a>
+       </div>
 
 
-      </div>
-  </div>-->
+   </div>
+</div>-->
 
 
 

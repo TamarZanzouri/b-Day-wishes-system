@@ -209,12 +209,49 @@ body{
 
 }
 
-/*-----------------------------------Users Page------------------------------------------------*/
-.user-list{
+/*-----------------------------------user's friends Page------------------------------------------------*/
+.friend-row{
     width: 100%;
-    display: inline-block;
-
+    height:60px;
+    background-color: #df547d ;
 }
+.friend-img{
+    float: right;
+    width: 58px;
+    height: 60px;
+    border-left: 1px solid #ffffff;
+}
+.friend-name{
+    float: right;
+    height: 60px;
+    width: 43.75%;
+    padding-right: 17px;
+    padding-top: 14px;
+}
+.friend-days-left{
+    height: 60px;
+    width: 37.5%;
+    padding-left: 17px;
+    padding-top: 20px;
+    background-color: #4c76df;
+}
+.friend-name  a > h4, .friend-name a >h6,.friend-days-left a >h5{
+    font-family: "Myriad Hebrew";
+    color: #ffffff;
+    margin: 0;
+}
+.friend-name a >h4{
+    font-size: 20pt;
+    float: right;
+ }
+.friend-name a >h6{
+    font-size: 12pt;
+    float: right;
+}
+.friend-days-left a >h5{
+     font-size: 15pt;
+}
+/*-----------------------------------user's friends Page------------------------------------------------*/
 .user-row{
     width:100%;
     border-bottom: 1px solid #000000;
@@ -225,7 +262,6 @@ body{
     height: 100px;
     display: inline-block;
     float: right;
-
 }
 #user-profile-pic{
     display: inline-block;
@@ -243,7 +279,6 @@ body{
     display: inline-block;
     float: right;
     direction: rtl;
-
 }
 .user-row-name>#userName{
     height: 50%;
