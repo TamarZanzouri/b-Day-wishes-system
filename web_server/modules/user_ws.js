@@ -17,7 +17,7 @@ exports.create_user = function(req, res){
 						res.status(200);
 						res.json(docs);
 					});
-					}
+				}
 			else{
 				console.log("adding new user");
 				var newUser = new usersSchema(user);
