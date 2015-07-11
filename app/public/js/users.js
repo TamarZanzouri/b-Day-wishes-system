@@ -1,9 +1,6 @@
 function movePage(page){
     console.log(page);
-    $.mobile.pageContainer.pagecontainer("change", page, {  transition : "none",
-        changeHash : true });
-
-
+    $.mobile.navigate( "#user-friends", { transition : "slide", info: "info about the #bar hash" });
 };
 
 var app = angular.module('app', ['googleplus']);
@@ -24,10 +21,11 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
     });
    }]);
 
-    app.controller('AuthCtrl', ['$scope', 'GooglePlus', '$http', 'UserService',function ($scope, GooglePlus, $http, UserService) {
+    app.controller('AuthCtrl', ['$scope', 'GooglePlus', '$http', 'UserService', '$location', '$anchorScroll',function ($scope, GooglePlus, $http, UserService, $location, $anchorScroll) {
         $scope.User = UserService.name;
         // $scope.g_domain = UserService.domain;
         $scope.login = function () {
+            console.log("in login")
             GooglePlus.login().then(function (authResult) {
                 console.log(authResult);
 
@@ -37,9 +35,9 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
                     User.userName = user.name;
                     User.profileImage = user.picture;
                     $scope.user = User;
-
                     console.log($scope.user);
-                    movePage('#user-friends');
+                    // $location.hash('user-friends');
+                    // $anchorScroll();
                     $http.post("http://localhost:3000/create_user/", { user : $scope.user }).success(function(data){
                         console.log(data)
                         $scope.users = data.friendsMatch;

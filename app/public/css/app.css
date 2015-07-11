@@ -141,7 +141,7 @@ body{
     display: inline-block;
     position: relative;
     width:100%;
-    height: 480px;
+    height: 100vh;
     
 }
 #exist-user button,#new-user button{
