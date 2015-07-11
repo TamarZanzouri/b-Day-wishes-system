@@ -42,7 +42,8 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
                     // $location.hash('#user-friends');
                     // $anchorScroll();
                     $http.post("http://localhost:3000/create_user/", { user : $scope.user }).success(function(data){
-                        console.log(data)
+                        console.log(data.friendsMatch);
+                        debugger
                         $scope.users = data.friendsMatch;
                     });
                 });
