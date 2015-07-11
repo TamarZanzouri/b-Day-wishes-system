@@ -87,7 +87,7 @@ body{
 }
 /*-----------------------------------App footer------------------------------------------------*/
 .app-footer{
-    position: absolute;
+    position: fixed;
     bottom: 0%;
     width: 100%;
     height: 43px;
@@ -406,6 +406,10 @@ body{
     width: 100%;
     background-color: #fffdf6;
 
+}
+
+#birthdayWishesList{
+    direction: rtl;
 }
 
 

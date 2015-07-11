@@ -23,7 +23,7 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
     });
    }]);
 
-    app.controller('AuthCtrl', ['$scope', 'GooglePlus', '$http', 'UserService', '$location', '$anchorScroll',function ($scope, GooglePlus, $http, UserService, $location, $anchorScroll) {
+    app.controller('AuthCtrl', ['$scope', 'GooglePlus', '$http', 'UserService', '$rootScope',function ($scope, GooglePlus, $http, UserService, $rootScope) {
         $scope.User = UserService.name;
         // $scope.g_domain = UserService.domain;
         $scope.login = function () {
@@ -50,13 +50,19 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
         };
 
         $scope.getBirthdayWishes = function(userFriend){
-            console.log("getting getBirthdayWishes " , userFriend)
+            // debugger;
+            console.log("getting getBirthdayWishes " , userFriend, " eamil", User.userEmail)
             $http.post("http://localhost:3000/getMyFriendsBirthDayWishes", 
-                { user : $scope.user.userEmail,  }).success(function(data){
-
+                { user : User.userEmail, friend :  userFriend}).success(function(data){
+                    console.log(data);
+                    $scope.wishes = data;
+                    movePage('birthday-wishes');
             });
 
         };
+        $scope.editWish = function(){
+            console.log("get edited");
+        }
 
 
     }]);
