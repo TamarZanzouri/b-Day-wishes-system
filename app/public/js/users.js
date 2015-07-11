@@ -38,10 +38,9 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
                     User.profileImage = user.picture;
                     $scope.user = User;
                     console.log($scope.user);
-                    movePage('user-friends')
-
-                    $http.post("http://localhost:3000/create_user", { user : $scope.user }).success(function(data){
-                        console.log(data)
+                    movePage('user-friends');
+                    $http.post("http://localhost:3000/create_user/", { user : $scope.user }).success(function(data){
+                        console.log(data.friendsMatch);
                         $scope.users = data.friendsMatch;
                     });
                 });
