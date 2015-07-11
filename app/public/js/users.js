@@ -1,13 +1,13 @@
-// function movePage(page){
-//     $.mobile.changePage("#"+page, {
-//         transition : "none",
-//         changeHash : true
-//     });
-// };
-
-var app = angular.module('app', ['googleplus']);
+function movePage(page){
+    $.mobile.changePage("#"+page, {
+        transition : "none",
+        changeHash : true
+    });
+};
 
 var User = {};
+
+var app = angular.module('app', ['googleplus']);
 
 app.factory('UserService', function() {
   return {
@@ -38,10 +38,9 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
                     User.profileImage = user.picture;
                     $scope.user = User;
                     console.log($scope.user);
-                    // movePage('#user-friends');
-                    // $location.hash('#user-friends');
-                    // $anchorScroll();
-                    $http.post("http://localhost:3000/create_user/", { user : $scope.user }).success(function(data){
+                    movePage('user-friends')
+
+                    $http.post("http://localhost:3000/create_user", { user : $scope.user }).success(function(data){
                         console.log(data)
                         $scope.users = data.friendsMatch;
                     });
@@ -49,6 +48,15 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
             }, function (err) {
                 console.log(err);
             });
+        };
+
+        $scope.getBirthdayWishes = function(userFriend){
+            console.log("getting getBirthdayWishes " , userFriend)
+            $http.post("http://localhost:3000/getMyFriendsBirthDayWishes", 
+                { user : $scope.user.userEmail,  }).success(function(data){
+
+            });
+
         };
 
 

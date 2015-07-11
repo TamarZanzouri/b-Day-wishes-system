@@ -28,7 +28,7 @@
                      </div>
                      <div id="new-user" class="btn-group" role="group">
                          <button  type="button" data-role="none"class="btn btn-default"> 
-                            <a href="#user-friends" ng-click="login()">google+ צור חשבון דרך </a>
+                            <a href="#" ng-click="login()">google+ צור חשבון דרך </a>
                         </button>
                      </div>
                  </div>
@@ -36,22 +36,7 @@
          </div>
 
      </div>
-    <div id="user-friends" data-role="page">
-              <div data-role="header">
-              </div>
-              <div data-role="content">
-                  <ul data-role="listview">
-                      <li ng-repeat="user in users">
-                          <a href="#birthday-wishes" data-transition="slide" ng-click="" value="">{{user.friendName}}</a>
-                          <a href="#">{{user.friendshipPercent}}</a>
-                      </li>
-                  </ul>
-              </div>
-              <div data-role="footer" data-position="fixed">
-          </div>
-    </div>
-
- <div id="user-friends" data-role="page">
+<div id="user-friends" data-role="page">
            <div data-role="header">
                <div class="app-header">
                    <a href="#" class="logo-header"></a>
@@ -61,11 +46,11 @@
            </div>
            <div data-role="content">
                <ul data-role="listview">
-                   <li class="friend-row">
+                   <li class="friend-row" ng-click="getBirthdayWishes({{user.friendName}})">
 
-                        <div class="friend-img"><a href="#birthday-wishes" data-transition="slide" ng-click="" value="">{{user.image}}</a></div>
-                        <div class="friend-name"><a href="#birthday-wishes" data-transition="slide" ng-click="" value=""><h4>{{user.friendName}}</h4><h6>{{user.date}}</h6></a></div>
-                        <div class="friend-days-left"><a href="#birthday-wishes" data-transition="slide" ng-click="" value=""><h5>עוד יומיים</h5></a></div>
+                        <div class="friend-img"><a href="#" data-transition="slide" ng-click="" value="">{{user.image}}</a></div>
+                        <div class="friend-name"><a href="#" data-transition="slide" ng-click="" value=""><h4>{{user.friendName}}</h4><h6>{{user.date}}</h6></a></div>
+                        <div class="friend-days-left"><a href="#" data-transition="slide" ng-click="" value=""><h5>עוד יומיים</h5></a></div>
 
                    </li>
                </ul>
