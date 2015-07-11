@@ -46,6 +46,7 @@
            </div>
            <div data-role="content">
                <ul data-role="listview">
+
                    <li ng-repeat="user in users" id = "{{$index}}" class="friend-row" ng-click="getBirthdayWishes(user.friendName)" on-last-repeat>
                          <div class="friend-img"><a href="#" data-transition="slide" ng-click="" value=""><img src="{{user.friendProfileImage}}"></a></div>
                         <div class="friend-name"><a href="#" data-transition="slide" ng-click="" value=""><h4>{{user.friendName}}</h4><h6>{{user.birthDate}}</h6></a></div>
@@ -57,6 +58,35 @@
 
        </div>
  </div>
+ <div id="birthday-wishes"class="wishes" data-role="page">
+   <div class="app-header">
+       <a href="#" class="logo-header"></a>
+       <a href="#" class="settings"></a>
+       <a href="#" class="notifications"></a>
+   </div>
+   <div class="birthday-wishes-body">
+         <div class="user-name">
+           <div class="vertical-line"></div>
+           <div class="name">
+               <h4>אולגה ולטר</h4>
+               <h6>21.6.15</h6>
+           </div>
+           <div class="days-left">
+               <h5>3 ימים!</h5>
+           </div>
+       </div>
+        <ul data-role="listview" id="birthdayWishesList">
+            <li ng-repeat="wish in wishes" class="friend-row" >
+                <div contenteditable="true" ng-click="editWish()">{{wish.greetingsValue}}</div>
+            </li>
+       </ul>
+     </div>
+   </div>
+   <div class="app-footer" data-role="footer" data-position="fixed">
+       <a href="#" id="arrow-right"></a>
+       <a href="#" id="arrow-left"></a>
+
+   </div>
  <!-- <div id="loading"class="loading" data-role="page">
        <div class="app-header">
            <a href="#" class="logo-header"></a>
@@ -86,6 +116,11 @@
                <h5>3 ימים!</h5>
            </div>
        </div>
+        <ul data-role="listview">
+            <li ng-repeat="wish in wishes">
+                <div>{{wish.greetingsValue}}</div>
+            </li>
+       </ul>
      </div>
    </div>
    <div class="app-footer">
@@ -93,6 +128,7 @@
        <a href="#" id="arrow-left"></a>
 
    </div>
+</div>
 </div>
 <div id="picture-list"class="pictures" data-role="page">
    <div class="app-header">

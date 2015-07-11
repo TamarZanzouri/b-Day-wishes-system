@@ -61,20 +61,14 @@ app.get('/', function(req, res){
 	});
 });
 
+app.post('/create_user', userWS.create_user);
 
-// app.param('userEmail/:userName/:profileImage', function(req, res, next, value){
+// app.param('friendsMatch', function(req, res, next, value){
 // 	console.log("recieved user ", value);
 // 	next();
 // });
 
-app.post('/create_user', userWS.create_user);
-
-app.param('friendsMatch', function(req, res, next, value){
-	console.log("recieved user ", value);
-	next();
-});
-
-app.get('/getMyFriendsBirthDayWishes/:friendsMatch', birthdayWishesWS.getMyFriendsBirthDayWishes)
+app.post('/getMyFriendsBirthDayWishes', birthdayWishesWS.getMyFriendsBirthDayWishes)
 
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
