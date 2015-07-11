@@ -20,7 +20,7 @@ body{
     height: 60px;
     background-color: #f8f3e4;
 }
-#logo-header{
+.logo-header{
     position: absolute;
     top:26.67%;
     right: 37.5%;
@@ -28,7 +28,7 @@ body{
     height: 25px;
     width: 70px;
 }
-#notifications{
+.notifications{
     position: absolute;
     top:40%;
     right: 5.625%;
@@ -36,7 +36,7 @@ body{
     height: 24px;
     width: 19px;
 }
-#settings{
+.settings{
     position: absolute;
     top:43.33%;
     left: 5.625%;

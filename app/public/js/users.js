@@ -5,11 +5,6 @@ function movePage(page){
 
 
 };
-$(function() {
-
-});
-
-
 
 var app = angular.module('app', ['googleplus']);
 
@@ -30,7 +25,6 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
    }]);
 
     app.controller('AuthCtrl', ['$scope', 'GooglePlus', '$http', 'UserService',function ($scope, GooglePlus, $http, UserService) {
-        $scope.loginPage = true;
         $scope.User = UserService.name;
         // $scope.g_domain = UserService.domain;
         $scope.login = function () {
@@ -43,8 +37,8 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
                     User.userName = user.name;
                     User.profileImage = user.picture;
                     $scope.user = User;
+
                     console.log($scope.user);
-                    //$.mobile.changePage("#user-friends");
                     movePage('#user-friends');
                     $http.post("http://localhost:3000/create_user/", { user : $scope.user }).success(function(data){
                         console.log(data)
@@ -55,10 +49,6 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
                 console.log(err);
             });
         };
-        $scope.isLogin = function() {
 
 
-            $scope.loginPage = false;
-
-        };
     }]);
