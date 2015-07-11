@@ -13,7 +13,7 @@
     <script src="src/angular-google-plus.js"></script>
     <script src="js/users.js" type="text/javascript"></script>
 </head>
-<body >
+<body ng-app="app" ng-controller="AuthCtr">
 <div  data-role="none" id="wrapper">
      <div class="login-page" data-role="page" >
           <div data-role="content" class="login-body">
@@ -44,7 +44,7 @@
               <div data-role="content">
                   <ul data-role="listview">
                       <li ng-repeat="user in users">
-                          <a href="#birthday-wishes" data-transition="slide" ng-click="selectTodo(todo._id)" value="{{todo._id}}">{{user.friendName}}</a>
+                          <a href="#birthday-wishes" data-transition="slide" ng-click="selectTodo(todo._id)" value="{{user._id}}">{{user.friendName}}</a>
                       </li>
                   </ul>
               </div>
