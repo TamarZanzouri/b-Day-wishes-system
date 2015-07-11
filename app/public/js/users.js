@@ -1,7 +1,9 @@
-function movePage(page){
-    console.log(page);
-    $.mobile.navigate( "#user-friends", { transition : "slide", info: "info about the #bar hash" });
-};
+// function movePage(page){
+//     $.mobile.changePage("#"+page, {
+//         transition : "none",
+//         changeHash : true
+//     });
+// };
 
 var app = angular.module('app', ['googleplus']);
 
@@ -36,7 +38,8 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
                     User.profileImage = user.picture;
                     $scope.user = User;
                     console.log($scope.user);
-                    // $location.hash('user-friends');
+                    // movePage('#user-friends');
+                    // $location.hash('#user-friends');
                     // $anchorScroll();
                     $http.post("http://localhost:3000/create_user/", { user : $scope.user }).success(function(data){
                         console.log(data)

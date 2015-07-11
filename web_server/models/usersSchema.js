@@ -13,7 +13,9 @@ var users_schema = new schema({
 	}],
 	friendsMatch : [{
 		friendName : {type : String, default : ''},
-		friendshipPercent : Number
+		friendProfileImage : {type : String, default : ''},
+		friendshipPercent : Number,
+		birthDate : Date
 	}]
 },{collection: 'users'});
 
