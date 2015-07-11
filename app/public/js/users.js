@@ -22,7 +22,13 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
         apiKey: 'AIzaSyBcCYG489_GsQic14u623DBLCKjhc1ynvE'
     });
    }]);
-
+app.directive('onLastRepeat', function() {
+    return function(scope, element, attrs) {
+        if (scope.$last) setTimeout(function(){
+            scope.$emit('onRepeatLast', element, attrs);
+        }, 1);
+    };
+})
     app.controller('AuthCtrl', ['$scope', 'GooglePlus', '$http', 'UserService', '$location', '$anchorScroll',function ($scope, GooglePlus, $http, UserService, $location, $anchorScroll) {
         $scope.User = UserService.name;
         // $scope.g_domain = UserService.domain;
@@ -36,6 +42,7 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
                     User.userEmail = user.email;
                     User.userName = user.name;
                     User.profileImage = user.picture;
+
                     $scope.user = User;
                     console.log($scope.user);
                     movePage('user-friends');
@@ -48,9 +55,19 @@ app.config(['GooglePlusProvider', function(GooglePlusProvider) {
                 console.log(err);
             });
         };
+        $scope.$on('onRepeatLast', function(scope, element, attrs){
+            /*need to think of logic here*/
+            $('#0').css('background-color','#df547d');
+            $('#1').css('background-color','#fea579');
+            $('#2').css('background-color','#e5d58b');
+            $('#3').css('background-color','#30beb2');
+            var test = scope;
+            var test2 = element;
+            var test3 = attrs;
 
+        });
         $scope.getBirthdayWishes = function(userFriend){
-            console.log("getting getBirthdayWishes " , userFriend)
+            console.log("getting getBirthdayWishes " , userFriend);
             $http.post("http://localhost:3000/getMyFriendsBirthDayWishes", 
                 { user : $scope.user.userEmail,  }).success(function(data){
 

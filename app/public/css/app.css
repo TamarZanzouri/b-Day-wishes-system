@@ -219,8 +219,13 @@ body{
     float: right;
     width: 58px;
     height: 60px;
-    border-left: 1px solid #ffffff;
+    background-size: auto;
 }
+.friend-img a >img{
+    width: 58px;
+    height: 60px;
+ }
+
 .friend-name{
     float: right;
     height: 60px;
@@ -233,7 +238,6 @@ body{
     width: 37.5%;
     padding-left: 17px;
     padding-top: 20px;
-    background-color: #4c76df;
 }
 .friend-name  a > h4, .friend-name a >h6,.friend-days-left a >h5{
     font-family: "Myriad Hebrew";
@@ -241,15 +245,15 @@ body{
     margin: 0;
 }
 .friend-name a >h4{
-    font-size: 20pt;
+    font-size: 15pt;
     float: right;
  }
 .friend-name a >h6{
-    font-size: 12pt;
+    font-size: 10pt;
     float: right;
 }
 .friend-days-left a >h5{
-     font-size: 15pt;
+     font-size: 12pt;
 }
 /*-----------------------------------user's friends Page------------------------------------------------*/
 .user-row{
