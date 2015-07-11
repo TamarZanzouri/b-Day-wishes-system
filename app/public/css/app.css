@@ -44,6 +44,73 @@ body{
     height: 22px;
     width: 20px;
 }
+/*-----------------------------------user strip------------------------------------------------*/
+.user-name{
+    position: relative;
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #ebe9e2;
+}
+.vertical-line{
+    float: right;
+    width: 5px;
+    height: 60px;
+    background-color: #df547d;
+}
+.name{
+    position: absolute;
+    right: 5.625%;
+}
+.name h4, .name h6,.days-left h5{
+    font-family: "Myriad Hebrew";
+    direction: rtl;
+    color: #df547d;
+    margin: 0;
+}
+.name h4{
+    font-size: 20pt;
+    margin-top: 14px;
+}
+.name h6{
+    font-size: 12pt;
+    margin-right: 51px;
+
+}
+.days-left{
+    position: absolute;
+    left: 5.625%;
+}
+.days-left h5{
+    margin-top: 26px;
+    font-size: 15pt;
+
+}
+/*-----------------------------------App footer------------------------------------------------*/
+.app-footer{
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    height: 43px;
+    background-color: #f8f3e4;
+    border-top: 2px solid #eeece6;
+
+}
+#arrow-left{
+    background-image: url("../imgs/arrow-left-icon.png");
+    width: 13px;
+    height: 18px;
+    position: absolute;
+    bottom: 30.23%;
+    left: 5.625%;
+}
+#arrow-right{
+    background-image: url("../imgs/arrow-right-icon.png");
+    width: 11px;
+    height: 18px;
+    position: absolute;
+    bottom: 30.23%;
+    right: 5.625%;
+}
 /*-----------------------------------login Page------------------------------------------------*/
 .logo-section{
 
@@ -110,12 +177,7 @@ body{
 #profile-pic > img{
     border-radius: 50px;
 }
-#user-name{
-    position: absolute;
-    top: 22.5%;
-    right: 51%;
 
-}
 
 .logIn{
     position: relative;
@@ -302,4 +364,28 @@ body{
 }
 #active{
     background-color: #383838;
+}
+/*-----------------------------------bDay wishes Page------------------------------------------------*/
+
+.birthday-wishes-body{
+    width: 100%;
+    background-color: #fffdf6;
+
+}
+
+
+/*-----------------------------------confirm Page------------------------------------------------*/
+
+#publish{
+    width: 22.5%;
+    height: 43px;
+    background-color: #f7f1e0;
+    border-right: 1px solid #eeece6;
+    border-radius: 0;
+    font-family: "Myriad Hebrew";
+    direction: rtl;
+    color: #df547d;
+    font-size: 18pt;
+    text-align: center;
+    line-height: 1.8;
 }
