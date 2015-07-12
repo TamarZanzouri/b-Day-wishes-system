@@ -50,7 +50,7 @@
                    <li ng-repeat="user in users" id = "{{$index}}" class="friend-row" ng-click="getBirthdayWishes(user.friendName)" on-last-repeat>
                          <div class="friend-img"><a href="#" data-transition="slide" ng-click="" value=""><img src="{{user.friendProfileImage}}"></a></div>
                         <div class="friend-name"><a href="#" data-transition="slide" ng-click="" value=""><h4>{{user.friendName}}</h4><h6>{{user.birthDate}}</h6></a></div>
-                        <div class="friend-days-left"><a href="#" data-transition="slide" ng-click="" value=""><h5>עוד יומיים</h5></a></div>
+                        <div class="friend-days-left"><a href="#" data-transition="slide" ng-model="calculateDays(user.birthDate)"><h5>{{daysLeft}}</h5></a></div>
                    </li>
                </ul>
            </div>

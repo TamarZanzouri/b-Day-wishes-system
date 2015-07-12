@@ -2,6 +2,7 @@ function movePage(page){
     $.mobile.changePage("#"+page, {
         transition : "none",
         changeHash : true
+
     });
 };
 
@@ -27,6 +28,7 @@ app.directive('onLastRepeat', function() {
         if (scope.$last) setTimeout(function(){
             scope.$emit('onRepeatLast', element, attrs);
         }, 1);
+
     };
 })
 
@@ -57,6 +59,56 @@ app.directive('onLastRepeat', function() {
                 console.log(err);
             });
         };
+        $scope.calculateDays = function(date){
+            var days = 0;
+            Date.prototype.today = function () {
+                return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
+            }
+
+            var datetime = (new Date().today());
+            datetime=datetime.toString().split('/');
+            date=date.toString().split('/');
+            year = date[2];
+            month = date[1];
+            day = date[0];
+
+
+
+            if(month==datetime[1]){
+                if(day<=datetime[0]){
+                    days = datetime[0]-day;
+                }
+                else{
+                    days = 365-(day-datetime[0]);
+                }
+            }
+            else if(month>datetime[1]){
+                days = (month - datetime[1])*30;
+                days += (datetime[0] - day);
+            }
+            else{
+                days = datetime[1] - month;
+                days*=30;
+                days+=datetime[0] - day;
+                debugger
+                days = 365 - days;
+            }
+            console.log(days);
+            debugger
+            if(days == '0'){
+                $scope.daysLeft = 'היום!';
+            }
+            else{
+                var str = 'עוד';
+                str+=' '+days+' ';
+                str+='ימים';
+                console.log(str);
+                $scope.daysLeft = str;
+
+            }
+            days = 0;
+
+        }
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             var colors =['#df547d','#fea579','#e5d58b','#30beb2'];
             for(var i= 0, j=0;i<scope.currentScope.users.length;i++){
