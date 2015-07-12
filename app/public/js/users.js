@@ -58,19 +58,17 @@ app.directive('onLastRepeat', function() {
             });
         };
         $scope.$on('onRepeatLast', function(scope, element, attrs){
-            /*need to think of logic here*/
-            $('#0').css('background-color','#df547d');
-            $('#1').css('background-color','#fea579');
-            $('#2').css('background-color','#e5d58b');
-            $('#3').css('background-color','#30beb2');
-            var test = scope;
-            var test2 = element;
-            var test3 = attrs;
-
+            var colors =['#df547d','#fea579','#e5d58b','#30beb2'];
+            for(var i= 0, j=0;i<scope.currentScope.users.length;i++){
+                if(i==3){
+                    j=0;
+                }
+                $('#'+i+'').css('background-color',colors[j++]);
+            }
         });
         $scope.getBirthdayWishes = function(userFriend){
 
-            console.log("getting getBirthdayWishes " , userFriend, " eamil", User.userEmail)
+            console.log("getting getBirthdayWishes " , userFriend, " email", User.userEmail)
             $http.post("http://localhost:3000/getMyFriendsBirthDayWishes",
                 { user : User.userEmail, friend :  userFriend}).success(function(data){
                     console.log(data);
