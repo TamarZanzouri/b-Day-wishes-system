@@ -34,8 +34,9 @@ app.directive('onLastRepeat', function() {
 })
 
 
-    app.controller('AuthCtrl', ['$scope', 'GooglePlus', '$http', 'UserService', '$rootScope',function ($scope, GooglePlus, $http, UserService, $rootScope) {
+    app.controller('AuthCtrl',function ($scope, GooglePlus, $http, UserService, $rootScope) {
         $scope.User = UserService.name;
+         $scope.direction = 'left';
         // $scope.g_domain = UserService.domain;
         $scope.login = function () {
             console.log("in login")
@@ -55,12 +56,6 @@ app.directive('onLastRepeat', function() {
                         console.log(data.friendsMatch);
                         $scope.users = data.friendsMatch;
                     });
-            //                 $http.post("http://localhost:3000/getMyFriendsBirthDayWishes",
-            //     { user : User.userEmail, friend :  1}).success(function(data){
-            //         console.log(data);
-            //         $scope.wishes = data;
-            //         movePage('birthday-wishes');
-            // });
                 });
             }, function (err) {
                 console.log(err);
@@ -151,6 +146,53 @@ app.directive('onLastRepeat', function() {
         }
 
         $scope.moveToArchive = function(){
+            $scope.direction = 'left';
             console.log("swiped ledt")
         }
-    }]);
+
+        $scope.addRemined = function(){
+            $scope.direction = 'right';
+            console.log("swiped right")  
+        }
+
+    })
+
+    app.animation('.slide-animation', function () {
+        console.log("in animation")
+        return {
+        addClass: function (element, className, done) {
+            var scope = element.scope();
+            console.log("חליכלחדכג", className)
+            if (className != 'ng-hide') {
+                console.log("hide")
+                var finishPoint = element.parent().width();
+                if(scope.direction !== 'right') {
+                    finishPoint = -finishPoint;
+                }
+                TweenMax.to(element, 0.5, {left: finishPoint, onComplete: done });
+            }
+            else {
+                done();
+            }
+        },
+        removeClass: function (element, className, done) {
+            var scope = element.scope();
+
+            if (className == 'ng-hide') {
+                element.removeClass('ng-hide');
+
+                var startPoint = element.parent().width();
+                if(scope.direction === 'right') {
+                    startPoint = -startPoint;
+                }
+
+                TweenMax.set(element, { left: startPoint });
+                TweenMax.to(element, 0.5, {left: 0, onComplete: done });
+            }
+            else {
+                done();
+            }
+        }
+    };
+});
+
