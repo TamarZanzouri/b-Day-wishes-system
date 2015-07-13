@@ -47,7 +47,7 @@
            <div data-role="content">
                <ul data-role="listview">
 
-                   <li ng-repeat="user in users" id = "{{$index}}" class="friend-row" ng-click="getBirthdayWishes(user.friendName)" on-last-repeat>
+                   <li ng-repeat="user in users" id = "{{$index}}" class="friend-row" ng-swipe-left="moveToArchive()" ng-swipe-right="addRemined()" ng-click="getBirthdayWishes(user.friendName)" on-last-repeat>
                          <div class="friend-img"><a href="#" data-transition="slide" ng-click="" value=""><img src="{{user.friendProfileImage}}"></a></div>
                         <div class="friend-name"><a href="#" data-transition="slide" ng-click="" value=""><h4>{{user.friendName}}</h4><h6>{{user.birthDate}}</h6></a></div>
                         <div class="friend-days-left"><a href="#" data-transition="slide" ng-model="calculateDays(user.birthDate)"><h5>{{daysLeft}}</h5></a></div>
@@ -75,20 +75,19 @@
                <h5>3 ימים!</h5>
            </div>
        </div>
-        <ul data-role="listview" id="birthdayWishesList">
+        <ul data-role="listview" id="birthdayWishesList" id = "{{$index}}">
             <li ng-repeat="wish in wishes" class="friend-row" >
-                <div contenteditable="true" ng-click="editWish()">{{wish.greetingsValue}}</div>
+                <div contenteditable="true" ng-mouseleave="editWish($event, wish)">{{wish.greetingsValue}}</div>
             </li>
        </ul>
      </div>
      <div class="app-footer" data-role="footer" data-position="fixed">
-         <a href="#" id="arrow-right"></a>
-         <a href="#" id="arrow-left"></a>
-
+         <a href="#" id="arrow-right" ng-click="moveBack()"></a>
+         <a href="#" id="arrow-left" ng-click="moveToPicturePage()"></a>
      </div>
    </div>
 
- <!-- <div id="loading"class="loading" data-role="page">
+<!--   <div id="loading"class="loading" data-role="page">
        <div class="app-header">
            <a href="#" class="logo-header"></a>
            <a href="#" class="settings"></a>
@@ -130,7 +129,7 @@
 
    </div>
 </div>
-</div>
+</div> -->
 <div id="picture-list"class="pictures" data-role="page">
    <div class="app-header">
        <a href="#" class="logo-header"></a>
@@ -156,7 +155,7 @@
 
    </div>
 </div>
-<div id="confirm-page"class="confirm" data-role="page">
+<!-- <div id="confirm-page"class="confirm" data-role="page">
    <div class="app-header">
        <a href="#" class="logo-header"></a>
        <a href="#" class="settings"></a>
@@ -182,48 +181,17 @@
 
 
    </div>
-</div>-->
+</div> -->
 
 
 
 
 </div>
     <script src="js/lib/angular/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-touch.min.js"></script>
     <script src="src/angular-google-plus.js"></script>
     <script src="js/users.js" type="text/javascript"></script>
 </body>
-<!--     <section class="user-page">
-        <section class="user-header">
-            <div class="profile-name">
-                <a href="#" id="profile-pic2"></a>
-                <h1 id="user-name2">יעל רז</h1>
-                <h5 id="bdayDate">15.7.15</h5>
-
-            </div>
-            <div id="remainingBox">עוד 20 ימים</div>
-
-        </section>
-        <section class="user-body">
-        </section>
-
-        <section class="user-footer">
-            <a href="#" id="next">הבא</a>
-            <div class="carousel-indicators">
-                <ul>
-                    <li id="active"></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </div>
-            <a href="users.html" id="prev">הקודם</a>
-        </section>
-    </section>
-    <section class="users-page">
-        <section class="user-list"></section>
-    </section>
-
-</div>
-
-</body> -->
 
 </html>

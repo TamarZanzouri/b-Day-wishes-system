@@ -7,8 +7,9 @@ function movePage(page){
 };
 
 var User = {};
+var birthdayWish;
 
-var app = angular.module('app', ['googleplus']);
+var app = angular.module('app', ['googleplus', 'ngAnimate', 'ngTouch']);
 
 app.factory('UserService', function() {
   return {
@@ -54,6 +55,12 @@ app.directive('onLastRepeat', function() {
                         console.log(data.friendsMatch);
                         $scope.users = data.friendsMatch;
                     });
+            //                 $http.post("http://localhost:3000/getMyFriendsBirthDayWishes",
+            //     { user : User.userEmail, friend :  1}).success(function(data){
+            //         console.log(data);
+            //         $scope.wishes = data;
+            //         movePage('birthday-wishes');
+            // });
                 });
             }, function (err) {
                 console.log(err);
@@ -90,11 +97,11 @@ app.directive('onLastRepeat', function() {
                 days = datetime[1] - month;
                 days*=30;
                 days+=datetime[0] - day;
-                debugger
+                
                 days = 365 - days;
             }
             console.log(days);
-            debugger
+            
             if(days == '0'){
                 $scope.daysLeft = 'היום!';
             }
@@ -122,16 +129,28 @@ app.directive('onLastRepeat', function() {
 
             console.log("getting getBirthdayWishes " , userFriend, " email", User.userEmail)
             $http.post("http://localhost:3000/getMyFriendsBirthDayWishes",
-                { user : User.userEmail, friend :  userFriend}).success(function(data){
+                { user : User.userEmail, friend :  1}).success(function(data){
                     console.log(data);
                     $scope.wishes = data;
                     movePage('birthday-wishes');
             });
 
         };
-        $scope.editWish = function(){
+        $scope.editWish = function($event, wish){
+            birthdayWish = angular.element($event.currentTarget)[0].innerHTML;
+            console.log(birthdayWish)
             console.log("get edited");
         }
 
+        $scope.moveToPicturePage = function(){
+            movePage('picture-list');
+        }
 
+        $scope.moveBack = function(){
+            history.back();
+        }
+
+        $scope.moveToArchive = function(){
+            console.log("swiped ledt")
+        }
     }]);
