@@ -12,6 +12,8 @@
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.4/hammer.min.js"></script>
 
+
+
 </head>
  <body ng-app="app" ng-controller="AuthCtrl">
     <div data-role="none" id="wrapper">
@@ -48,8 +50,7 @@
            </div>
            <div data-role="content">
                <ul data-role="listview">
-
-                   <li ng-repeat="user in users" id = "{{$index}}" class="friend-row" ng-swipe-left="moveToArchive()" ng-swipe-right="addRemined()" ng-click="getBirthdayWishes(user.friendName)" on-last-repeat>
+                   <li ng-repeat="user in users" id = "{{$index}}" class="slide slide-animation friend-row" ng-swipe-left="moveToArchive()" ng-swipe-right="addRemined()" ng-click="getBirthdayWishes(user.friendName)" on-last-repeat>
                          <div class="friend-img"><a href="#" data-transition="slide" ng-click="" value=""><img src="{{user.friendProfileImage}}"></a></div>
                         <div class="friend-name"><a href="#" data-transition="slide" ng-click="" value=""><h4>{{user.friendName}}</h4><h6>{{user.birthDate}}</h6></a></div>
                         <div class="friend-days-left"><a href="#" data-transition="slide" ><h5>{{calculateDays(user.birthDate)}}</h5></a></div>
@@ -212,6 +213,7 @@
     <script src="js/lib/angular/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-touch.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.10.3/TweenMax.min.js"></script>
     <script src="src/angular-google-plus.js"></script>
     <script src="http://code.angularjs.org/1.2.0rc1/angular.js"></script>
     <script src="http://code.angularjs.org/1.2.0rc1/angular-animate.min.js"></script>
