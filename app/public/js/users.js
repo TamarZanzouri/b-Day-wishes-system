@@ -1,16 +1,3 @@
-(function($) {
-    $(function() {
-        $('[data-jcarousel]').each(function() {
-            var el = $(this);
-            el.jcarousel(el.data());
-        });
-
-        $('[data-jcarousel-control]').each(function() {
-            var el = $(this);
-            el.jcarouselControl(el.data());
-        });
-    });
-})(jQuery);
 function movePage(page){
     $.mobile.changePage("#"+page, {
         transition : "none",
@@ -52,7 +39,7 @@ app.directive('onLastRepeat', function() {
          $scope.direction = 'left';
         // $scope.g_domain = UserService.domain;
         $scope.login = function () {
-            console.log("in login");
+            console.log("in login")
             GooglePlus.login().then(function (authResult) {
                 console.log(authResult);
 
@@ -123,7 +110,7 @@ app.directive('onLastRepeat', function() {
             }
             days = 0;
 
-        };
+        }
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             var colors =['#df547d','#fea579','#e5d58b','#30beb2'];
             for(var i= 0, j=0;i<scope.currentScope.users.length;i++){
@@ -133,7 +120,6 @@ app.directive('onLastRepeat', function() {
                 $('#'+i+'').css('background-color',colors[j++]);
             }
         });
-
         $scope.getBirthdayWishes = function(userFriend){
 
             console.log("getting getBirthdayWishes " , userFriend, " email", User.userEmail)
@@ -142,12 +128,12 @@ app.directive('onLastRepeat', function() {
                     console.log(data);
                     $scope.wishes = data;
                     movePage('birthday-wishes');
-                });
+            });
 
         };
         $scope.editWish = function($event, wish){
             birthdayWish = angular.element($event.currentTarget)[0].innerHTML;
-            console.log(birthdayWish);
+            console.log(birthdayWish)
             console.log("get edited");
         }
 
@@ -160,63 +146,16 @@ app.directive('onLastRepeat', function() {
         }
 
         $scope.moveToArchive = function(){
-
-            console.log("swiped left");
+            $scope.direction = 'left';
+            console.log("swiped ledt")
         }
+
         $scope.addRemined = function(){
             $scope.direction = 'right';
-            console.log("swiped right")
+            console.log("swiped right")  
         }
 
-
-
-
-
-        $http.post("http://localhost:3000/create_user/", { user : $scope.user }).success(function(data){
-            console.log(data.friendsMatch);
-            $scope.users = data.friendsMatch;
-        });
-
-            // Set of Photos
-            $scope.photos = [
-                {src: 'http://farm9.staticflickr.com/8042/7918423710_e6dd168d7c_b.jpg', desc: 'Image 01'},
-                {src: 'http://farm9.staticflickr.com/8449/7918424278_4835c85e7a_b.jpg', desc: 'Image 02'},
-                {src: 'http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg', desc: 'Image 03'},
-                {src: 'http://farm9.staticflickr.com/8179/7918424842_c79f7e345c_b.jpg', desc: 'Image 04'},
-                {src: 'http://farm9.staticflickr.com/8315/7918425138_b739f0df53_b.jpg', desc: 'Image 05'},
-                {src: 'http://farm9.staticflickr.com/8461/7918425364_fe6753aa75_b.jpg', desc: 'Image 06'}
-            ];
-
-            // initial image index
-            $scope._Index = 0;
-
-            // if a current image is the same as requested image
-            $scope.isActive = function (index) {
-                return $scope._Index === index;
-            };
-
-            // show prev image
-            $scope.showPrev = function () {
-                $scope._Index = ($scope._Index > 0) ? --$scope._Index : $scope.photos.length - 1;
-            };
-
-            // show next image
-            $scope.showNext = function () {
-                $scope._Index = ($scope._Index < $scope.photos.length - 1) ? ++$scope._Index : 0;
-            };
-
-            // show a certain image
-            $scope.showPhoto = function (index) {
-                $scope._Index = index;
-            };
-
-    });
-
-
-
-
-
-
+    })
 
     app.animation('.slide-animation', function () {
         console.log("in animation")
