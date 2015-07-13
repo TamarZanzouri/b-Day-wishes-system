@@ -6,7 +6,7 @@ var users_schema = new schema({
 	userEmail :  {type : String, index: true,unique: true, required: true},
 	userName : {type : String, default : ''},
 	profileImage : { type : String, default : ''},
-	birthDate : Date,
+	birthDate : { type : String, default : ''},
 	imagesWithFriends :[{
 		imagePath : { type : String, default : ''},
 		friendTags : { type : Array, default : []}
@@ -15,7 +15,7 @@ var users_schema = new schema({
 		friendName : {type : String, default : ''},
 		friendProfileImage : {type : String, default : ''},
 		friendshipPercent : Number,
-		birthDate : Date
+		birthDate : { type : String, default : ''}
 	}]
 },{collection: 'users'});
 
