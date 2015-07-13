@@ -496,11 +496,11 @@ body{
     border-radius: 5px;
     height: 186px;
     position: relative;
-    -webkit-perspective: 204px;
-    -moz-perspective: 204px;
-    -ms-perspective: 204px;
-    -o-perspective: 204px;
-    perspective: 204px;
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    -ms-perspective: 1000px;
+    -o-perspective: 1000px;
+    perspective: 1000px;
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
     -ms-transform-style: preserve-3d;
