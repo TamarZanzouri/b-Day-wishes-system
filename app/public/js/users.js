@@ -176,6 +176,10 @@ app.directive('onLastRepeat', function() {
             console.log('here');
             movePage('confirm-page');
         }
+        $scope.moveToIgnoreList = function(){
+            console.log('here');
+            movePage('ignore-friends');
+        }
         $scope.moveToPicturePage = function(){
             movePage('picture-list');
         }

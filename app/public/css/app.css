@@ -444,6 +444,29 @@ body{
 
 /*-----------------------------------confirm Page------------------------------------------------*/
 
+.confirm-page-body{
+    position: relative;
+    height: 100vh;
+}
+.confirm-wish{
+    direction: rtl;
+    padding: 6% 12% 5.5% 9.8%;
+    font-family: "Myriad Hebrew";
+    direction: rtl;
+    font-size: 12pt;
+    color: #656565;
+}
+.confirm-picture{
+    position: relative;
+    bottom: 0%;
+    left: 15.5%;
+    width: 68%;
+
+}
+.confirm-picture img{
+    width: 203px;
+    height: 184px;
+}
 #publish{
     width: 22.5%;
     height: 43px;
@@ -452,11 +475,16 @@ body{
     border-radius: 0;
     font-family: "Myriad Hebrew";
     direction: rtl;
-    color: #df547d;
     font-size: 18pt;
     text-align: center;
     line-height: 1.8;
 }
+#publish a{
+    color: #df547d !important;
+
+}
+
+
 /*-----------------------------------gallery ------------------------------------------------*/
 
 .arrow {
