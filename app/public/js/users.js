@@ -184,8 +184,16 @@ app.directive('onLastRepeat', function() {
             birthdayWish = angular.element($event.currentTarget)[0].innerHTML;
             console.log(birthdayWish);
             console.log("get edited");
+        };
+        $scope.editCSS = function($event){
+            //need to solve this issue
+            angular.element($event.target).parent().addClass('changeCSS');
         }
 
+        $scope.moveToConfirmPage = function(){
+            console.log('here');
+            movePage('confirm-page');
+        }
         $scope.moveToPicturePage = function(){
             movePage('picture-list');
         }

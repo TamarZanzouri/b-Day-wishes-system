@@ -35,7 +35,7 @@
                          <button  type="button" data-role="none"class="btn btn-default">משתמש קיים</button>
                      </div>
                      <div id="new-user" class="btn-group" role="group">
-                         <button  type="button" data-role="none"class="btn btn-default"> 
+                         <button  type="button"ng-click="login()" data-role="none"class="btn btn-default">
                             <a href="#" ng-click="login()">google+ צור חשבון דרך </a>
                         </button>
                      </div>
@@ -84,14 +84,14 @@
            </div>
        </div>
         <ul data-role="listview" id="birthdayWishesList" id = "{{$index}}">
-            <li ng-repeat="wish in wishes" class="friend-row" >
-                <div contenteditable="true" ng-mouseleave="editWish($event, wish)">{{wish.greetingsValue}}</div>
+            <li ng-repeat="wish in wishes" ng-mouseenter="hovering=true"  ng-mouseleave="hovering=false" class="friend-row" ng-class="{'addIcon' : hovering}" >
+                <div contenteditable="true" ng-click="editCSS($event)" ng-mouseleave="editWish($event, wish)">{{wish.greetingsValue}}</div>
             </li>
        </ul>
      </div>
      <div class="app-footer" data-role="footer" data-position="fixed">
-         <a href="#" class="arrow-right" ng-click="moveBack()"></a>
-         <a href="#" class="arrow-left" ng-click="moveToPicturePage()"></a>
+         <a href="#" data-role="none" class="arrow-right" ng-click="moveBack()"></a>
+         <a href="#" data-role="none" class="arrow-left" ng-click="moveToPicturePage()"></a>
      </div>
    </div>
 
@@ -110,37 +110,7 @@
            <a href="#"id="switching-icon"></a>
        </div>
   </div>
-<div id="birthday-wishes"class="wishes" data-role="page">
-   <div class="app-header">
-       <a href="#" class="logo-header"></a>
-       <a href="#" class="settings"></a>
-       <a href="#" class="notifications"></a>
-   </div>
-   <div class="birthday-wishes-body">
-         <div class="user-name">
-           <div class="vertical-line"></div>
-           <div class="name">
-               <h4>אולגה ולטר</h4>
-               <h6>21.6.15</h6>
-           </div>
-           <div class="days-left">
-               <h5>3 ימים!</h5>
-           </div>
-       </div>
-        <ul data-role="listview">
-            <li ng-repeat="wish in wishes">
-                <div>{{wish.greetingsValue}}</div>
-            </li>
-       </ul>
-     </div>
-   </div>
-   <div class="app-footer">
-       <a href="#" class="arrow-right"></a>
-       <a href="#" class="arrow-left"></a>
-
-   </div>
-</div>
-</div>-->
+-->
 <div id="picture-list"class="pictures" data-role="page">
    <div class="app-header">
        <a href="#" class="logo-header"></a>
@@ -168,23 +138,23 @@
            <a class="arrow next" href="#" ng-click="showNext()"></a>
 
            <!-- extra navigation controls -->
-           <ul class="nav">
-               <li ng-repeat="photo in photos" ng-class="{'active':isActive($index)}">
-                   <img src="{{photo.src}}" alt="{{photo.desc}}" title="{{photo.desc}}" ng-click="showPhoto($index);" />
-               </li>
-           </ul>
+
 
        </div>
+       <ul class="nav">
+           <li ng-repeat="photo in photos" ng-class="{'active':isActive($index)}">
+               <img src="{{photo.src}}" alt="{{photo.desc}}" title="{{photo.desc}}" ng-click="showPhoto($index);" />
+           </li>
+       </ul>
        </div>
     <div class="app-footer">
-        <a href="#" class="arrow-right"></a>
-        <a href="#" class="arrow-left"></a>
+        <a href="#" data-role="none" class="arrow-right" ng-click="moveBack()"></a>
+        <a href="#" data-role="none" class="arrow-left" ng-click="moveToConfirmPage()"></a>
 
     </div>
    </div>
 
-</div>
-<!-- <div id="confirm-page"class="confirm" data-role="page">
+ <div id="confirm-page"class="confirm" data-role="page">
    <div class="app-header">
        <a href="#" class="logo-header"></a>
        <a href="#" class="settings"></a>
@@ -203,14 +173,14 @@
        </div>
    </div>
    <div class="app-footer">
-       <a href="#" id="arrow-right"></a>
+       <a href="#" class="arrow-right" ng-click="moveBack()"></a>
        <div id="publish">
            <a href="#" data-role="none">פרסם</a>
        </div>
 
 
    </div>
-</div> -->
+</div>
 
 
 

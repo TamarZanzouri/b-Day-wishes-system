@@ -3,7 +3,9 @@
     padding: 0;
 }
 a{
-    text-decoration: none;
+    text-decoration: none !important;
+    text-underline: none !important;
+    outline: none;
     color: inherit;
 }
 #wrapper{
@@ -256,6 +258,21 @@ body{
      font-size: 12pt;
 }
 /*-----------------------------------user's friends Page------------------------------------------------*/
+#birthdayWishesList>.friend-row{
+    background-color: #fffdf6;
+    border-top: 1px solid #ebe9e2;
+    padding: 18px 50px 18px 30px;
+}
+.addIcon {
+    color: #fda172;
+    background: url("../imgs/edit-icon.png") no-repeat calc(100% - 13px);
+}
+
+#birthdayWishesList >li >div{
+    outline: none;
+}
+
+/*-----------------------------------user's friends Page------------------------------------------------*/
 .user-row{
     width:100%;
     border-bottom: 1px solid #000000;
@@ -435,25 +452,25 @@ body{
 /*-----------------------------------gallery ------------------------------------------------*/
 
 .arrow {
+    position: absolute;
+    top: 45%;
     cursor: pointer;
     display: block;
     height: 25px;
     outline: medium none;
-    position: absolute;
-    top: 50%;
     width: 25px;
     z-index: 5;
 }
 .arrow.prev {
     background-image: url("../imgs/prev.png");
-    left: 10px;
+    left: 20px;
     opacity: 0.2;
     transition: all 0.2s linear 0s;
 }
 .arrow.next {
     background-image: url("../imgs/next.png");
     opacity: 0.2;
-    right: 10px;
+    right: 20px;
     transition: all 0.2s linear 0s;
 }
 .arrow.prev:hover{
@@ -464,7 +481,7 @@ body{
 }
 
 .nav {
-    top: 230px;
+    top: 67%;
     display: block;
     left: 0;
     margin: 0 auto;
@@ -472,7 +489,7 @@ body{
     position: absolute;
     right: 0;
     text-align: center;
-    width: 100%;
+    width: 88%;
     z-index: 5;
 }
 .nav li {
@@ -482,7 +499,7 @@ body{
     display: inline-block;
     margin: 5px 4px;
     position: relative;
-    width: 50px;
+    width: 19%;
 }
 .nav li.active {
     border: 5px solid #FFFFFF;
@@ -494,7 +511,6 @@ body{
 .slider {
     border: 15px solid #FFFFFF;
     border-radius: 5px;
-    height: 186px;
     position: relative;
     -webkit-perspective: 1000px;
     -moz-perspective: 1000px;
@@ -506,14 +522,10 @@ body{
     -ms-transform-style: preserve-3d;
     -o-transform-style: preserve-3d;
     transform-style: preserve-3d;
-}
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
+    width: 100%;
 }
 .ng-scope img{
-    width: 284px;
+    width: 100%;
 }
 .slide.ng-hide-add {
     opacity:1;
