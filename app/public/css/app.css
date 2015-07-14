@@ -5,8 +5,12 @@
 a{
     text-decoration: none !important;
     text-underline: none !important;
-    outline: none;
+
     color: inherit;
+}
+button{
+    outline: none !important;
+
 }
 #wrapper{
     width: 100%;
@@ -134,10 +138,11 @@ body{
     width: 100%;
     font-family: "Myriad Hebrew";
     font-size: 13.12pt;
-    color: #fe925d;
+    color: #fe925d !important;
     border-radius: 0;
 
 }
+
 .login-body{
     background-image: url("../imgs/pattern.gif");
     display: inline-block;
@@ -151,12 +156,15 @@ body{
     background-color: #fffbed;
     border: 1px solid #dedbba;
     font-family:  "Myriad Hebrew";
-    color: #979691;
+    color: #979691 !important;
 }
 #exist-user{
     width: 38.125%;
     font-size: 15pt;
 
+}
+#new-user a{
+    color: #979691 !important;
 }
 #new-user{
     width: 61.875%;
