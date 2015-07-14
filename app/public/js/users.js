@@ -9,7 +9,7 @@ function movePage(page){
 var User = {};
 var birthdayWish;
 
-var app = angular.module('app', ['googleplus', 'ngAnimate', 'ngTouch']);
+var app = angular.module('app', ['googleplus', 'ngAnimate', 'ngTouch', 'swipe']);
 
 app.factory('UserService', function() {
   return {
@@ -37,6 +37,8 @@ app.directive('onLastRepeat', function() {
     app.controller('AuthCtrl',function ($scope, GooglePlus, $http, UserService, $rootScope) {
         $scope.User = UserService.name;
          $scope.direction = 'left';
+         $scope.userFriend;
+         $scope.userFriendBirthday;
         // $scope.g_domain = UserService.domain;
         $scope.login = function () {
             console.log("in login")
@@ -120,9 +122,14 @@ app.directive('onLastRepeat', function() {
                 $('#'+i+'').css('background-color',colors[j++]);
             }
         });
-        $scope.getBirthdayWishes = function(userFriend){
+        $scope.getBirthdayWishes = function(userFriend, userFriendBirthday){
 
             console.log("getting getBirthdayWishes " , userFriend, " email", User.userEmail)
+            $scope.userFriend = userFriend;
+            $scope.userFriendBirthday = userFriendBirthday;
+            $scope.name = userFriend;
+            $scope.friendsBirthday = userFriendBirthday;
+            console.log($scope.userFriend, $scope.userFriendBirthday)
             $http.post("http://localhost:3000/getMyFriendsBirthDayWishes",
                 { user : User.userEmail, friend :  1}).success(function(data){
                     console.log(data);
@@ -188,14 +195,23 @@ app.directive('onLastRepeat', function() {
             history.back();
         }
 
-        $scope.moveToArchive = function(){
+        $scope.showReminer = function(index){
             $scope.direction = 'left';
+            console.log($('#' + index + '.friend-days-left'));
+            $('#' + index + ' div.friend-days-left').css("display", "none");
+            $('#' + index).css("padding-right", "58px");
+            $('.addReminder').css("display" , "block");
             console.log("swiped ledt")
         }
 
-        $scope.addRemined = function(){
+        $scope.moveToArchive = function($event){
             $scope.direction = 'right';
             console.log("swiped right")  
+        }
+
+        $scope.addReminder = function($event, user){
+            console.log(angular.element($event.target).parent());
+            console.log(user);
         }
 
     })

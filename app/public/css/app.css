@@ -91,6 +91,15 @@ body{
     font-size: 15pt;
 
 }
+
+.addReminder {
+    display: none;
+    width : 21px !important;
+    height : 20px;
+    position : relative;
+    left : 108%;
+    top : 20px;
+}
 /*-----------------------------------App footer------------------------------------------------*/
 .app-footer{
     position: fixed;
