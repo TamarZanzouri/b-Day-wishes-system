@@ -189,6 +189,7 @@ app.directive('onLastRepeat', function() {
         }
 
         $scope.moveToArchive = function(){
+            console.log($(this));
             $scope.direction = 'left';
             console.log("swiped ledt")
         }

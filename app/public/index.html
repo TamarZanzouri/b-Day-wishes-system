@@ -29,7 +29,7 @@
                  <a href="#" data-role="none" class="logo"></a>
                  <a href="#" data-role="none" class="welcome-txt">כותב לך את הברכה המושלמת...</a>
              </div>
-             <div class="login-footer" data-role="footer" data-position="fixed">
+             <div class="login-footer">
 
                  <div class="btn-group btn-group-justified"  role="group" aria-label="...">
                      <div id="exist-user" class="btn-group" role="group">
@@ -55,7 +55,7 @@
            </div>
            <div data-role="content">
                <ul data-role="listview">
-                   <li ng-repeat="user in users" id = "{{$index}}" class="slide slide-animation friend-row" ng-swipe-left="moveToArchive()" ng-swipe-right="addRemined()" ng-click="getBirthdayWishes(user.friendName)" on-last-repeat>
+                   <li ng-repeat="user in users" id = "{{$index}}" class="slide slide-animation friend-row"  ng-swipe-left="moveToArchive()" ng-swipe-right="addRemined()" ng-click="getBirthdayWishes(user.friendName)" on-last-repeat>
                          <div class="friend-img"><a href="#" data-transition="slide" ng-click="" value=""><img src="{{user.friendProfileImage}}"></a></div>
                         <div class="friend-name"><a href="#" data-transition="slide" ng-click="" value=""><h4>{{user.friendName}}</h4><h6>{{user.birthDate}}</h6></a></div>
                         <div class="friend-days-left"><a href="#" data-transition="slide" ><h5>{{calculateDays(user.birthDate)}}</h5></a></div>
@@ -195,7 +195,7 @@
                     <a href="#" class="notifications"></a>
                 </div>
             </div>
-            <div data-role="none">
+            <!--<div data-role="none">
                 <ul data-role="none">
                     <li ng-repeat="user in users" id = "{{$index}}" class="slide slide-animation friend-row" ng-swipe-left="moveToArchive()" ng-swipe-right="addRemined()" ng-click="getBirthdayWishes(user.friendName)" on-last-repeat>
                         <div class="friend-img"><a href="#" data-transition="slide" ng-click="" value=""><img src="{{user.friendProfileImage}}"></a></div>
@@ -203,7 +203,7 @@
                         <div class="friend-days-left"><a href="#" data-transition="slide" ><h5>{{calculateDays(user.birthDate)}}</h5></a></div>
                     </li>
                 </ul>
-            </div>
+            </div>-->
             <div class="app-footer">
                 <a href="#" data-role="none" class="arrow-right" ng-click="moveBack()"></a>
             </div>
