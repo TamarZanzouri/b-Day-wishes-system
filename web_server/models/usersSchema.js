@@ -8,7 +8,10 @@ var users_schema = new schema({
 	profileImage : { type : String, default : ''},
 	birthDate : { type : String, default : ''},
 	imagesWithFriends :[{
-		imagePath : { type : String, default : ''},
+		imagePath : {
+			src : { type : String, default : ''},
+			desc : { type : String, default : ''}
+		},
 		friendTags : { type : Array, default : []}
 	}],
 	friendsMatch : [{
