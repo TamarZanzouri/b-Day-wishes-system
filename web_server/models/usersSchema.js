@@ -17,6 +17,12 @@ var users_schema = new schema({
 		friendshipPercent : Number,
 		birthDate : { type : String, default : ''},
 		BirthdayReminderFlag : Boolean
+	}],
+	ignoreList : [{
+		friendName : {type : String, default : ''},
+		friendProfileImage : {type : String, default : ''},
+		friendshipPercent : Number,
+		birthDate : { type : String, default : ''}
 	}]
 },{collection: 'users'});
 

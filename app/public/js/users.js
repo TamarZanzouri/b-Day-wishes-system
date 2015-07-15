@@ -39,6 +39,7 @@ app.directive('onLastRepeat', function() {
          $scope.direction = 'left';
          $scope.userFriend;
          $scope.userFriendBirthday;
+
         // $scope.g_domain = UserService.domain;
         $scope.login = function () {
             console.log("in login")
@@ -72,9 +73,9 @@ app.directive('onLastRepeat', function() {
             var datetime = (new Date().today());
             datetime=datetime.toString().split('/');
             date=date.toString().split('/');
-            year = date[2];
-            month = date[1];
-            day = date[0];
+            var year = date[2];
+            var month = date[1];
+            var day = date[0];
 
 
 
@@ -129,6 +130,7 @@ app.directive('onLastRepeat', function() {
             $scope.userFriendBirthday = userFriendBirthday;
             $scope.name = userFriend;
             $scope.friendsBirthday = userFriendBirthday;
+            $scope.daysLeft = $scope.calculateDays(userFriendBirthday);
             console.log($scope.userFriend, $scope.userFriendBirthday)
             $http.post("http://localhost:3000/getMyFriendsBirthDayWishes",
                 { user : User.userEmail, friend :  1}).success(function(data){
@@ -171,7 +173,7 @@ app.directive('onLastRepeat', function() {
         };
         $scope.editWish = function($event, wish){
             birthdayWish = angular.element($event.currentTarget)[0].innerHTML;
-            console.log(birthdayWish)
+            console.log(birthdayWish);
             console.log("get edited");
         };
         $scope.editCSS = function($event){
@@ -180,8 +182,10 @@ app.directive('onLastRepeat', function() {
         }
 
         $scope.moveToConfirmPage = function(){
+            $scope.picture = (($('.active')[0].innerHTML).split('"'))[1];
             console.log('here');
             movePage('confirm-page');
+            $scope.wish = birthdayWish;
         }
         $scope.moveToIgnoreList = function(){
             console.log('here');
@@ -206,12 +210,12 @@ app.directive('onLastRepeat', function() {
             $('#' + index + ' div.friend-days-left').css("display", "none");
             $('#' + index).css("padding-right", "58px");
             $('.addReminder').css("display" , "block");
-            console.log("swiped ledt")
+            console.log("swiped left");
         }
 
         $scope.moveToArchive = function($event){
             $scope.direction = 'right';
-            console.log("swiped right")  
+            console.log("swiped right")  ;
         }
 
         $scope.addReminder = function($event, user){

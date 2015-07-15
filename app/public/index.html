@@ -13,7 +13,6 @@
     <script src="js/lib/angular/angular.min.js"></script>
 
     <script src="src/angular-google-plus.js"></script>
-    <script src="http://code.angularjs.org/1.2.0rc1/angular.js"></script>
      <script src="http://code.angularjs.org/1.2.0rc1/angular-animate.min.js"></script>
     <script src="http://code.angularjs.org/1.2.0rc1/angular-touch.min.js"></script>
     <script src="src/angular-swipe.js"></script>
@@ -59,7 +58,7 @@
                    <li ng-repeat="user in users" id = "{{$index}}" class="slide slide-animation friend-row" ng-swipe-left="showReminer($index)" ng-swipe-right="moveToArchive($event)" ng-click="" on-last-repeat>
                          <div class="friend-img"><a href="#" data-transition="slide" ng-click="getBirthdayWishes(user.friendName, user.birthDate)" value=""><img src="{{user.friendProfileImage}}"></a></div>
                         <div class="friend-name"><a href="#" data-transition="slide" ng-click="getBirthdayWishes(user.friendName, user.birthDate)" value=""><h4>{{user.friendName}}</h4><h6>{{user.birthDate}}</h6></a></div>
-                        <div class="friend-days-left"><a href="#" data-transition="slide" ><h5>{{calculateDays(user.birthDate)}}</h5></a></div>
+                        <div class="friend-days-left"><a href="#" data-transition="slide" ng-click="getBirthdayWishes(user.friendName, user.birthDate)"><h5>{{calculateDays(user.birthDate)}}</h5></a></div>
                         <img src="imgs/reminder.png" class="addReminder" ng-click="addReminder($event, user)">
                    </li>
                </ul>
@@ -83,7 +82,7 @@
                <h6>{{friendsBirthday}}</h6>
            </div>
            <div class="days-left">
-               <h5>3 ימים!</h5>
+               <h5>{{daysLeft}}</h5>
            </div>
        </div>
         <ul data-role="listview" id="birthdayWishesList" id = "{{$index}}">
@@ -126,7 +125,7 @@
                <h6>{{friendsBirthday}}</h6>
            </div>
            <div class="days-left">
-               <h5>3 ימים!</h5>
+               <h5>{{daysLeft}}</h5>
            </div>
        </div>
        <div class="container slider">
@@ -170,14 +169,12 @@
                <h6>{{friendsBirthday}}</h6>
            </div>
            <div class="days-left">
-               <h5>3 ימים!</h5>
+               <h5>{{daysLeft}}</h5>
            </div>
        </div>
-       <div class="confirm-wish">
-           'אושר ובריאות... עד 120 וכל החרא הזה... אבל תכלס - אוהב אותך מלא'
-       </div>
+       <div class="confirm-wish">{{wish}}</div>
        <div class="confirm-picture">
-           <img src="imgs/tamar&eli.jpg">
+           <img src="{{picture}}">
        </div>
    </div>
    <div class="app-footer">
