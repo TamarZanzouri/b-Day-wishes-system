@@ -188,7 +188,12 @@ app.directive('onLastRepeat', function() {
             movePage('ignore-friends');
         }
         $scope.moveToPicturePage = function(){
-            movePage('picture-list');
+            $http.post("http://localhost:3000/getSharedPictures",
+            { user : User.userEmail, friendName :  $scope.userFriend}).success(function(data){
+                    console.log(data);
+                    // $scope.photos
+                    movePage('picture-list');
+            });  
         }
 
         $scope.moveBack = function(){
@@ -212,8 +217,11 @@ app.directive('onLastRepeat', function() {
         $scope.addReminder = function($event, user){
             console.log(angular.element($event.target).parent());
             console.log(user);
-        }
-
+            user.BirthdayReminderFlag = true;
+            $http.post('http://localhost:3000/updateReminderFlag' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
+                console.log(data);
+            })
+            }
     })
 
     app.animation('.slide-animation', function () {

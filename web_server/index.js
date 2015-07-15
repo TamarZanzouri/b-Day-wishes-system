@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var express = require('express');
 var bodyParser = require('body-parser')
+_ = require("underscore");
 var userWS = require('./modules/user_ws');
 var birthdayWishesWS = require('./modules/birthdayWishes_ws')
 var mongopath = 'mongodb://db_usr:db_pass@ds031972.mongolab.com:31972/grades';
@@ -63,12 +64,11 @@ app.get('/', function(req, res){
 
 app.post('/create_user', userWS.create_user);
 
-// app.param('friendsMatch', function(req, res, next, value){
-// 	console.log("recieved user ", value);
-// 	next();
-// });
+app.post('/updateReminderFlag', userWS.updateReminderFlag);
 
-app.post('/getMyFriendsBirthDayWishes', birthdayWishesWS.getMyFriendsBirthDayWishes)
+app.post('/getMyFriendsBirthDayWishes', birthdayWishesWS.getMyFriendsBirthDayWishes);
+
+app.post('/getSharedPictures', userWS.getSharedPictures);
 
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
