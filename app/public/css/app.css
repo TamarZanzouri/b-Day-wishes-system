@@ -100,6 +100,15 @@ body{
     left : 108%;
     top : 20px;
 }
+
+.moveToArcive{
+    display: none;
+    width : 21px !important;
+    height : 20px;
+    position : relative;
+    left : 8%;
+    bottom : 40px;
+}
 /*-----------------------------------App footer------------------------------------------------*/
 .app-footer{
     position: fixed;

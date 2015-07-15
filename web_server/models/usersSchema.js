@@ -19,13 +19,8 @@ var users_schema = new schema({
 		friendProfileImage : {type : String, default : ''},
 		friendshipPercent : Number,
 		birthDate : { type : String, default : ''},
-		BirthdayReminderFlag : Boolean
-	}],
-	ignoreList : [{
-		friendName : {type : String, default : ''},
-		friendProfileImage : {type : String, default : ''},
-		friendshipPercent : Number,
-		birthDate : { type : String, default : ''}
+		BirthdayReminderFlag : Boolean,
+		friendInArchive : {type : Boolean, default : false}
 	}]
 },{collection: 'users'});
 

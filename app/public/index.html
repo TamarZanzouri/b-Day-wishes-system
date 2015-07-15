@@ -55,11 +55,13 @@
            </div>
            <div data-role="content">
                <ul data-role="listview">
-                   <li ng-repeat="user in users" id = "{{$index}}" class="slide slide-animation friend-row" ng-swipe-left="showReminer($index)" ng-swipe-right="moveToArchive($index)" ng-click="" on-last-repeat>
+                   <li ng-repeat="user in users" id = "{{$index}}" class="slide slide-animation friend-row" ng-swipe-left="showReminer($index)" ng-swipe-right="showArchive($index)" ng-click="" on-last-repeat>
                          <div class="friend-img"><a href="#" data-transition="slide" ng-click="getBirthdayWishes(user.friendName, user.birthDate)" value=""><img src="{{user.friendProfileImage}}"></a></div>
                         <div class="friend-name"><a href="#" data-transition="slide" ng-click="getBirthdayWishes(user.friendName, user.birthDate)" value=""><h4>{{user.friendName}}</h4><h6>{{user.birthDate}}</h6></a></div>
                         <div class="friend-days-left"><a href="#" data-transition="slide" ng-click="getBirthdayWishes(user.friendName, user.birthDate)"><h5>{{calculateDays(user.birthDate)}}</h5></a></div>
                         <img src="imgs/reminder.png" class="addReminder" ng-click="addReminder($event, user, $index)">
+                        <img src="imgs/moveToArcive.png" class="moveToArcive" ng-click="moveToArchive($event, user, $index)">
+
                    </li>
                </ul>
            </div>

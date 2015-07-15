@@ -69,6 +69,7 @@ app.post('/updateReminderFlag', userWS.updateReminderFlag);
 app.post('/getMyFriendsBirthDayWishes', birthdayWishesWS.getMyFriendsBirthDayWishes);
 
 app.post('/getSharedPictures', userWS.getSharedPictures);
+app.post('/addToArchive', userWS.addToArchive);
 
 var port = process.env.PORT || 3000;
 app.listen(port, function(){

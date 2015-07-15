@@ -209,20 +209,21 @@ app.directive('onLastRepeat', function() {
             console.log($('#' + index + '.friend-days-left'));
             $('#' + index + ' div.friend-days-left').css("display", "none");
             $('#' + index).css("padding-right", "58px");
-            $('.addReminder').css("display" , "block");
+            $('#' + index + '>img.addReminder').css("display" , "block");
             console.log("swiped left");
         }
 
-        $scope.moveToArchive = function(index){
+        $scope.showArchive = function(index){
             $scope.direction = 'right';
             $('#' + index + ' div.friend-img').css("display", "none");
+            $('#' + index + ' div.friend-days-left').css("padding-left", "58px");
+            $('#' + index + ' div.friend-name').css("padding-left", "58px");
             $('#' + index).css("padding-right", "58px");
+            $('#' + index + '>img.moveToArcive').css("display" , "block");
             console.log("swiped right")  ;
         }
 
         $scope.addReminder = function($event, user, index){
-            console.log(angular.element($event.target).parent());
-            console.log(user);
             user.BirthdayReminderFlag = true;
             $http.post('http://localhost:3000/updateReminderFlag' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
                 console.log(data);
@@ -231,6 +232,18 @@ app.directive('onLastRepeat', function() {
                 $('#' + index).css("padding-right", "0px");
             })
             }
+
+
+        $scope.moveToArchive = function($event, user, index){
+            console.log(angular.element($event.target).parent());
+            console.log(user);
+            $http.post('http://localhost:3000/addToArchive' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
+                console.log(data);
+                $('#' + index + ' div.friend-days-left').css("display", "block");
+                $('.addReminder').css("display" , "none");
+                $('#' + index).css("padding-right", "0px");
+            })
+        }
     })
 
     app.animation('.slide-animation', function () {
