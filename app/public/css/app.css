@@ -5,9 +5,9 @@
 a{
     text-decoration: none !important;
     text-underline: none !important;
-
     color: inherit;
 }
+
 button{
     outline: none !important;
 
@@ -17,7 +17,7 @@ button{
  }
 body{
     background-color: #fffdf6;
-
+    /*font-weight: 400 !important;*/
 }
 /*-----------------------------------App Header------------------------------------------------*/
 .app-header{
@@ -101,14 +101,20 @@ body{
     top : 20px;
 }
 
+.active{
+    display: block !important;
+}
+
 .moveToArcive{
     display: none;
-    width : 21px !important;
-    height : 20px;
+    width : 17px !important;
+    height : 18px;
     position : relative;
     left : 8%;
     bottom : 40px;
 }
+
+
 /*-----------------------------------App footer------------------------------------------------*/
 .app-footer{
     position: fixed;
@@ -517,14 +523,14 @@ body{
 }
 .arrow.prev {
     background-image: url("../imgs/prev.png");
-    left: 20px;
+    left: 50px;
     opacity: 0.2;
     transition: all 0.2s linear 0s;
 }
 .arrow.next {
     background-image: url("../imgs/next.png");
     opacity: 0.2;
-    right: 20px;
+    right: 50px;
     transition: all 0.2s linear 0s;
 }
 .arrow.prev:hover{
@@ -550,18 +556,23 @@ body{
     border: 2px solid #AAAAAA;
     border-radius: 5px;
     cursor: pointer;
-    display: inline-block;
+    display: inline-block !important;
     margin: 5px 4px;
     position: relative;
-    width: 19%;
+    width: 54px;
 }
 .nav li.active {
     border: 5px solid #FFFFFF;
 }
 .nav li img {
-    width: 100%;
+    width:50px;
+    height: 50px;
 }
-
+.container {
+    padding-left: 44px;
+    margin-right: auto;
+    margin-left: auto;
+}
 .slider {
     border: 15px solid #FFFFFF;
     border-radius: 5px;
@@ -576,10 +587,10 @@ body{
     -ms-transform-style: preserve-3d;
     -o-transform-style: preserve-3d;
     transform-style: preserve-3d;
-    width: 100%;
 }
-.ng-scope img{
-    width: 100%;
+.slider img{
+    width: 204px;
+    height: 184px;
 }
 .slide.ng-hide-add {
     opacity:1;

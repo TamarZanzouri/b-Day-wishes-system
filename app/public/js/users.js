@@ -35,10 +35,11 @@ app.directive('onLastRepeat', function() {
 
 
     app.controller('AuthCtrl',function ($scope, GooglePlus, $http, UserService, $rootScope) {
+        $scope.check = true;
         $scope.User = UserService.name;
-         $scope.direction = 'left';
-         $scope.userFriend;
-         $scope.userFriendBirthday;
+        $scope.direction = 'left';
+        $scope.userFriend;
+        $scope.userFriendBirthday;
 
         // $scope.g_domain = UserService.domain;
         $scope.login = function () {
@@ -80,23 +81,22 @@ app.directive('onLastRepeat', function() {
 
 
             if(month==datetime[1]){
-                if(day<=datetime[0]){
-                    days = datetime[0]-day;
+                if(day>=datetime[0]){
+                    days = day - datetime[0];
                 }
                 else{
-                    days = 365-(day-datetime[0]);
+                    days = 365 - (datetime[0]-day);
                 }
             }
             else if(month>datetime[1]){
                 days = (month - datetime[1])*30;
-                days += (datetime[0] - day);
+                days += (day - datetime[0]);
             }
             else{
+
                 days = datetime[1] - month;
                 days*=30;
-                days+=datetime[0] - day;
-                
-                days = 365 - days;
+                days+= day -datetime[0];
             }
             console.log(days);
             
@@ -114,6 +114,7 @@ app.directive('onLastRepeat', function() {
             days = 0;
 
         }
+
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             var colors =['#df547d','#fea579','#e5d58b','#30beb2'];
             for(var i= 0, j=0;i<scope.currentScope.users.length;i++){
@@ -140,14 +141,14 @@ app.directive('onLastRepeat', function() {
             });
 
         };
-        $scope.photos = [
-            {src: 'http://farm9.staticflickr.com/8042/7918423710_e6dd168d7c_b.jpg', desc: 'Image 01'},
-            {src: 'http://farm9.staticflickr.com/8449/7918424278_4835c85e7a_b.jpg', desc: 'Image 02'},
-            {src: 'http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg', desc: 'Image 03'},
-            {src: 'http://farm9.staticflickr.com/8179/7918424842_c79f7e345c_b.jpg', desc: 'Image 04'},
-            {src: 'http://farm9.staticflickr.com/8315/7918425138_b739f0df53_b.jpg', desc: 'Image 05'},
-            {src: 'http://farm9.staticflickr.com/8461/7918425364_fe6753aa75_b.jpg', desc: 'Image 06'}
-        ];
+        // $scope.photos = [
+        //     {src: 'http://farm9.staticflickr.com/8042/7918423710_e6dd168d7c_b.jpg', desc: 'Image 01'},
+        //     {src: 'http://farm9.staticflickr.com/8449/7918424278_4835c85e7a_b.jpg', desc: 'Image 02'},
+        //     {src: 'http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg', desc: 'Image 03'},
+        //     {src: 'http://farm9.staticflickr.com/8179/7918424842_c79f7e345c_b.jpg', desc: 'Image 04'},
+        //     {src: 'http://farm9.staticflickr.com/8315/7918425138_b739f0df53_b.jpg', desc: 'Image 05'},
+        //     {src: 'http://farm9.staticflickr.com/8461/7918425364_fe6753aa75_b.jpg', desc: 'Image 06'}
+        // ];
 
         // initial image index
         $scope._Index = 0;
@@ -178,11 +179,12 @@ app.directive('onLastRepeat', function() {
         };
         $scope.editCSS = function($event){
             //need to solve this issue
+            $scope.check = false;
             angular.element($event.target).parent().addClass('changeCSS');
         }
 
         $scope.moveToConfirmPage = function(){
-            $scope.picture = (($('.active')[0].innerHTML).split('"'))[1];
+            $scope.picture = $('.active')[0].children[0].currentSrc;
             console.log('here');
             movePage('confirm-page');
             $scope.wish = birthdayWish;
@@ -191,35 +193,56 @@ app.directive('onLastRepeat', function() {
             console.log('here');
             movePage('ignore-friends');
         }
-        $scope.moveToPicturePage = function(){
+  $scope.moveToPicturePage = function(){
             $http.post("http://localhost:3000/getSharedPictures",
             { user : User.userEmail, friendName :  $scope.userFriend}).success(function(data){
                     console.log(data);
-                    // $scope.photos
+                    //console.log( $scope.photos = data);
+                    $scope.photos = data;
                     movePage('picture-list');
             });  
         }
 
         $scope.moveBack = function(){
+            $scope.check = true;
             history.back();
         }
 
         $scope.showReminer = function(index){
             $scope.direction = 'left';
-            console.log($('#' + index + '.friend-days-left'));
-            $('#' + index + ' div.friend-days-left').css("display", "none");
-            $('#' + index).css("padding-right", "58px");
-            $('#' + index + '>img.addReminder').css("display" , "block");
+            if($('#' + index + '>img.moveToArcive').hasClass('active')){
+                $('#' + index + '>img.moveToArcive').removeClass('active');
+                $('#' + index + ' div.friend-img').css("display", "block");
+                $('#' + index + ' div.friend-days-left').css("padding-left", "0px");
+                $('#' + index + ' div.friend-name').css("padding-left", "0px");
+            }
+            else{
+                console.log($('#' + index + '.friend-days-left'));
+                $('#' + index + ' div.friend-days-left').css("display", "none");
+                $('#' + index).css("padding-right", "58px");
+                $('#' + index + '>img.addReminder').addClass('active');
+            }
+
             console.log("swiped left");
         }
 
         $scope.showArchive = function(index){
             $scope.direction = 'right';
-            $('#' + index + ' div.friend-img').css("display", "none");
-            $('#' + index + ' div.friend-days-left').css("padding-left", "58px");
-            $('#' + index + ' div.friend-name').css("padding-left", "58px");
-            $('#' + index).css("padding-right", "58px");
-            $('#' + index + '>img.moveToArcive').css("display" , "block");
+            if($('#' + index + '>img.addReminder').hasClass('active')){
+                console.log("in if")
+                $('#' + index + '>img.addReminder').removeClass('active');
+                $('#' + index + ' div.friend-days-left').css("display", "block");
+                $('#' + index).css("padding-right", "0px");
+            }
+            else
+            {
+                console.log("in else")
+                $('#' + index + ' div.friend-img').css("display", "none");
+                $('#' + index + ' div.friend-days-left').css("padding-left", "58px");
+                $('#' + index + ' div.friend-name').css("padding-left", "58px");
+                $('#' + index + '>img.moveToArcive').addClass('active');
+            }
+
             console.log("swiped right")  ;
         }
 
@@ -228,20 +251,21 @@ app.directive('onLastRepeat', function() {
             $http.post('http://localhost:3000/updateReminderFlag' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
                 console.log(data);
                 $('#' + index + ' div.friend-days-left').css("display", "block");
-                $('.addReminder').css("display" , "none");
+                $('.addReminder').removeClass('active');
                 $('#' + index).css("padding-right", "0px");
             })
             }
 
 
-        $scope.moveToArchive = function($event, user, index){
-            console.log(angular.element($event.target).parent());
+        $scope.moveToArchive = function(users, user, index){
+            // console.log(angular.element($event.target).parent());
             console.log(user);
             $http.post('http://localhost:3000/addToArchive' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
                 console.log(data);
-                $('#' + index + ' div.friend-days-left').css("display", "block");
-                $('.addReminder').css("display" , "none");
-                $('#' + index).css("padding-right", "0px");
+                $scope.users.splice(index, 1);
+                // $('#' + index + ' div.friend-days-left').css("display", "block");
+                // $('.addReminder').css("display" , "none");
+                // $('#' + index).css("padding-right", "0px");
             })
         }
     })
