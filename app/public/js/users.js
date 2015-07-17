@@ -88,6 +88,7 @@ app.directive("outsideClick", ['$document', function( $document){
                     console.log($scope.user);
                     movePage('user-friends');
                     var ignoreList=[];
+                    var notificationList=[];
 
                     $http.post("http://localhost:3000/create_user/", { user : $scope.user }).success(function(data){
                         //separate to ignore and users
@@ -95,6 +96,7 @@ app.directive("outsideClick", ['$document', function( $document){
                         userForNotification.friendsMatch.forEach(function(item){
                             console.log(item);
                             if(item.BirthdayReminderFlag == true && bDayNotice(item.birthDate)){
+                                notificationList.push(item);
                                 console.log(item);
                                 numOfNotifications= numOfNotifications + 1;
                                 console.log("num of notifications:" +numOfNotifications);
@@ -103,7 +105,7 @@ app.directive("outsideClick", ['$document', function( $document){
                             }
                         });
                         $scope.notificationsNum = numOfNotifications;
-
+                        $scope.notificationsUser = notificationList;
                         console.log(data.friendsMatch);
                         $scope.users = data.friendsMatch;
                     });
@@ -312,35 +314,12 @@ app.directive("outsideClick", ['$document', function( $document){
             }
         };
         $scope.hideSideMenu = function() {
-            if(wasHere){
                 $scope.show = false;
                 $('body').css('opacity','1');
                 console.log(wasHere);
 
-            }
-            else{
-                $scope.show = false;
-                $('body').css('opacity','1');
-                console.log('ilan' +wasHere);
-
-            }
-
         }
-        /*  $scope.close = function(){
-        if($scope.show && $scope.notificationsNum == 0){
-              console.log('true');
-              $scope.$window.onclick = function (event) {
-                  closeSearchWhenClickingElsewhere(event, $scope.toggleSearch);
-              };
-          }
-            else{
-              console.log('false');
-              $scope.show = false;
-              $scope.$window.onclick = null;
-              $scope.$apply();
-          }
 
-        }*/
         function bDayNotice(date){
             console.log(date);
             Date.prototype.today = function () {

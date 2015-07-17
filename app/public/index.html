@@ -54,7 +54,7 @@
                    <div class="notification-content" ng-click="close()" ng-show="show" outside-click="hideSideMenu()">
                        <div class="notification-title">Notifications - ימי הולדת</div>
                        <ul class = notification-list>
-                           <li ng-view ng-repeat="user in users" class="slide slide-animation notification-friend-row"  ng-click="getBirthdayWishes(user.friendName, user.birthDate)">
+                           <li ng-view ng-repeat="user in notificationsUser" class="slide slide-animation notification-friend-row"  ng-click="getBirthdayWishes(user.friendName, user.birthDate)">
                                <div class="notification-friend-img" data-role="none" ng-click=""><a href="#" data-transition="slide" value=""><img src="{{user.friendProfileImage}}"></a></div>
                                <div class="notification-friend-name" data-role="none" ng-click=""><a href="#" data-transition="slide" value=""><h4>{{user.friendName}}</h4></a></div>
                                <div class="notification-friend-days-left" data-role="none" ng-click=""><a href="#" data-transition="slide"><h5>{{calculateDays(user.birthDate)}}</h5></a></div>
