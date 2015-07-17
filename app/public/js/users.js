@@ -1,3 +1,5 @@
+
+
 function movePage(page){
     $.mobile.changePage("#"+page, {
         transition : "none",
@@ -8,7 +10,7 @@ function movePage(page){
 
 var User = {};
 var birthdayWish;
-
+var wasHere = 0;
 var app = angular.module('app', ['googleplus', 'ngAnimate', 'ngTouch', 'swipe']);
 
 app.factory('UserService', function() {
@@ -31,7 +33,34 @@ app.directive('onLastRepeat', function() {
         }, 1);
 
     };
-})
+});
+app.directive("outsideClick", ['$document', function( $document){
+
+    return {
+
+        link: function( $scope, $element, $attributes ){
+            var scopeExpression = $attributes.outsideClick,
+                onDocumentClick = function(event){
+                    if(event.target.id == 'open'){
+                        console.log('notifications');
+
+                    }
+                    else {
+                        console.log('here');
+                        $scope.$apply(scopeExpression);
+
+                    }
+
+                };
+
+            $document.on("click", onDocumentClick);
+
+            $element.on('$destroy', function() {
+                $document.off("click", onDocumentClick);
+            });
+        }
+    }
+}]);
 
 
     app.controller('AuthCtrl',function ($scope, GooglePlus, $http, UserService, $rootScope) {
@@ -204,12 +233,17 @@ app.directive('onLastRepeat', function() {
 
         $scope.moveToConfirmPage = function(){
             $scope.picture = $('.active')[0].children[0].currentSrc;
-            console.log('here');
+            console.log('moveToConfirmPage');
             movePage('confirm-page');
             $scope.wish = birthdayWish;
         }
+        $scope.moveToHomePage = function(){
+            console.log('moveToHomePage');
+            movePage('login-page');
+
+        }
         $scope.moveToIgnoreList = function(){
-            console.log('here');
+            console.log('moveToIgnoreList');
             movePage('ignore-friends');
         }
         $scope.moveToPicturePage = function(){
@@ -268,6 +302,7 @@ app.directive('onLastRepeat', function() {
             if( $scope.notificationsNum == 0){
                 $scope.show = false;
                 $('body').css('opacity','1');
+                var wasHere = 1;
 
             }
             else{
@@ -275,9 +310,37 @@ app.directive('onLastRepeat', function() {
                 $('body').css('opacity','0.8');
                 $scope.show = true;
             }
-
-
         };
+        $scope.hideSideMenu = function() {
+            if(wasHere){
+                $scope.show = false;
+                $('body').css('opacity','1');
+                console.log(wasHere);
+
+            }
+            else{
+                $scope.show = false;
+                $('body').css('opacity','1');
+                console.log('ilan' +wasHere);
+
+            }
+
+        }
+        /*  $scope.close = function(){
+        if($scope.show && $scope.notificationsNum == 0){
+              console.log('true');
+              $scope.$window.onclick = function (event) {
+                  closeSearchWhenClickingElsewhere(event, $scope.toggleSearch);
+              };
+          }
+            else{
+              console.log('false');
+              $scope.show = false;
+              $scope.$window.onclick = null;
+              $scope.$apply();
+          }
+
+        }*/
         function bDayNotice(date){
             console.log(date);
             Date.prototype.today = function () {
