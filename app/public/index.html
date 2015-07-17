@@ -50,7 +50,18 @@
                <div class="app-header">
                    <a href="#" class="logo-header"></a>
                    <a href="#" data-role="none" ng-click="moveToIgnoreList()" class="settings"></a>
-                   <a href="#" class="notifications"></a>
+                   <a href="#" class="notifications" ng-click = "openNotifications()">{{notificationsNum}}</a>
+                   <div class="notification-content" ng-show="show">
+                       <div class="notification-title">Notifications - ימי הולדת</div>
+                       <ul class = notification-list>
+                           <li ng-view ng-repeat="user in users" class="slide slide-animation notification-friend-row"  ng-click="">
+                               <div class="notification-friend-img" data-role="none" ng-click=""><a href="#" data-transition="slide" value=""><img src="{{user.friendProfileImage}}"></a></div>
+                               <div class="notification-friend-name" data-role="none" ng-click=""><a href="#" data-transition="slide" value=""><h4>{{user.friendName}}</h4></a></div>
+                               <div class="notification-friend-days-left" data-role="none" ng-click=""><a href="#" data-transition="slide"><h5>{{calculateDays(user.birthDate)}}</h5></a></div>
+
+                           </li>
+                       </ul>
+                   </div>
                </div>
            </div>
            <div data-role="content">
@@ -70,7 +81,7 @@
    <div class="app-header">
        <a href="#" class="logo-header"></a>
        <a href="#" data-role="none" ng-click="moveToIgnoreList()" class="settings"></a>
-       <a href="#" class="notifications"></a>
+       <a href="#" class="notifications" ng-click = "openNotifications()"></a>
    </div>
    <div class="birthday-wishes-body">
          <div class="user-name">
@@ -112,7 +123,7 @@
    <div class="app-header">
        <a href="#" class="logo-header"></a>
        <a href="#" data-role="none" ng-click="moveToIgnoreList()" class="settings"></a>
-       <a href="#" class="notifications"></a>
+       <a href="#" class="notifications" ng-click = "openNotifications()"></a>
    </div>
    <div class="picture-list-body">
              <div class="user-name">
@@ -188,7 +199,7 @@
                 <div class="app-header">
                     <a href="#" class="logo-header"></a>
                     <a href="#" data-role="none" ng-click="moveToIgnoreList()" class="settings"></a>
-                    <a href="#" class="notifications"></a>
+                    <a href="#" class="notifications" ng-click = "openNotifications()"></a>
                 </div>
             </div>
             <!--<div data-role="none">
