@@ -88,6 +88,7 @@ app.directive("outsideClick", ['$document', function( $document){
                     console.log($scope.user);
                     movePage('user-friends');
                     var ignoreList=[];
+                    var unIgnoreUsers=[];
                     var notificationList=[];
 
                     $http.post("http://localhost:3000/create_user/", { user : $scope.user }).success(function(data){
@@ -95,19 +96,24 @@ app.directive("outsideClick", ['$document', function( $document){
                         userForNotification = data;
                         userForNotification.friendsMatch.forEach(function(item){
                             console.log(item);
-                            if(item.BirthdayReminderFlag == true && bDayNotice(item.birthDate)){
+                            if(item.BirthdayReminderFlag == true && bDayNotice(item.birthDate) && item.friendInArchive==false){
                                 notificationList.push(item);
                                 console.log(item);
                                 numOfNotifications= numOfNotifications + 1;
                                 console.log("num of notifications:" +numOfNotifications);
 
-
+                            }
+                            if(item.friendInArchive == false){
+                                unIgnoreUsers.push(item);
+                            }
+                            else{
+                                ignoreList.push(item);
                             }
                         });
                         $scope.notificationsNum = numOfNotifications;
                         $scope.notificationsUser = notificationList;
                         console.log(data.friendsMatch);
-                        $scope.users = data.friendsMatch;
+                        $scope.users = unIgnoreUsers;
                     });
 
                 });
@@ -362,6 +368,7 @@ app.directive("outsideClick", ['$document', function( $document){
                 // $('.addReminder').css("display" , "none");
                 // $('#' + index).css("padding-right", "0px");
             })
+            /*need to update the DB in friendArchived*/
         }
     })
 
