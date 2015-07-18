@@ -1,3 +1,5 @@
+
+
 function movePage(page){
     $.mobile.changePage("#"+page, {
         transition : "none",
@@ -8,7 +10,7 @@ function movePage(page){
 
 var User = {};
 var birthdayWish;
-
+var wasHere = 0;
 var app = angular.module('app', ['googleplus', 'ngAnimate', 'ngTouch', 'swipe', 'ui.bootstrap']);
 
 app.factory('UserService', function() {
@@ -31,17 +33,46 @@ app.directive('onLastRepeat', function() {
         }, 1);
 
     };
-})
+});
+app.directive("outsideClick", ['$document', function( $document){
+
+    return {
+
+        link: function( $scope, $element, $attributes ){
+            var scopeExpression = $attributes.outsideClick,
+                onDocumentClick = function(event){
+                    if(event.target.id == 'open'){
+                        console.log('notifications');
+
+                    }
+                    else {
+                        console.log('here');
+                        $scope.$apply(scopeExpression);
+
+                    }
+
+                };
+
+            $document.on("click", onDocumentClick);
+
+            $element.on('$destroy', function() {
+                $document.off("click", onDocumentClick);
+            });
+        }
+    }
+}]);
 
 
     app.controller('AuthCtrl',function ($scope, GooglePlus, $http, UserService, $rootScope) {
         $scope.check = true;
+        $scope.show = false;
         $scope.User = UserService.name;
         $scope.direction = 'left';
         $scope.userFriend;
         $scope.userFriendBirthday;
+        var userForNotification = [];
+        var numOfNotifications = 0;
 
-        // $scope.g_domain = UserService.domain;
         $scope.login = function () {
             console.log("in login")
             GooglePlus.login().then(function (authResult) {
@@ -56,10 +87,35 @@ app.directive('onLastRepeat', function() {
                     $scope.user = User;
                     console.log($scope.user);
                     movePage('user-friends');
+                    var ignoreList=[];
+                    var unIgnoreUsers=[];
+                    var notificationList=[];
+
                     $http.post("http://localhost:3000/create_user/", { user : $scope.user }).success(function(data){
+                        //separate to ignore and users
+                        userForNotification = data;
+                        userForNotification.friendsMatch.forEach(function(item){
+                            console.log(item);
+                            if(item.BirthdayReminderFlag == true && bDayNotice(item.birthDate) && item.friendInArchive==false){
+                                notificationList.push(item);
+                                console.log(item);
+                                numOfNotifications= numOfNotifications + 1;
+                                console.log("num of notifications:" +numOfNotifications);
+
+                            }
+                            if(item.friendInArchive == false){
+                                unIgnoreUsers.push(item);
+                            }
+                            else{
+                                ignoreList.push(item);
+                            }
+                        });
+                        $scope.notificationsNum = numOfNotifications;
+                        $scope.notificationsUser = notificationList;
                         console.log(data.friendsMatch);
-                        $scope.users = data.friendsMatch;
+                        $scope.users = unIgnoreUsers;
                     });
+
                 });
             }, function (err) {
                 console.log(err);
@@ -185,15 +241,20 @@ app.directive('onLastRepeat', function() {
 
         $scope.moveToConfirmPage = function(){
             $scope.picture = $('.active')[0].children[0].currentSrc;
-            console.log('here');
+            console.log('moveToConfirmPage');
             movePage('confirm-page');
             $scope.wish = birthdayWish;
         }
+        $scope.moveToHomePage = function(){
+            console.log('moveToHomePage');
+            movePage('login-page');
+
+        }
         $scope.moveToIgnoreList = function(){
-            console.log('here');
+            console.log('moveToIgnoreList');
             movePage('ignore-friends');
         }
-  $scope.moveToPicturePage = function(){
+        $scope.moveToPicturePage = function(){
             $http.post("http://localhost:3000/getSharedPictures",
             { user : User.userEmail, friendName :  $scope.userFriend}).success(function(data){
                     console.log(data);
@@ -244,7 +305,47 @@ app.directive('onLastRepeat', function() {
             }
             console.log("swiped right")  ;
         }
+        $scope.openNotifications = function(){
+            if( $scope.notificationsNum == 0){
+                $scope.show = false;
+                $('body').css('opacity','1');
+                var wasHere = 1;
 
+            }
+            else{
+                $scope.notificationsNum = 0;
+                $('body').css('opacity','0.8');
+                $scope.show = true;
+            }
+        };
+        $scope.hideSideMenu = function() {
+                $scope.show = false;
+                $('body').css('opacity','1');
+                console.log(wasHere);
+
+        }
+
+        function bDayNotice(date){
+            console.log(date);
+            Date.prototype.today = function () {
+                return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
+            }
+
+            var datetime = (new Date().today()).split('/');
+            var date = date.split('/');
+            if(date[1]==datetime[1]){
+                if(date[0]==datetime[0]){
+                    return true;
+                }
+                if(date[0]-datetime[0]==1){
+                    return true;
+                }
+            }
+            else{
+                return false;
+            }
+
+        }
         $scope.addReminder = function($event, user, index){
             user.BirthdayReminderFlag = true;
             $http.post('http://localhost:3000/updateReminderFlag' , 
@@ -267,6 +368,7 @@ app.directive('onLastRepeat', function() {
                 // $('.addReminder').css("display" , "none");
                 // $('#' + index).css("padding-right", "0px");
             })
+            /*need to update the DB in friendArchived*/
         }
     })
 
