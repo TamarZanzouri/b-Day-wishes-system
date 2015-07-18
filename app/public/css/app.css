@@ -120,11 +120,32 @@ body{
 }
 
 
-div.popover.ng-scope.top.fade.in{
+.alert-success{
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  position: absolute;
+  bottom: 5px;
+  left: 25%;
+  width: 50%;
+  z-index: 999;
+  text-align: center;
+  direction: rtl;
+  border-radius: 20px;
+}
+
+.alert-danger{
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
     position: absolute;
-    top: 50px;
-    left: 30%;
-    display: block;
+    bottom: 5px;
+    left: 25%;
+    width: 50%;
+    z-index: 999;
+    text-align: center;
+    direction: rtl;
+    border-radius: 20px;
 }
 
 /*-----------------------------------App footer------------------------------------------------*/

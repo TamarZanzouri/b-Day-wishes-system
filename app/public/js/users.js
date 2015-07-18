@@ -63,7 +63,7 @@ app.directive("outsideClick", ['$document', function( $document){
 }]);
 
 
-    app.controller('AuthCtrl',function ($scope, GooglePlus, $http, UserService, $rootScope) {
+    app.controller('AuthCtrl',function ($scope, GooglePlus, $http, UserService, $rootScope, $timeout) {
         $scope.check = true;
         $scope.show = false;
         $scope.User = UserService.name;
@@ -197,14 +197,6 @@ app.directive("outsideClick", ['$document', function( $document){
             });
 
         };
-        // $scope.photos = [
-        //     {src: 'http://farm9.staticflickr.com/8042/7918423710_e6dd168d7c_b.jpg', desc: 'Image 01'},
-        //     {src: 'http://farm9.staticflickr.com/8449/7918424278_4835c85e7a_b.jpg', desc: 'Image 02'},
-        //     {src: 'http://farm9.staticflickr.com/8457/7918424412_bb641455c7_b.jpg', desc: 'Image 03'},
-        //     {src: 'http://farm9.staticflickr.com/8179/7918424842_c79f7e345c_b.jpg', desc: 'Image 04'},
-        //     {src: 'http://farm9.staticflickr.com/8315/7918425138_b739f0df53_b.jpg', desc: 'Image 05'},
-        //     {src: 'http://farm9.staticflickr.com/8461/7918425364_fe6753aa75_b.jpg', desc: 'Image 06'}
-        // ];
 
         // initial image index
         $scope._Index = 0;
@@ -351,12 +343,17 @@ app.directive("outsideClick", ['$document', function( $document){
             $http.post('http://localhost:3000/updateReminderFlag' , 
                 {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
                 console.log(data);
-                // $('#' + index + ' div.friend-days-left').css("display", "block");
-                // $('.addReminder').removeClass('active');
-                // $('#' + index).css("padding-right", "0px");
+                $('#' + index + ' div.friend-days-left').css("display", "block");
+                $('.addReminder').removeClass('active');
+                $('#' + index).css("padding-right", "0px");                
+                $scope.alerts = [
+                    { type: 'success', msg: 'נוספה תזכורת' }
+                ]; 
+                $timeout(function() {
+                    $scope.alerts.splice(index, 1);
+                }, 3000);
             })
             }
-
 
         $scope.moveToArchive = function(users, user, index){
             // console.log(angular.element($event.target).parent());
@@ -364,9 +361,17 @@ app.directive("outsideClick", ['$document', function( $document){
             $http.post('http://localhost:3000/addToArchive' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
                 console.log(data);
                 $scope.users.splice(index, 1);
-                // $('#' + index + ' div.friend-days-left').css("display", "block");
-                // $('.addReminder').css("display" , "none");
-                // $('#' + index).css("padding-right", "0px");
+                $('#' + index + '>img.moveToArcive').removeClass('active');
+                $('#' + index + ' div.friend-img').css("display", "block");
+                $('#' + index + ' div.friend-days-left').css("padding-left", "17px");
+                $('#' + index + ' div.friend-name').css("padding-left", "0px");
+                $scope.alerts = [
+                    { type: 'danger', msg: 'החבר הועבר לרשימת הארכיון' }
+                ]; 
+                $timeout(function() {
+                    $scope.alerts.splice(index, 1);
+                }, 3000);
+
             })
             /*need to update the DB in friendArchived*/
         }
