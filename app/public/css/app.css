@@ -30,7 +30,7 @@ body{
     position: absolute;
     top:26.67%;
     right: 37.5%;
-    background-image: url("../imgs/logo-header.png");
+    background: url("../imgs/logo-header.png") no-repeat;
     height: 25px;
     width: 70px;
 }
@@ -195,7 +195,7 @@ body{
     width: 100%;
     font-family: "Myriad Hebrew";
     font-size: 13.12pt;
-    color: #fe925d !important;
+    color: #fe925d ;
     border-radius: 0;
 
 }
@@ -270,9 +270,9 @@ body{
     position: absolute;
     top: 52.92%;
     left:  46.875%;
-    background-image: url("../imgs/baloon-icon.png");
+    background: url("../imgs/switching-img1.png") no-repeat;
     height: 53px;
-    width: 22px;
+    width: 42px;
 
 }
 
@@ -729,4 +729,19 @@ body{
 
 .notification-friend-days-left a >h5{
     font-size:8pt !important;
+}
+/*-----------------------------------Ignore page------------------------------------------------*/
+.ignore-friend-row{
+    width: 100%;
+    height:60px;
+    background-color: #fe925d ;
+    border-bottom: 1px solid #f8f3e4;
+}
+
+.ui-page-theme-a a, html .ui-bar-a a, html .ui-body-a a, html body .ui-group-theme-a a {
+    color: #fe925d;
+    font-weight: 400;
+}
+.ui-page-theme-a a:visited, html .ui-bar-a a:visited, html .ui-body-a a:visited, html body .ui-group-theme-a a:visited {
+    color: #fe925d;
 }

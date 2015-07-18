@@ -114,6 +114,7 @@ app.directive("outsideClick", ['$document', function( $document){
                         $scope.notificationsUser = notificationList;
                         console.log(data.friendsMatch);
                         $scope.users = unIgnoreUsers;
+                        $scope.ignors = ignoreList;
                     });
 
                 });
@@ -193,10 +194,31 @@ app.directive("outsideClick", ['$document', function( $document){
                 { user : User.userEmail, friend :  1}).success(function(data){
                     console.log(data);
                     $scope.wishes = data;
-                    movePage('birthday-wishes');
+                    movePage('loading');
+
+                    var index=1;
+                    window.setInterval(function(){
+                        if(index==3){
+                            index=1;
+                        }
+                        changeBackground(index++);
+                     }, 500);
+
             });
 
         };
+
+        function changeBackground(index) {
+            console.log(index);
+
+            var colors =['#df547d','#fea579','#e5d58b','#30beb2'];
+
+            $('.welcome-txt').css('color',colors[index]);
+            $('.logo').css("background-image","url("+'imgs/logo-header'+index+'.png)');
+            $('#switching-icon').css("background-image","url("+'/imgs/switching-img'+index+'.png)');
+
+
+        }
 
         // initial image index
         $scope._Index = 0;
@@ -241,6 +263,10 @@ app.directive("outsideClick", ['$document', function( $document){
             console.log('moveToHomePage');
             movePage('login-page');
 
+        }
+        $scope.moveToUserFriends = function(){
+            console.log('moveToUserFriends');
+            movePage('user-friends');
         }
         $scope.moveToIgnoreList = function(){
             console.log('moveToIgnoreList');
