@@ -115,6 +115,13 @@ body{
 }
 
 
+div.popover.ng-scope.top.fade.in{
+    position: absolute;
+    top: 50px;
+    left: 30%;
+    display: block;
+}
+
 /*-----------------------------------App footer------------------------------------------------*/
 .app-footer{
     position: fixed;
