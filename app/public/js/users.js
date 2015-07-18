@@ -63,7 +63,7 @@ app.directive("outsideClick", ['$document', function( $document){
 }]);
 
 
-    app.controller('AuthCtrl',function ($scope, GooglePlus, $http, UserService, $rootScope) {
+    app.controller('AuthCtrl',function ($scope, GooglePlus, $http, UserService, $rootScope, $timeout) {
         $scope.check = true;
         $scope.show = false;
         $scope.User = UserService.name;
@@ -114,6 +114,7 @@ app.directive("outsideClick", ['$document', function( $document){
                         $scope.notificationsUser = notificationList;
                         console.log(data.friendsMatch);
                         $scope.users = unIgnoreUsers;
+                        $scope.ignors = ignoreList;
                     });
 
                 });
@@ -193,10 +194,30 @@ app.directive("outsideClick", ['$document', function( $document){
                 { user : User.userEmail, friend :  1}).success(function(data){
                     console.log(data);
                     $scope.wishes = data;
-                    movePage('birthday-wishes');
+                    movePage('loading');
+
+                    var index=1;
+                    window.setInterval(function(){
+                        if(index==3){
+                            index=1;
+                        }
+                        changeBackground(index++);
+                     }, 500);
+
             });
 
         };
+        function changeBackground(index) {
+            console.log(index);
+
+            var colors =['#df547d','#fea579','#e5d58b','#30beb2'];
+
+            $('.welcome-txt').css('color',colors[index]);
+            $('.logo').css("background-image","url("+'imgs/logo-header'+index+'.png)');
+            $('#switching-icon').css("background-image","url("+'/imgs/switching-img'+index+'.png)');
+
+
+        }
         // $scope.photos = [
         //     {src: 'http://farm9.staticflickr.com/8042/7918423710_e6dd168d7c_b.jpg', desc: 'Image 01'},
         //     {src: 'http://farm9.staticflickr.com/8449/7918424278_4835c85e7a_b.jpg', desc: 'Image 02'},
@@ -249,6 +270,10 @@ app.directive("outsideClick", ['$document', function( $document){
             console.log('moveToHomePage');
             movePage('login-page');
 
+        }
+        $scope.moveToUserFriends = function(){
+            console.log('moveToUserFriends');
+            movePage('user-friends');
         }
         $scope.moveToIgnoreList = function(){
             console.log('moveToIgnoreList');

@@ -46,6 +46,13 @@
          </div>
 
      </div>
+        <div id="loading"class="loading" data-role="page">
+            <div class="loading-body">
+                <a href="#" class="logo"></a>
+                <p class="welcome-txt">כותב לך את הברכה המושלמת...</p>
+                <a href="#"id="switching-icon"></a>
+            </div>
+        </div>
  <div id="user-friends" data-role="page">
            <div data-role="header">
                <div class="app-header">
@@ -116,19 +123,8 @@
    </div>
 
 
-<!--   <div id="loading"class="loading" data-role="page">
-       <div class="app-header">
-           <a href="#" class="logo-header"></a>
-           <a href="#" class="settings"></a>
-           <a href="#" class="notifications"></a>
-       </div>
-       <div class="loading-body">
-           <a href="#" class="logo"></a>
-           <p class="welcome-txt">כותב לך את הברכה המושלמת...</p>
-           <a href="#"id="switching-icon"></a>
-       </div>
-  </div>
--->
+
+
 <div id="picture-list"class="pictures" data-role="page">
    <div class="app-header">
        <a href="#" class="logo-header"></a>
@@ -161,7 +157,6 @@
            <!-- enumerate all photos -->
            <img ng-repeat="photo in photos" class="slide" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo.src}}" />
 
-git
 
            <!-- extra navigation controls -->
 
@@ -226,19 +221,18 @@ git
             <div data-role="header">
                 <div class="app-header">
                     <a href="#" class="logo-header"></a>
-                    <a href="#" data-role="none" ng-click="moveToIgnoreList()" class="settings"></a>
-                    <a href="#" id ='open' class="notifications" ng-click = "openNotifications()"></a>
+                    <a href="#" data-role="none" ng-click="moveToUserFriends()" class="settings"></a>
                 </div>
             </div>
-            <!--<div data-role="none">
+            <div data-role="none">
                 <ul data-role="none">
-                    <li ng-repeat="user in users" id = "{{$index}}" class="slide slide-animation friend-row" ng-swipe-left="moveToArchive()" ng-swipe-right="addRemined()" ng-click="getBirthdayWishes(user.friendName)" on-last-repeat>
+                    <li ng-repeat="user in ignors" id = "{{$index}}" class="slide slide-animation ignore-friend-row" ng-swipe-left="moveToArchive()">
                         <div class="friend-img"><a href="#" data-transition="slide" ng-click="" value=""><img src="{{user.friendProfileImage}}"></a></div>
                         <div class="friend-name"><a href="#" data-transition="slide" ng-click="" value=""><h4>{{user.friendName}}</h4><h6>{{user.birthDate}}</h6></a></div>
                         <div class="friend-days-left"><a href="#" data-transition="slide" ><h5>{{calculateDays(user.birthDate)}}</h5></a></div>
                     </li>
                 </ul>
-            </div>-->
+            </div>
             <div class="app-footer">
                 <a href="#" data-role="none" class="arrow-right" ng-click="moveBack()"></a>
             </div>
