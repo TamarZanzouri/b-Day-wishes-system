@@ -196,13 +196,18 @@ app.directive("outsideClick", ['$document', function( $document){
                     $scope.wishes = data;
                     movePage('loading');
 
-                    var index=1;
-                    window.setInterval(function(){
-                        if(index==3){
+                    var index=2;
+                    var interval = window.setInterval(function(){
+                        if(index==4){
                             index=1;
                         }
                         changeBackground(index++);
                      }, 500);
+                    setTimeout(function(){
+                        clearInterval(interval);
+                        movePage('birthday-wishes');
+
+                    },2000);
 
             });
 
@@ -211,14 +216,14 @@ app.directive("outsideClick", ['$document', function( $document){
         function changeBackground(index) {
             console.log(index);
 
-            var colors =['#df547d','#fea579','#e5d58b','#30beb2'];
+            var colors =['#CF3D6A','#30beb2','#df547d'];
 
-            $('.welcome-txt').css('color',colors[index]);
-            $('.logo').css("background-image","url("+'imgs/logo-header'+index+'.png)');
+            $('.welcome-txt').css('color',colors[index-1]);
+            $('.logo').css("background-image","url("+'imgs/logo'+index+'.png)');
             $('#switching-icon').css("background-image","url("+'/imgs/switching-img'+index+'.png)');
 
 
-        }
+        };
 
         // initial image index
         $scope._Index = 0;
@@ -307,6 +312,7 @@ app.directive("outsideClick", ['$document', function( $document){
 
         $scope.showArchive = function(index){
             $scope.direction = 'right';
+            console.log(index)
             if($('#' + index + '>img.addReminder').hasClass('active')){
                 console.log("in if")
                 $('#' + index + '>img.addReminder').removeClass('active');

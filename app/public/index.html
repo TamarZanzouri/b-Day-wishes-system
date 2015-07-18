@@ -220,7 +220,7 @@
 
    </div>
 </div>
-        <div id="ignore-friends" data-role="page">
+<!--         <div id="ignore-friends" data-role="page">
             <div data-role="header">
                 <div class="app-header">
                     <a href="#" class="logo-header"></a>
@@ -229,17 +229,18 @@
             </div>
             <div data-role="none">
                 <ul data-role="none">
-                    <li ng-repeat="user in ignors" id = "{{$index}}" class="slide slide-animation ignore-friend-row" ng-swipe-left="moveToArchive()">
+                    <li ng-repeat="user in ignors" id = "{{$index}}" class="slide slide-animation ignore-friend-row" ng-swipe-right="showArchive($index)">
                         <div class="friend-img"><a href="#" data-transition="slide" ng-click="" value=""><img src="{{user.friendProfileImage}}"></a></div>
                         <div class="friend-name"><a href="#" data-transition="slide" ng-click="" value=""><h4>{{user.friendName}}</h4><h6>{{user.birthDate}}</h6></a></div>
                         <div class="friend-days-left"><a href="#" data-transition="slide" ><h5>{{calculateDays(user.birthDate)}}</h5></a></div>
+                        <img src="imgs/moveToArcive.png" class="moveToArcive" ng-click="moveToArchive(users, user, $index)">
                     </li>
                 </ul>
             </div>
             <div class="app-footer">
                 <a href="#" data-role="none" class="arrow-right" ng-click="moveBack()"></a>
             </div>
-        </div>
+        </div> -->
 
 
 
