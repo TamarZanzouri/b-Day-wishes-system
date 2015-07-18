@@ -12,6 +12,7 @@ var User = {};
 var birthdayWish;
 var wasHere = 0;
 var app = angular.module('app', ['googleplus', 'ngAnimate', 'ngTouch', 'swipe', 'ui.bootstrap']);
+var domain = 'http://localhost:3000'//'http://mazal-tov.herokuapp.com';
 
 app.factory('UserService', function() {
   return {
@@ -91,7 +92,7 @@ app.directive("outsideClick", ['$document', function( $document){
                     var unIgnoreUsers=[];
                     var notificationList=[];
 
-                    $http.post("http://localhost:3000/create_user/", { user : $scope.user }).success(function(data){
+                    $http.post(domain + "/create_user/", { user : $scope.user }).success(function(data){
                         //separate to ignore and users
                         userForNotification = data;
                         userForNotification.friendsMatch.forEach(function(item){
@@ -190,7 +191,7 @@ app.directive("outsideClick", ['$document', function( $document){
             $scope.friendsBirthday = userFriendBirthday;
             $scope.daysLeft = $scope.calculateDays(userFriendBirthday);
             console.log($scope.userFriend, $scope.userFriendBirthday)
-            $http.post("http://localhost:3000/getMyFriendsBirthDayWishes",
+            $http.post(domain + "/getMyFriendsBirthDayWishes",
                 { user : User.userEmail, friend :  1}).success(function(data){
                     console.log(data);
                     $scope.wishes = data;
@@ -207,7 +208,7 @@ app.directive("outsideClick", ['$document', function( $document){
                         clearInterval(interval);
                         movePage('birthday-wishes');
 
-                    },2000);
+                    },3000);
 
             });
 
@@ -217,10 +218,9 @@ app.directive("outsideClick", ['$document', function( $document){
             console.log(index);
 
             var colors =['#CF3D6A','#30beb2','#df547d'];
-
-            $('.welcome-txt').css('color',colors[index-1]);
+            $('.change-welcome-txt').css('color',colors[index-1]);
             $('.logo').css("background-image","url("+'imgs/logo'+index+'.png)');
-            $('#switching-icon').css("background-image","url("+'/imgs/switching-img'+index+'.png)');
+            $('#switching-icon').css("background-image","url("+'imgs/switching-img'+index+'.png)');
 
 
         };
@@ -278,7 +278,7 @@ app.directive("outsideClick", ['$document', function( $document){
             movePage('ignore-friends');
         }
         $scope.moveToPicturePage = function(){
-            $http.post("http://localhost:3000/getSharedPictures",
+            $http.post(domain + "/getSharedPictures",
             { user : User.userEmail, friendName :  $scope.userFriend}).success(function(data){
                     console.log(data);
                     //console.log( $scope.photos = data);
@@ -372,7 +372,7 @@ app.directive("outsideClick", ['$document', function( $document){
         }
         $scope.addReminder = function($event, user, index){
             user.BirthdayReminderFlag = true;
-            $http.post('http://localhost:3000/updateReminderFlag' , 
+            $http.post(domain + '/updateReminderFlag' , 
                 {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
                 console.log(data);
                 $('#' + index + ' div.friend-days-left').css("display", "block");
@@ -390,7 +390,7 @@ app.directive("outsideClick", ['$document', function( $document){
         $scope.moveToArchive = function(users, user, index){
             // console.log(angular.element($event.target).parent());
             console.log(user);
-            $http.post('http://localhost:3000/addToArchive' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
+            $http.post(domain + '/addToArchive' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
                 console.log(data);
                 $scope.users.splice(index, 1);
                 $('#' + index + '>img.moveToArcive').removeClass('active');
