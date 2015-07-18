@@ -16,6 +16,7 @@
     <script src="http://code.angularjs.org/1.2.0rc1/angular-animate.min.js"></script>
     <script src="http://code.angularjs.org/1.2.0rc1/angular-touch.min.js"></script>
     <script src="src/angular-swipe.js"></script>
+    <script src="src/ui-bootstrap-tpls-0.13.0.min.js"></script>
     <script src="js/users.js" type="text/javascript"></script>
 
 
@@ -70,9 +71,8 @@
                          <div class="friend-img" ng-click="getBirthdayWishes(user.friendName, user.birthDate)"><a href="#" data-transition="slide" value=""><img src="{{user.friendProfileImage}}"></a></div>
                         <div class="friend-name" ng-click="getBirthdayWishes(user.friendName, user.birthDate)"><a href="#" data-transition="slide" value=""><h4>{{user.friendName}}</h4><h6>{{user.birthDate}}</h6></a></div>
                         <div class="friend-days-left" ng-click="getBirthdayWishes(user.friendName, user.birthDate)"><a href="#" data-transition="slide"><h5>{{calculateDays(user.birthDate)}}</h5></a></div>
-                        <img src="imgs/reminder.png" class="addReminder" ng-click="addReminder($event, user, $index)">
+                        <img src="imgs/reminder.png" placement="bottom" popover="On the Bottom!" class="addReminder" ng-click="addReminder($event, user, $index)">
                         <img src="imgs/moveToArcive.png" class="moveToArcive" ng-click="moveToArchive(users, user, $index)">
-
                    </li>
                </ul>
            </div>

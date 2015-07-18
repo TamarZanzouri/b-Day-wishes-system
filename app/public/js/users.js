@@ -11,7 +11,7 @@ function movePage(page){
 var User = {};
 var birthdayWish;
 var wasHere = 0;
-var app = angular.module('app', ['googleplus', 'ngAnimate', 'ngTouch', 'swipe']);
+var app = angular.module('app', ['googleplus', 'ngAnimate', 'ngTouch', 'swipe', 'ui.bootstrap']);
 
 app.factory('UserService', function() {
   return {
@@ -303,7 +303,6 @@ app.directive("outsideClick", ['$document', function( $document){
                 $('#' + index + ' div.friend-name').css("padding-left", "58px");
                 $('#' + index + '>img.moveToArcive').addClass('active');
             }
-
             console.log("swiped right")  ;
         }
         $scope.openNotifications = function(){
@@ -349,11 +348,12 @@ app.directive("outsideClick", ['$document', function( $document){
         }
         $scope.addReminder = function($event, user, index){
             user.BirthdayReminderFlag = true;
-            $http.post('http://localhost:3000/updateReminderFlag' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
+            $http.post('http://localhost:3000/updateReminderFlag' , 
+                {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
                 console.log(data);
-                $('#' + index + ' div.friend-days-left').css("display", "block");
-                $('.addReminder').removeClass('active');
-                $('#' + index).css("padding-right", "0px");
+                // $('#' + index + ' div.friend-days-left').css("display", "block");
+                // $('.addReminder').removeClass('active');
+                // $('#' + index).css("padding-right", "0px");
             })
             }
 
