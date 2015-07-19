@@ -42,7 +42,7 @@ app.directive("outsideClick", ['$document', function( $document){
         link: function( $scope, $element, $attributes ){
             var scopeExpression = $attributes.outsideClick,
                 onDocumentClick = function(event){
-                    if(event.target.id == 'open'){
+                    if((event.target.id).substring(0,(event.target.id).length-1)== 'open'){
                         console.log('notifications');
 
                     }
@@ -193,10 +193,10 @@ app.directive("outsideClick", ['$document', function( $document){
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             var colors =['#df547d','#fea579','#e5d58b','#30beb2'];
             for(var i= 0, j=0;i<scope.currentScope.users.length;i++){
-                if(i==3){
+                if(i==4){
                     j=0;
                 }
-                $('#'+i+'').css('background-color',colors[j++]);
+                $('#friends-'+i+'').css('background-color',colors[j++]);
             }
         });
         $scope.getBirthdayWishes = function(userFriend){
