@@ -91,19 +91,34 @@ app.directive("outsideClick", ['$document', function( $document){
                     var ignoreList=[];
                     var unIgnoreUsers=[];
                     var notificationList=[];
+                    var notificationTodayList=[];
+                    var notificationWeekList=[];
+                    var notificationMonthList=[];
 
                     $http.post(domain + "/create_user/", { user : $scope.user }).success(function(data){
                         //separate to ignore and users
                         userForNotification = data;
                         userForNotification.friendsMatch.forEach(function(item){
                             console.log(item);
-                            if(item.BirthdayReminderFlag == true && bDayNotice(item.birthDate) && item.friendInArchive==false){
-                                notificationList.push(item);
+                            var daysLength = 0;
+                            daysLength = bDay(item.birthDate);
+                            if(item.BirthdayReminderFlag == true && daysLength>0 && item.friendInArchive==false){
+                               // notificationTodayList.push(item);
                                 console.log(item);
                                 numOfNotifications= numOfNotifications + 1;
                                 console.log("num of notifications:" +numOfNotifications);
+                                if(daysLength==1){
+                                    notificationTodayList.push(item);
+                                }
+                                else if(daysLength==2){
+                                    notificationWeekList.push(item);
+                                }
+                                else if(daysLength==3){
+                                    notificationMonthList.push(item);
+                                }
 
                             }
+
                             if(item.friendInArchive == false){
                                 unIgnoreUsers.push(item);
                             }
@@ -111,8 +126,12 @@ app.directive("outsideClick", ['$document', function( $document){
                                 ignoreList.push(item);
                             }
                         });
+
                         $scope.notificationsNum = numOfNotifications;
-                        $scope.notificationsUser = notificationList;
+                        $scope.todays = notificationTodayList;
+                        $scope.weeks = notificationWeekList;
+                        $scope.months = notificationMonthList;
+                        //$scope.notificationsUser = notificationList;
                         console.log(data.friendsMatch);
                         $scope.users = unIgnoreUsers;
                         $scope.ignors = ignoreList;
@@ -135,8 +154,6 @@ app.directive("outsideClick", ['$document', function( $document){
             var year = date[2];
             var month = date[1];
             var day = date[0];
-
-
 
             if(month==datetime[1]){
                 if(day>=datetime[0]){
@@ -206,6 +223,7 @@ app.directive("outsideClick", ['$document', function( $document){
                      }, 500);
                     setTimeout(function(){
                         clearInterval(interval);
+                        $('.notifications').css('background-image', "url(" + 'imgs/notification.png)');
                         movePage('birthday-wishes');
 
                     },3000);
@@ -219,7 +237,7 @@ app.directive("outsideClick", ['$document', function( $document){
 
             var colors =['#CF3D6A','#30beb2','#df547d'];
             $('.change-welcome-txt').css('color',colors[index-1]);
-            $('.logo').css("background-image","url("+'imgs/logo'+index+'.png)');
+            $('.logoLoading').css("background-image","url("+'imgs/logo'+index+'.png)');
             $('#switching-icon').css("background-image","url("+'imgs/switching-img'+index+'.png)');
 
 
@@ -274,6 +292,7 @@ app.directive("outsideClick", ['$document', function( $document){
             movePage('user-friends');
         }
         $scope.moveToIgnoreList = function(){
+            $('.notifications').css('background-image', "url(" + 'imgs/notification.png)');
             console.log('moveToIgnoreList');
             movePage('ignore-friends');
         }
@@ -401,7 +420,7 @@ app.directive("outsideClick", ['$document', function( $document){
             })
         }
         $scope.openNotifications = function(){
-            if( $scope.notificationsNum == 0){
+           /* if( $scope.notificationsNum == 0){
                 $scope.show = false;
                 $('body').css('opacity','1');
                 var wasHere = 1;
@@ -411,6 +430,19 @@ app.directive("outsideClick", ['$document', function( $document){
                 $scope.notificationsNum = 0;
                 $('body').css('opacity','0.8');
                 $scope.show = true;
+            }*/
+
+            if(wasHere==0) {
+                $('.notifications').css('background-image', "url(" + 'imgs/notification-icon2.png)');
+                wasHere+=1;
+                movePage('notification-page');
+            }
+            else{
+                wasHere=0;
+                $('.notifications').css('background-image', "url(" + 'imgs/notification.png)');
+                $scope.check = true;
+                history.back();
+
             }
         };
         $scope.hideSideMenu = function() {
@@ -420,27 +452,40 @@ app.directive("outsideClick", ['$document', function( $document){
 
         }
 
-        function bDayNotice(date){
+        function bDay(date){
             console.log(date);
             Date.prototype.today = function () {
                 return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
             }
-
             var datetime = (new Date().today()).split('/');
             var date = date.split('/');
             if(date[1]==datetime[1]){
                 if(date[0]==datetime[0]){
-                    return true;
+                    return 1;
                 }
-                if(date[0]-datetime[0]==1){
-                    return true;
+                else if(date[0]-datetime[0] > 0 && date[0]-datetime[0] <=7){
+                    return 2;
                 }
+                else if(date[0]-datetime[0] <=30 && date[0]-datetime[0] >0){
+                    return 3;
+                }
+                return -1;
             }
-            else{
-                return false;
+            else if(date[1]-datetime[1] == 1){
+
+                if(parseInt(date[0])+30-datetime[0]<=7){
+                    return 2;
+                }
+                else if(parseInt(date[0])+30-datetime[0]<=30){
+                    return 3;
+                }
+
             }
+            return -1;
 
         }
+
+
         $scope.addReminder = function($event, user, index){
             user.BirthdayReminderFlag = true;
             $http.post(domain + '/updateReminderFlag' , 
