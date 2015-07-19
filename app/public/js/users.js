@@ -73,6 +73,12 @@ app.directive("outsideClick", ['$document', function( $document){
         $scope.userFriendBirthday;
         var userForNotification = [];
         var numOfNotifications = 0;
+        var ignoreList=[];
+        var unIgnoreUsers=[];
+        //var notificationList=[];
+        var notificationTodayList=[];
+        var notificationWeekList=[];
+        var notificationMonthList=[];
 
         $scope.login = function () {
             console.log("in login")
@@ -88,12 +94,6 @@ app.directive("outsideClick", ['$document', function( $document){
                     $scope.user = User;
                     console.log($scope.user);
                     movePage('user-friends');
-                    var ignoreList=[];
-                    var unIgnoreUsers=[];
-                    //var notificationList=[];
-                    var notificationTodayList=[];
-                    var notificationWeekList=[];
-                    var notificationMonthList=[];
 
                     $http.post(domain + "/create_user/", { user : $scope.user }).success(function(data){
                         //separate to ignore and users
@@ -119,10 +119,10 @@ app.directive("outsideClick", ['$document', function( $document){
 
                             }
 
-                            if(item.friendInArchive == false){
+                            if(item.friendInArchive == false && item.deletedFriendFlag==false){
                                 unIgnoreUsers.push(item);
                             }
-                            else{
+                            else if(item.deletedFriendFlag == false){
                                 ignoreList.push(item);
                             }
                         });
@@ -174,7 +174,6 @@ app.directive("outsideClick", ['$document', function( $document){
                 days+= day -parseInt(datetime[0]);
             }
             console.log(days);
-            $scope.daysLeft = days;
             if(days == '0'){
                 return 'היום!';
             }
@@ -486,7 +485,18 @@ app.directive("outsideClick", ['$document', function( $document){
                 console.log(data);
                 $('#' + index + ' div.friend-days-left').css("display", "block");
                 $('.addReminder').removeClass('active');
-                $('#' + index).css("padding-right", "0px");                
+                $('#' + index).css("padding-right", "0px");
+                var bDayCategory = bDay(user.birthDate);
+                console.log("8888888888888 ", bDayCategory);   
+                if(bDayCategory==1){
+                    notificationTodayList.push(user);
+                }
+                else if(bDayCategory==2){
+                    notificationWeekList.push(user);
+                }
+                else if(bDayCategory==3){
+                    notificationMonthList.push(user);
+                }             
                 $scope.alerts = [
                     { type: 'success', msg: 'נוספה תזכורת' }
                 ]; 

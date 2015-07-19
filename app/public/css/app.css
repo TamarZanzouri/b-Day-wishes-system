@@ -36,6 +36,10 @@ body{
     background-color: #fffdf6;
     /*font-weight: 400 !important;*/
 }
+
+.ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper{
+    background-color: #fffdf6;
+}
 /*-----------------------------------App Header------------------------------------------------*/
 .app-header{
     position: fixed;
@@ -434,7 +438,7 @@ body{
 #birthdayWishesList>.friend-row{
     background-color: #fffdf6;
     border-top: 1px solid #ebe9e2;
-    padding: 14px 50px 18px 30px;
+    padding: 15px 50px 18px 30px;
     overflow: hidden;
     font-family: 'Alef-Regular';
 }
