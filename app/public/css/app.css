@@ -2,6 +2,23 @@
     margin:0;
     padding: 0;
 }
+
+@font-face {
+  font-family: 'Alef';
+  src: url('fonts/Alef-Bold.eot');
+  src: url('fonts/Alef-Bold.eot?#iefix') format('embedded-opentype'), url('fonts/Alef-Bold.woff') format('woff'), url('fonts/Alef-Bold.ttf') format('truetype'), url('fonts/Alef-Bold.svg#Alef-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Alef';
+  src: url('fonts/Alef-Regular.eot');
+  src: url('fonts/Alef-Regular.eot?#iefix') format('embedded-opentype'), url('fonts/Alef-Regular.woff') format('woff'), url('fonts/Alef-Regular.ttf') format('truetype'), url('fonts/Alef-Regular.svg#alefregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 a{
     text-decoration: none !important;
     text-underline: none !important;
@@ -86,26 +103,25 @@ body{
     right: 5.625%;
 }
 .name h4, .name h6,.days-left h5{
-    font-family: "Myriad Hebrew";
+    font-family: Alef;
     direction: rtl;
     color: #df547d;
     margin: 0;
+    font-weight: lighter;
 }
 .name h4{
     font-size: 20pt;
-    margin-top: 14px;
+    margin-top: 7px;
 }
 .name h6{
     font-size: 12pt;
-    margin-right: 51px;
-
 }
 .days-left{
     position: absolute;
     left: 5.625%;
 }
 .days-left h5{
-    margin-top: 26px;
+    margin-top: 20px;
     font-size: 15pt;
 
 }
@@ -228,7 +244,7 @@ body{
     top: 36.2%;
     text-align: center;
     width: 100%;
-    font-family: "Myriad Hebrew";
+    font-family: 'Alef-Regular';
     font-size: 13.12pt;
     border-radius: 0;
 }
@@ -252,7 +268,7 @@ body{
     height: 62px;
     background-color: #fffbed;
     border: 1px solid #dedbba;
-    font-family:  "Myriad Hebrew";
+    font-family:  'Alef-Regular';
     color: #979691 !important;
 }
 #exist-user{
@@ -338,17 +354,17 @@ body{
     height: 60px;
     width: 43.75%;
     padding-right: 17px;
-    padding-top: 14px;
+    padding-top: 10px;
 }
 .friend-days-left{
     direction: rtl;
     height: 60px;
-    width: 37.5%;
-    padding-left: 17px;
+    width: 50%;
+    padding-left: 10px;
     padding-top: 20px;
 }
 .friend-name  a > h4, .friend-name a >h6,.friend-days-left a >h5{
-    font-family: "Myriad Hebrew";
+    font-family: 'Alef-Regular';
     color: #ffffff;
     margin: 0;
 }
@@ -364,19 +380,38 @@ body{
 .friend-name-ignore a > h4, .friend-name-ignore a >h6, .friend-name-ignore a >h5{
     color: #30beb2;
     margin: 0;
-    font-family: "Myriad Hebrew";
+    font-family: 'Alef-Regular';
+}
+
+.friend-name-ignore a >h4{
+    font-size: 15pt;
+    float: right;
+    font-weight: 200;
+ }
+.friend-name-ignore a >h6{
+    font-size: 10pt;
+    float: right;
+    font-weight: 200;
+}
+.friend-days-left a >h5{
+    font-size: 12pt;
+    font-weight: 200;
 }
 
 .friend-name a >h4{
     font-size: 15pt;
     float: right;
+    font-weight: 200;
  }
 .friend-name a >h6{
     font-size: 10pt;
     float: right;
+    font-weight: 200;
+    padding-top: 5px;
 }
 .friend-days-left a >h5{
-     font-size: 12pt;
+    font-size: 12pt;
+    font-weight: 200;
 }
 /*-----------------------------------user's friends Page------------------------------------------------*/
 #birthdayWishesList>.friend-row{
@@ -384,6 +419,7 @@ body{
     border-top: 1px solid #ebe9e2;
     padding: 14px 50px 18px 30px;
     overflow: hidden;
+    font-family: 'Alef-Regular';
 }
 .addIcon {
     color: #fda172;
@@ -561,11 +597,12 @@ body{
 .confirm-page-body{
     position: relative;
     height: 100vh;
+    margin-bottom: 43px;
 }
 .confirm-wish{
     direction: rtl;
     padding: 6% 12% 5.5% 9.8%;
-    font-family: "Myriad Hebrew";
+    font-family: 'Alef-Regular';
     direction: rtl;
     font-size: 12pt;
     color: #656565;
@@ -575,7 +612,8 @@ body{
     bottom: 0%;
     left: 15.5%;
     width: 68%;
-
+    margin-bottom: 43px;
+    padding-bottom: 25px;
 }
 .confirm-picture img{
     width: 203px;
@@ -587,7 +625,7 @@ body{
     background-color: #f7f1e0;
     border-right: 1px solid #eeece6;
     border-radius: 0;
-    font-family: "Myriad Hebrew";
+    font-family: 'Alef-Regular';
     direction: rtl;
     font-size: 18pt;
     text-align: center;
@@ -829,7 +867,7 @@ body{
     padding-top: 10px;
 }
 .notification-friend-name a >h4,.notification-friend-days-left a >h5{
-    font-family: "Myriad Hebrew";
+    font-family: 'Alef-Regular';
     color: #515152;
     margin: 0;
 }
