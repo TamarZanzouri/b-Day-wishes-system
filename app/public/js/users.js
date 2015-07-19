@@ -378,7 +378,7 @@ app.directive("outsideClick", ['$document', function( $document){
             }
             else{
                 $('#' + index + ' div.friend-img').css("display", "none");
-                $('#' + index + ' div.friend-name-ignore').css("padding-left", "58px");
+                $('#' + index + ' div.friend-name-ignore').css("margin-left", "0px");
                 $('#' + index + '>img.restore-friend').addClass('active');
             }
         }
@@ -387,8 +387,10 @@ app.directive("outsideClick", ['$document', function( $document){
             console.log(index);
             $http.post(domain + '/deleteFriend' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
                 console.log(data);
-                console.log(user)
-                $scope.ignors.splice(index, 1);
+                console.log(user);
+                $scope.indexInArray = index.substring(index.length, index.length-1);
+                console.log("hhhhhhhhhhhhhh", index.substring(index.length, index.length-1));
+                $scope.ignors.splice($scope.indexInArray, 1);
                 $('#' + index + '>img.restore-friend').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
                 $('#' + index + ' div.friend-name-ignore').css("padding-left", "0px");
@@ -408,7 +410,9 @@ app.directive("outsideClick", ['$document', function( $document){
                 console.log(data);
                 console.log(user)
                 $scope.users.push(user);
-                $scope.ignors.splice(index, 1);
+                $scope.indexInArray = index.substring(index.length, index.length-1);
+                console.log("hhhhhhhhhhhhhh", index.substring(index.length, index.length-1));
+                $scope.ignors.splice($scope.indexInArray, 1);
                 $('#' + index + '>img.restore-friend').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
                 $('#' + index + ' div.friend-name-ignore').css("padding-left", "0px");
@@ -513,6 +517,8 @@ app.directive("outsideClick", ['$document', function( $document){
                 {
                     notificationTodayList.push(user);
                     numOfNotifications= numOfNotifications + 1;
+                    $scope.notificationsNum = numOfNotifications;
+
                 }
                 else if(bDayCategory==2 && $scope.found == false){
                     notificationWeekList.push(user);
@@ -532,10 +538,40 @@ app.directive("outsideClick", ['$document', function( $document){
         $scope.moveToArchive = function(users, user, index){
             // console.log(angular.element($event.target).parent());
             console.log(user);
+            $scope.indexInArray = index.substring(index.length, index.length-1);
+            console.log("hhhhhhhhhhhhhh", index.substring(index.length, index.length-1));
+            $scope.found = false;
             $http.post(domain + '/addToArchive' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
-                console.log(data);
+                console.log(data);                
+                // console.log("listttttt " ,notificationList);
+                notificationList.forEach(function(checkUser){
+                    console.log(checkUser)
+                    console.log(checkUser.friendName);
+                    if(checkUser.friendName === user.friendName){
+                        $scope.found = true;
+                        console.log("found match ", checkUser.friendName, $scope.found = true);
+                        return;
+                    }
+                });
+                if($scope.found == true){
+                    var bDayCategory = bDay(user.birthDate);
+                    console.log("***************** ", bDayCategory);
+                    if(bDayCategory==1)
+                    {
+                        console.log("in first category")
+                        notificationTodayList.splice($scope.indexInArray, 1);
+                        numOfNotifications= numOfNotifications - 1;
+                        $scope.notificationsNum = numOfNotifications;
+                    }
+                    else if(bDayCategory==2){
+                        notificationWeekList.splice($scope.indexInArray, 1);
+                    }
+                    else if(bDayCategory==3){
+                        notificationMonthList.splice($scope.indexInArray, 1);
+                    }  
+                }   
                 $scope.ignors.push(user);
-                $scope.users.splice(index, 1);
+                $scope.users.splice($scope.indexInArray, 1);
                 $('#' + index + '>img.moveToArcive').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
                 $('#' + index + ' div.friend-days-left').css("padding-left", "10px");
