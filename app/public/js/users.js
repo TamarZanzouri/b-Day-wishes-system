@@ -12,7 +12,8 @@ var User = {};
 var birthdayWish;
 var wasHere = 0;
 var app = angular.module('app', ['googleplus', 'ngAnimate', 'ngTouch', 'swipe', 'ui.bootstrap']);
-var domain = 'http://localhost:3000'//'http://mazal-tov.herokuapp.com';
+var domain = 'http://localhost:3000';
+//'http://mazal-tov.herokuapp.com';
 
 app.factory('UserService', function() {
   return {
@@ -105,10 +106,10 @@ app.directive("outsideClick", ['$document', function( $document){
                             if(item.BirthdayReminderFlag == true && daysLength>0 && item.friendInArchive==false && item.deletedFriendFlag==false){
                                 notificationList.push(item);
                                 console.log(item);
-                                numOfNotifications= numOfNotifications + 1;
                                 console.log("num of notifications:" +numOfNotifications);
                                 if(daysLength==1){
                                     notificationTodayList.push(item);
+                                    numOfNotifications= numOfNotifications + 1;
                                 }
                                 else if(daysLength==2){
                                     notificationWeekList.push(item);
@@ -486,6 +487,7 @@ app.directive("outsideClick", ['$document', function( $document){
         $scope.addReminder = function($event, user, index){
 
             user.BirthdayReminderFlag = true;
+            $scope.found = false;
             $http.post(domain + '/updateReminderFlag' , 
                 {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
                 console.log(data);
@@ -493,14 +495,26 @@ app.directive("outsideClick", ['$document', function( $document){
                 $('.addReminder').removeClass('active');
                 $('#' + index).css("padding-right", "0px");
                 var bDayCategory = bDay(user.birthDate);
-                console.log("8888888888888 ", bDayCategory);   
-                if(bDayCategory==1){
+                console.log("***************** ", bDayCategory);
+                console.log("listttttt " ,notificationList);
+                notificationList.forEach(function(checkUser){
+                    console.log(checkUser)
+                    console.log(checkUser.friendName);
+                    if(checkUser.friendName === user.friendName){
+                        $scope.found = true;
+                        console.log("found match ", checkUser.friendName, $scope.found = true);
+                        return;
+                    }
+                });   
+                if(bDayCategory==1 && $scope.found == false)
+                {
                     notificationTodayList.push(user);
+                    numOfNotifications= numOfNotifications + 1;
                 }
-                else if(bDayCategory==2){
+                else if(bDayCategory==2 && $scope.found == false){
                     notificationWeekList.push(user);
                 }
-                else if(bDayCategory==3){
+                else if(bDayCategory==3 && $scope.found == false){
                     notificationMonthList.push(user);
                 }             
                 $scope.alerts = [
