@@ -437,6 +437,10 @@ app.directive("outsideClick", ['$document', function( $document){
             history.back();
 
         }
+        $scope.closeSettings = function(){
+            history.back();
+
+        }
         $scope.hideSideMenu = function() {
                 $scope.show = false;
                 $('body').css('opacity','1');
