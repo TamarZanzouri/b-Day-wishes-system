@@ -315,6 +315,7 @@ app.directive("outsideClick", ['$document', function( $document){
 
         $scope.showReminer = function(index){
             $scope.direction = 'left';
+            console.log(index);
             if($('#' + index + '>img.moveToArcive').hasClass('active')){
                 $('#' + index + '>img.moveToArcive').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
@@ -470,7 +471,7 @@ app.directive("outsideClick", ['$document', function( $document){
                 }
                 return -1;
             }
-            else if(parseInt(date[0])-parseInt(datetime[0]) == 1){
+            else if(parseInt(date[1])-parseInt(datetime[1]) == 1){
 
                 if(parseInt(date[0])+30-parseInt(datetime[0])<=7){
                     return 2;
@@ -486,6 +487,7 @@ app.directive("outsideClick", ['$document', function( $document){
 
 
         $scope.addReminder = function($event, user, index){
+
             user.BirthdayReminderFlag = true;
             $http.post(domain + '/updateReminderFlag' , 
                 {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
