@@ -90,7 +90,7 @@ app.directive("outsideClick", ['$document', function( $document){
                     movePage('user-friends');
                     var ignoreList=[];
                     var unIgnoreUsers=[];
-                    var notificationList=[];
+                    //var notificationList=[];
                     var notificationTodayList=[];
                     var notificationWeekList=[];
                     var notificationMonthList=[];
@@ -102,7 +102,7 @@ app.directive("outsideClick", ['$document', function( $document){
                             console.log(item);
                             var daysLength = 0;
                             daysLength = bDay(item.birthDate);
-                            if(item.BirthdayReminderFlag == true && daysLength>0 && item.friendInArchive==false){
+                            if(item.BirthdayReminderFlag == true && daysLength>0 && item.friendInArchive==false && item.deletedFriendFlag==false){
                                // notificationTodayList.push(item);
                                 console.log(item);
                                 numOfNotifications= numOfNotifications + 1;
@@ -151,27 +151,27 @@ app.directive("outsideClick", ['$document', function( $document){
             var datetime = (new Date().today());
             datetime=datetime.toString().split('/');
             date=date.toString().split('/');
-            var year = date[2];
-            var month = date[1];
-            var day = date[0];
+            var year = parseInt(date[2]);
+            var month = parseInt(date[1]);
+            var day = parseInt(date[0]);
 
-            if(month==datetime[1]){
-                if(day>=datetime[0]){
-                    days = day - datetime[0];
+            if(month==parseInt(datetime[1])){
+                if(day>=parseInt(datetime[0])){
+                    days = day - parseInt(datetime[0]);
                 }
                 else{
-                    days = 365 - (datetime[0]-day);
+                    days = 365 - (parseInt(datetime[0])-day);
                 }
             }
-            else if(month>datetime[1]){
+            else if(month>parseInt(datetime[1])){
                 days = (month - datetime[1])*30;
                 days += (day - datetime[0]);
             }
             else{
 
-                days = datetime[1] - month;
+                days = parseInt(datetime[1]) - month;
                 days*=30;
-                days+= day -datetime[0];
+                days+= day -parseInt(datetime[0]);
             }
             console.log(days);
             
@@ -432,19 +432,14 @@ app.directive("outsideClick", ['$document', function( $document){
                 $scope.show = true;
             }*/
 
-            if(wasHere==0) {
-                $('.notifications').css('background-image', "url(" + 'imgs/notification-icon2.png)');
-                wasHere+=1;
-                movePage('notification-page');
-            }
-            else{
-                wasHere=0;
-                $('.notifications').css('background-image', "url(" + 'imgs/notification.png)');
-                $scope.check = true;
-                history.back();
 
-            }
+                movePage('notification-page');
+
         };
+        $scope.closeNotifications = function(){
+            history.back();
+
+        }
         $scope.hideSideMenu = function() {
                 $scope.show = false;
                 $('body').css('opacity','1');
@@ -459,24 +454,24 @@ app.directive("outsideClick", ['$document', function( $document){
             }
             var datetime = (new Date().today()).split('/');
             var date = date.split('/');
-            if(date[1]==datetime[1]){
-                if(date[0]==datetime[0]){
+            if(parseInt(date[1])==parseInt(datetime[1])){
+                if(parseInt(date[0])==parseInt(datetime[0])){
                     return 1;
                 }
-                else if(date[0]-datetime[0] > 0 && date[0]-datetime[0] <=7){
+                else if(parseInt(date[0])-parseInt(datetime[0]) > 0 && parseInt(date[0])-parseInt(datetime[0]) <=7){
                     return 2;
                 }
-                else if(date[0]-datetime[0] <=30 && date[0]-datetime[0] >0){
+                else if(parseInt(date[0])-parseInt(datetime[0]) <=30 && parseInt(date[0])-parseInt(datetime[0]) >0){
                     return 3;
                 }
                 return -1;
             }
-            else if(date[1]-datetime[1] == 1){
+            else if(parseInt(date[0])-parseInt(datetime[0]) == 1){
 
-                if(parseInt(date[0])+30-datetime[0]<=7){
+                if(parseInt(date[0])+30-parseInt(datetime[0])<=7){
                     return 2;
                 }
-                else if(parseInt(date[0])+30-datetime[0]<=30){
+                else if(parseInt(date[0])+30-parseInt(datetime[0])<=30){
                     return 3;
                 }
 
