@@ -717,7 +717,7 @@ body{
     margin-left: auto;
 }
 .slider {
-    border: 15px solid #FFFFFF;
+    margin: 15px;
     border-radius: 5px;
     position: relative;
     -webkit-perspective: 1000px;

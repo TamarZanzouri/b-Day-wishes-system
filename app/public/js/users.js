@@ -164,8 +164,8 @@ app.directive("outsideClick", ['$document', function( $document){
                 }
             }
             else if(month>parseInt(datetime[1])){
-                days = (month - datetime[1])*30;
-                days += (day - datetime[0]);
+                days = (month - parseInt(datetime[1]))*30;
+                days += (day - parseInt(datetime[0]));
             }
             else{
 
