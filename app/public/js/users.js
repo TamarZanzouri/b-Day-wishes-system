@@ -174,7 +174,6 @@ app.directive("outsideClick", ['$document', function( $document){
                 days+= day -parseInt(datetime[0]);
             }
             console.log(days);
-            $scope.daysLeft = days;
             if(days == '0'){
                 return 'היום!';
             }
