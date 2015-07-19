@@ -42,7 +42,7 @@ app.directive("outsideClick", ['$document', function( $document){
         link: function( $scope, $element, $attributes ){
             var scopeExpression = $attributes.outsideClick,
                 onDocumentClick = function(event){
-                    if(event.target.id == 'open'){
+                    if((event.target.id).substring(0,(event.target.id).length-1)== 'open'){
                         console.log('notifications');
 
                     }

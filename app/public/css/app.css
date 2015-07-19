@@ -75,6 +75,7 @@ body{
 }
 .notifications-pressed{
     background: url("../imgs/notification-icon2.png") no-repeat;
+    background-size: 101%;
 
 }
 .settings{
