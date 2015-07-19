@@ -143,6 +143,9 @@ app.directive("outsideClick", ['$document', function( $document){
                 console.log(err);
             });
         };
+        $scope.orderByFunction = function(user){
+            return parseInt(user);
+        };
         $scope.calculateDays = function(date){
             var days = 0;
             Date.prototype.today = function () {
