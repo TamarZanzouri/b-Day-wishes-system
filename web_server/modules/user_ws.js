@@ -82,7 +82,7 @@ exports.getSharedPictures = function(req, res){
 			}
 		});
 		if(SharedImages){
-			console.log("returning array");
+			console.log("returning array, " ,SharedImages);
 			res.status(200);
 			res.json(SharedImages);
 		}

@@ -299,7 +299,7 @@ app.directive("outsideClick", ['$document', function( $document){
         $scope.moveToPicturePage = function(){
             $http.post(domain + "/getSharedPictures",
             { user : User.userEmail, friendName :  $scope.userFriend}).success(function(data){
-                    console.log(data);
+                    console.log("&&&&&&&&&&&&&&&&&&&", data);
                     //console.log( $scope.photos = data);
                     $scope.photos = data;
                     movePage('picture-list');
@@ -316,7 +316,7 @@ app.directive("outsideClick", ['$document', function( $document){
             if($('#' + index + '>img.moveToArcive').hasClass('active')){
                 $('#' + index + '>img.moveToArcive').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
-                $('#' + index + ' div.friend-days-left').css("padding-left", "17px");
+                $('#' + index + ' div.friend-days-left').css("padding-left", "10px");
                 $('#' + index + ' div.friend-name').css("padding-left", "0px");
             }
             else{
@@ -387,7 +387,6 @@ app.directive("outsideClick", ['$document', function( $document){
                 $scope.ignors.splice(index, 1);
                 $('#' + index + '>img.restore-friend').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
-                // $('#' + index + ' div.friend-days-left').css("padding-left", "17px");
                 $('#' + index + ' div.friend-name-ignore').css("padding-left", "0px");
                 $scope.alerts = [
                     { type: 'danger', msg: 'חבר נמחק לצמיתות' }
@@ -408,7 +407,6 @@ app.directive("outsideClick", ['$document', function( $document){
                 $scope.ignors.splice(index, 1);
                 $('#' + index + '>img.restore-friend').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
-                // $('#' + index + ' div.friend-days-left').css("padding-left", "17px");
                 $('#' + index + ' div.friend-name-ignore').css("padding-left", "0px");
                 $scope.alerts = [
                     { type: 'danger', msg: 'החבר נוסף לרשימת החברים' }
@@ -507,7 +505,7 @@ app.directive("outsideClick", ['$document', function( $document){
                 $scope.users.splice(index, 1);
                 $('#' + index + '>img.moveToArcive').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
-                $('#' + index + ' div.friend-days-left').css("padding-left", "17px");
+                $('#' + index + ' div.friend-days-left').css("padding-left", "10px");
                 $('#' + index + ' div.friend-name').css("padding-left", "0px");
                 $scope.alerts = [
                     { type: 'danger', msg: 'החבר הועבר לרשימת הארכיון' }
