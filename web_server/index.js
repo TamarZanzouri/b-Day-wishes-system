@@ -70,6 +70,9 @@ app.post('/getMyFriendsBirthDayWishes', birthdayWishesWS.getMyFriendsBirthDayWis
 
 app.post('/getSharedPictures', userWS.getSharedPictures);
 app.post('/addToArchive', userWS.addToArchive);
+app.post('/restoreFromArchive', userWS.restoreFromArchive);
+
+app.post('/deleteFriend', userWS.deleteFriend);
 
 var port = process.env.PORT || 3000;
 app.listen(port, function(){

@@ -54,7 +54,18 @@ body{
     background-image: url("../imgs/settings-icon.png");
     height: 22px;
     width: 20px;
-    background-size: 100%;
+    background-size: 95%;
+    background-repeat: no-repeat;
+}
+
+.settings-pressed{
+    position: absolute;
+    top:43.33%;
+    left: 5.625%;
+    background-image: url("../imgs/settings-icon-pressed.png");
+    height: 22px;
+    width: 20px;
+    background-size: 95%;
     background-repeat: no-repeat;
 }
 /*-----------------------------------user strip------------------------------------------------*/
@@ -108,6 +119,15 @@ body{
     top : 20px;
 }
 
+.moveToArciveIgnore{
+    display: none;
+    width : 21px !important;
+    height : 20px;
+    position : relative;
+    left : 108%;
+    top : 0px;   
+}
+
 .active{
     display: block !important;
 }
@@ -121,7 +141,14 @@ body{
     bottom : 40px;
 }
 
-
+.restore-friend{
+    display: none;
+    width : 17px !important;
+    height : 18px;
+    position : relative;
+    left : 8%;
+    bottom : 0px;  
+}
 .alert-success{
   color: #3c763d;
   background-color: #dff0d8;
@@ -319,6 +346,21 @@ body{
     color: #ffffff;
     margin: 0;
 }
+
+.friend-name-ignore {
+    float: right;
+    height: 60px;
+    width: 43.75%;
+    padding-right: 17px;
+    padding-top: 14px;
+}
+
+.friend-name-ignore a > h4, .friend-name-ignore a >h6, .friend-name-ignore a >h5{
+    color: #30beb2;
+    margin: 0;
+    font-family: "Myriad Hebrew";
+}
+
 .friend-name a >h4{
     font-size: 15pt;
     float: right;
@@ -334,7 +376,8 @@ body{
 #birthdayWishesList>.friend-row{
     background-color: #fffdf6;
     border-top: 1px solid #ebe9e2;
-    padding: 18px 50px 18px 30px;
+    padding: 14px 50px 18px 30px;
+    overflow: hidden;
 }
 .addIcon {
     color: #fda172;
@@ -594,19 +637,18 @@ body{
     z-index: 5;
 }
 .nav li {
-    border: 2px solid #AAAAAA;
     border-radius: 5px;
     cursor: pointer;
     display: inline-block !important;
-    margin: 5px 4px;
+    margin: 5px 6px;
     position: relative;
-    width: 54px;
+    width: 76px;
 }
 .nav li.active {
-    border: 5px solid #FFFFFF;
+    border: 3px solid #f59d73;
 }
 .nav li img {
-    width:50px;
+    width:70px;
     height: 50px;
 }
 .container {
@@ -741,8 +783,8 @@ body{
 .ignore-friend-row{
     width: 100%;
     height:60px;
-    background-color: #fe925d ;
-    border-bottom: 1px solid #f8f3e4;
+    background-color: #fffdf6 ;
+    border-bottom: 1px solid #dedbba;
 }
 
 .ui-page-theme-a a, html .ui-bar-a a, html .ui-body-a a, html body .ui-group-theme-a a {

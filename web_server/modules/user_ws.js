@@ -91,7 +91,6 @@ exports.getSharedPictures = function(req, res){
 
 exports.addToArchive = function(req, res){
 	console.log("adding to ignore list")
-	var friendToArchive = {};
 	var friendName = req.body.friendName;
 	console.log("user email ", req.body.userEmail, " user friend ", req.body.friendName);
 	usersSchema.findOne({userEmail : req.body.userEmail}).exec(function(err, docs){
@@ -115,6 +114,76 @@ exports.addToArchive = function(req, res){
 			console.log("flag before", docs.friendsMatch[indexMatch].friendInArchive)
 			docs.friendsMatch[indexMatch].friendInArchive = true;
 			console.log("flag after", docs.friendsMatch[indexMatch].friendInArchive)
+			docs.save(function(err, result){
+				if(err)
+					return console.error(err);
+				console.log("updated ", result)
+			});
+		}
+		res.json({status : 1})
+	})
+}
+
+exports.restoreFromArchive = function(req, res){
+	console.log("restore from ignore list")
+	var friendName = req.body.friendName;
+	console.log("user email ", req.body.userEmail, " user friend ", req.body.friendName);
+	usersSchema.findOne({userEmail : req.body.userEmail}).exec(function(err, docs){
+		if(err)
+			return console.error(err)
+		else
+		console.log(docs)
+		console.log(docs.friendsMatch)
+		docs.friendsMatch.forEach(function(friend, index){
+			console.log("&&&&&&&& in forEach ", friend)
+			if(friend.friendName === friendName){
+				console.log("found match ", friend.friendName, friend)
+				// friend.BirthdayReminderFlag = true;
+				indexMatch = index;
+				console.log("indexMatch", indexMatch)
+				return;
+			}
+		})
+		if(indexMatch >= 0){
+			console.log("found match!!!");
+			console.log("flag before", docs.friendsMatch[indexMatch].friendInArchive)
+			docs.friendsMatch[indexMatch].friendInArchive = false;
+			console.log("flag after", docs.friendsMatch[indexMatch].friendInArchive)
+			docs.save(function(err, result){
+				if(err)
+					return console.error(err);
+				console.log("updated ", result)
+			});
+		}
+		res.json({status : 1})
+	})
+}
+
+exports.deleteFriend = function(req, res){
+	console.log("deleting from ignore list")
+	var friendName = req.body.friendName;
+	console.log("user email ", req.body.userEmail, " user friend ", req.body.friendName);
+	usersSchema.findOne({userEmail : req.body.userEmail}).exec(function(err, docs){
+		if(err)
+			return console.error(err)
+		else
+		console.log(docs)
+		console.log(docs.friendsMatch)
+		docs.friendsMatch.forEach(function(friend, index){
+			console.log("&&&&&&&& in forEach ", friend)
+			if(friend.friendName === friendName){
+				console.log("found match ", friend.friendName, friend)
+				// friend.BirthdayReminderFlag = true;
+				indexMatch = index;
+				console.log("indexMatch", indexMatch)
+				return;
+			}
+		})
+		if(indexMatch >= 0){
+			console.log("found match!!!");
+			console.log("flag before", docs.friendsMatch[indexMatch].deletedFriendFlag)
+			docs.friendsMatch[indexMatch].deletedFriendFlag = true;
+			console.log("flag after", docs.friendsMatch[indexMatch].deletedFriendFlag)
 			docs.save(function(err, result){
 				if(err)
 					return console.error(err);

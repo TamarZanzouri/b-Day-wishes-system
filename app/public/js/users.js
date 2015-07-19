@@ -182,17 +182,17 @@ app.directive("outsideClick", ['$document', function( $document){
                 $('#'+i+'').css('background-color',colors[j++]);
             }
         });
-        $scope.getBirthdayWishes = function(userFriend, userFriendBirthday){
+        $scope.getBirthdayWishes = function(userFriend){
 
-            console.log("getting getBirthdayWishes " , userFriend, " email", User.userEmail)
-            $scope.userFriend = userFriend;
-            $scope.userFriendBirthday = userFriendBirthday;
-            $scope.name = userFriend;
-            $scope.friendsBirthday = userFriendBirthday;
-            $scope.daysLeft = $scope.calculateDays(userFriendBirthday);
+            console.log("getting getBirthdayWishes " , userFriend.friendName, " email", User.userEmail)
+            $scope.userFriend = userFriend.friendName;
+            $scope.userFriendBirthday = userFriend.birthDate;
+            $scope.name = userFriend.friendName;
+            $scope.friendsBirthday = userFriend.birthDate;
+            $scope.daysLeft = $scope.calculateDays(userFriend.birthDate);
             console.log($scope.userFriend, $scope.userFriendBirthday)
             $http.post(domain + "/getMyFriendsBirthDayWishes",
-                { user : User.userEmail, friend :  1}).success(function(data){
+                { user : User.userEmail, friend :  userFriend.friendshipCatagory}).success(function(data){
                     console.log(data);
                     $scope.wishes = data;
                     movePage('loading');
@@ -297,7 +297,7 @@ app.directive("outsideClick", ['$document', function( $document){
             if($('#' + index + '>img.moveToArcive').hasClass('active')){
                 $('#' + index + '>img.moveToArcive').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
-                $('#' + index + ' div.friend-days-left').css("padding-left", "0px");
+                $('#' + index + ' div.friend-days-left').css("padding-left", "17px");
                 $('#' + index + ' div.friend-name').css("padding-left", "0px");
             }
             else{
@@ -328,6 +328,77 @@ app.directive("outsideClick", ['$document', function( $document){
                 $('#' + index + '>img.moveToArcive').addClass('active');
             }
             console.log("swiped right")  ;
+        }
+
+        $scope.showArchiveIgnore = function(index){
+            console.log(index);
+            if($('#' + index + '>img.restore-friend').hasClass('active')){
+                console.log("in if")
+                $('#' + index + '>img.restore-friend').removeClass('active');
+                $('#' + index + ' div.friend-img').css("display", "block");
+                $('#' + index + ' div.friend-name-ignore').css("padding-right", "17px");
+            }
+            else{
+                console.log("in else")
+                $('#' + index).css("padding-right", "58px");
+                $('#' + index + '>img.moveToArciveIgnore').addClass('active');                
+            }
+
+        }
+
+        $scope.showRecallIgnore = function(index){
+            console.log("recall")
+            if($('#' + index + '>img.moveToArciveIgnore').hasClass('active')){
+                console.log("in if")
+                $('#' + index + '>img.moveToArciveIgnore').removeClass('active');
+                $('#' + index).css("padding-right", "0px");
+            }
+            else{
+                $('#' + index + ' div.friend-img').css("display", "none");
+                $('#' + index + ' div.friend-name-ignore').css("padding-left", "58px");
+                $('#' + index + '>img.restore-friend').addClass('active');
+            }
+        }
+        
+        $scope.deleteFriend = function(users, user, index){
+            console.log(index);
+            $http.post(domain + '/deleteFriend' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
+                console.log(data);
+                console.log(user)
+                $scope.ignors.splice(index, 1);
+                $('#' + index + '>img.restore-friend').removeClass('active');
+                $('#' + index + ' div.friend-img').css("display", "block");
+                // $('#' + index + ' div.friend-days-left').css("padding-left", "17px");
+                $('#' + index + ' div.friend-name-ignore').css("padding-left", "0px");
+                $scope.alerts = [
+                    { type: 'danger', msg: 'חבר נמחק לצמיתות' }
+                ]; 
+                $timeout(function() {
+                    $scope.alerts.splice(index, 1);
+                }, 3000);
+
+            })
+        }
+
+        $scope.restoreFriend = function(users, user, index){
+
+            $http.post(domain + '/restoreFromArchive' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
+                console.log(data);
+                console.log(user)
+                $scope.users.push(user);
+                $scope.ignors.splice(index, 1);
+                $('#' + index + '>img.restore-friend').removeClass('active');
+                $('#' + index + ' div.friend-img').css("display", "block");
+                // $('#' + index + ' div.friend-days-left').css("padding-left", "17px");
+                $('#' + index + ' div.friend-name-ignore').css("padding-left", "0px");
+                $scope.alerts = [
+                    { type: 'danger', msg: 'החבר נוסף לרשימת החברים' }
+                ]; 
+                $timeout(function() {
+                    $scope.alerts.splice(index, 1);
+                }, 3000);
+
+            })
         }
         $scope.openNotifications = function(){
             if( $scope.notificationsNum == 0){
@@ -392,6 +463,7 @@ app.directive("outsideClick", ['$document', function( $document){
             console.log(user);
             $http.post(domain + '/addToArchive' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
                 console.log(data);
+                $scope.ignors.push(user);
                 $scope.users.splice(index, 1);
                 $('#' + index + '>img.moveToArcive').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
