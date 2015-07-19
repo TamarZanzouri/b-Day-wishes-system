@@ -75,7 +75,7 @@ app.directive("outsideClick", ['$document', function( $document){
         var numOfNotifications = 0;
         var ignoreList=[];
         var unIgnoreUsers=[];
-        //var notificationList=[];
+        var notificationList=[];
         var notificationTodayList=[];
         var notificationWeekList=[];
         var notificationMonthList=[];
@@ -103,7 +103,7 @@ app.directive("outsideClick", ['$document', function( $document){
                             var daysLength = 0;
                             daysLength = bDay(item.birthDate);
                             if(item.BirthdayReminderFlag == true && daysLength>0 && item.friendInArchive==false && item.deletedFriendFlag==false){
-                               // notificationTodayList.push(item);
+                                notificationList.push(item);
                                 console.log(item);
                                 numOfNotifications= numOfNotifications + 1;
                                 console.log("num of notifications:" +numOfNotifications);
@@ -435,6 +435,10 @@ app.directive("outsideClick", ['$document', function( $document){
 
         };
         $scope.closeNotifications = function(){
+            history.back();
+
+        }
+        $scope.closeSettings = function(){
             history.back();
 
         }
