@@ -77,7 +77,11 @@
            </div>
            <div class="user-friends-body" data-role="content">
                <ul data-role="listview">
+<<<<<<< HEAD
                    <li ng-view ng-repeat="user in users | orderBy:birthday" id = "friends-{{$index}}" class="slide slide-animation friend-row" ng-swipe-left="showReminer('friends-'+$index)" ng-swipe-right="showArchive('friends-'+$index)" ng-click="" on-last-repeat>
+=======
+                   <li ng-view ng-repeat="user in users | orderBy: birthday" id = "friends-{{$index}}" class="slide slide-animation friend-row" ng-swipe-left="showReminer('friends-'+$index)" ng-swipe-right="showArchive('friends-'+$index)" ng-click="" on-last-repeat>
+>>>>>>> 7b7525b98830073794f68bfa6a9cbfb756737ed9
                          <div class="friend-img" ng-click="getBirthdayWishes(user)"><a href="#" data-transition="slide" value=""><img src="{{user.friendProfileImage}}"></a></div>
                         <div class="friend-name" ng-click="getBirthdayWishes(user)"><a href="#" data-transition="slide" value=""><h4>{{user.friendName}}</h4><h6>{{user.birthDate}}</h6></a></div>
                         <div class="friend-days-left" ng-click="getBirthdayWishes(user)"><a href="#" data-transition="slide"><h5>{{calculateDays(user.birthDate)}}</h5></a></div>
@@ -215,7 +219,7 @@
    <div class="app-footer">
        <a href="#" class="arrow-right" ng-click="moveBack()"></a>
        <div id="publish">
-           <a href="#" data-role="none" ng-click="moveToHomePage()">פרסם</a>
+           <a href="#" data-role="none" ng-click="published()">פרסם</a>
        </div>
 
 

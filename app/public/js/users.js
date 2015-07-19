@@ -420,7 +420,7 @@ app.directive("outsideClick", ['$document', function( $document){
                     { type: 'danger', msg: 'החבר נוסף לרשימת החברים' }
                 ]; 
                 $timeout(function() {
-                    $scope.alerts.splice(index, 1);
+                    $scope.alerts.splice(0, 1);
                 }, 3000);
 
             })
@@ -530,11 +530,20 @@ app.directive("outsideClick", ['$document', function( $document){
                     { type: 'success', msg: 'נוספה תזכורת' }
                 ]; 
                 $timeout(function() {
-                    $scope.alerts.splice(index, 1);
+                    $scope.alerts.splice(0, 1);
                 }, 3000);
             })
             }
+        $scope.published = function(){
+            $scope.alerts = [
+                { type: 'success', msg: 'הברכה פורסמה בהצלחה' }
+            ];
+            $timeout(function() {
+                $scope.alerts.splice(0, 1);
+                movePage('user-friends');
 
+            }, 3000);
+        }
         $scope.moveToArchive = function(users, user, index){
             // console.log(angular.element($event.target).parent());
             console.log(user);
@@ -580,7 +589,7 @@ app.directive("outsideClick", ['$document', function( $document){
                     { type: 'danger', msg: 'החבר הועבר לרשימת הארכיון' }
                 ]; 
                 $timeout(function() {
-                    $scope.alerts.splice(index, 1);
+                    $scope.alerts.splice(0, 1);
                 }, 3000);
 
             })
