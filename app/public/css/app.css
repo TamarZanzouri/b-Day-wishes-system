@@ -50,7 +50,7 @@ body{
 }
 .logo-header{
     position: absolute;
-    top:26.67%;
+    top:15px;
     right: 37.5%;
     background: url("../imgs/logo-header.png") no-repeat;
     height: 25px;
@@ -58,7 +58,7 @@ body{
 }
 .notifications,.notifications-pressed{
     position: absolute;
-    top:40%;
+    top:20px;
     right: 5.625%;
     background: url("../imgs/notification.png") no-repeat;
     height: 24px;
@@ -80,7 +80,7 @@ body{
 }
 .settings{
     position: absolute;
-    top:43.33%;
+    top:20px;
     left: 5.625%;
     background: url("../imgs/settings-icon.png") no-repeat;
     height: 22px;
@@ -915,5 +915,129 @@ body{
     height:60px;
     background-color: #fffdf6 ;
     border-bottom: 1px solid #dedbba;
+}
+
+/*-----------------------------------Tablet media queries------------------------------------------------*/
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+.logo, .logoLoading{
+    left: 44%;
+}
+.friend-name{
+    width: 15%;
+}
+
+.friend-name-ignore{
+    width: 15%;
+}
+
+#switching-icon{
+    left: 48.875%;
+}
+
+.logo-header{
+    right: 46%;
+}
+
+.moveToArcive{
+    left: 2%;
+}
+
+.addReminder{
+    left: 102%;
+}
+
+.container{
+    width: 50%;
+}
+
+.slider{
+    margin: 60px 27%;
+}
+
+.nav li{
+    width: 8%;
+}
+
+.confirm-picture{
+    left: 28%;
+    width: 80%;
+}
+
+.confirm-picture img{
+    width: 60%;
+}
+
+.moveToArciveIgnore{
+    left: 102%;
+}
+
+.restore-friend{
+    left: 2%;
+}
+
+}
+/*-----------------------------------Desktop media queries------------------------------------------------*/
+
+@media(min-width: 992px){
+
+.logo, .logoLoading{
+    left: 45%;
+}
+
+.logo-header{
+    right: 46%;
+}
+
+.friend-name{
+    width: 10%;
+}
+
+#switching-icon{
+    left: 50%;
+}
+
+.nav li{
+    width: 6.4%;
+}
+
+.slider img{
+    width: 40%;
+}
+
+.slider{
+    margin: 50px 32.5%;
+}
+
+.confirm-picture img{
+    width: 40%;
+}
+
+.confirm-picture{
+    left: 32.5%;
+    width: 80%;
+}
+
+.addReminder{
+    left: 102%;
+}
+
+.moveToArcive{
+    left: 2%;
+}
+
+.friend-name-ignore{
+    width: 13%;
+}
+
+.moveToArciveIgnore{
+    left: 102%;
+}
+
+.restore-friend{
+    left: 2%;
+}
+
 }
 
