@@ -842,8 +842,8 @@ body{
 
 
 .notification-content{
-    width: 200px;
-    min-height: 180px;
+    width: 300px;
+    min-height: 241px;
     background-color:#F8F9F6 ;
     position: absolute;
     top: 87%;
@@ -860,7 +860,7 @@ body{
 }
 .notification-friend-row{
     width: 100%;
-    height:29px;
+    height:45px;
     background-color: #F8F9F6 ;
     border-bottom: 1px solid #515152;
 }
@@ -873,20 +873,20 @@ body{
 }
 .notification-friend-img{
     float: right;
-    width: 30px;
-    height: 29px;
+    width: 43px;
+    height: 45px;
     background-size: auto;
 }
 .notification-friend-img a >img{
-    width: 30px;
-    height: 28px;
+    width: 43px;
+    height: 45px;
 }
 .notification-friend-name{
     float: right;
     height: 29px;
     width: 43.75%;
-    padding-left: 25px;
-    padding-top: 9px;
+    padding-left: 40px;
+    padding-top: 13px;
 
 }
 .notification-friend-days-left{
@@ -894,7 +894,7 @@ body{
     height: 29px;
     width: 37.5%;
     padding-left: 15px;
-    padding-top: 10px;
+    padding-top: 13px;
 }
 .notification-friend-name a >h4,.notification-friend-days-left a >h5{
     font-family: 'Alef-Regular';
@@ -903,11 +903,11 @@ body{
 }
 
 .notification-friend-name a >h4 {
-    font-size: 8pt !important;
+    font-size: 12pt !important;
 }
 
 .notification-friend-days-left a >h5{
-    font-size:8pt !important;
+    font-size:12pt !important;
 }
 /*-----------------------------------Ignore page------------------------------------------------*/
 .ignore-friend-row{

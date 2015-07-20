@@ -1,5 +1,5 @@
 
-
+//moving between the data-role pages
 function movePage(page){
     $.mobile.changePage("#"+page, {
         transition : "none",
@@ -36,6 +36,7 @@ app.directive('onLastRepeat', function() {
 
     };
 });
+//directive which detect an outside click of the notification(desktop) div and close that div when is open
 app.directive("outsideClick", ['$document', function( $document){
 
     return {
@@ -43,6 +44,7 @@ app.directive("outsideClick", ['$document', function( $document){
         link: function( $scope, $element, $attributes ){
             var scopeExpression = $attributes.outsideClick,
                 onDocumentClick = function(event){
+
                     if((event.target.id).substring(0,(event.target.id).length-1)== 'open'){
                         console.log('notifications');
 
@@ -64,7 +66,7 @@ app.directive("outsideClick", ['$document', function( $document){
     }
 }]);
 
-
+    //the controller app
     app.controller('AuthCtrl',function ($scope, GooglePlus, $http, UserService, $rootScope, $timeout) {
         $scope.check = true;
         $scope.show = false;
@@ -80,7 +82,9 @@ app.directive("outsideClick", ['$document', function( $document){
         var notificationTodayList=[];
         var notificationWeekList=[];
         var notificationMonthList=[];
-
+        var $window = $(window);
+        var windowsize = $window.width();
+        //login with google+ function
         $scope.login = function () {
             console.log("in login")
             GooglePlus.login().then(function (authResult) {
@@ -95,7 +99,7 @@ app.directive("outsideClick", ['$document', function( $document){
                     $scope.user = User;
                     console.log($scope.user);
                     movePage('user-friends');
-
+                    //get the friends usres of the login user
                     $http.post(domain + "/create_user/", { user : $scope.user }).success(function(data){
                         //separate to ignore and users
                         userForNotification = data;
@@ -103,6 +107,7 @@ app.directive("outsideClick", ['$document', function( $document){
                             console.log(item);
                             var daysLength = 0;
                             daysLength = bDay(item.birthDate);
+                            //check if the friend supposed to be in notification page in one of todays, this week , this month sections
                             if(item.BirthdayReminderFlag == true && daysLength>0 && item.friendInArchive==false && item.deletedFriendFlag==false){
                                 notificationList.push(item);
                                 console.log(item);
@@ -119,20 +124,20 @@ app.directive("outsideClick", ['$document', function( $document){
                                 }
 
                             }
-
+                            //check if the friend is in the friend user list
                             if(item.friendInArchive == false && item.deletedFriendFlag==false){
                                 unIgnoreUsers.push(item);
                             }
+                            //check if the friend is in the ignore list
                             else if(item.deletedFriendFlag == false){
                                 ignoreList.push(item);
                             }
                         });
-
                         $scope.notificationsNum = numOfNotifications;
                         $scope.todays = notificationTodayList;
                         $scope.weeks = notificationWeekList;
                         $scope.months = notificationMonthList;
-                        //$scope.notificationsUser = notificationList;
+                        $scope.notificationsUser = notificationTodayList;
                         console.log(data.friendsMatch);
                         $scope.users = unIgnoreUsers;
                         $scope.ignors = ignoreList;
@@ -143,9 +148,7 @@ app.directive("outsideClick", ['$document', function( $document){
                 console.log(err);
             });
         };
-        $scope.orderByFunction = function(user){
-            return parseInt(user);
-        };
+        // function which calculate how many days each user has until the bDay
         $scope.calculateDays = function(date){
             var days = 0;
             Date.prototype.today = function () {
@@ -159,7 +162,7 @@ app.directive("outsideClick", ['$document', function( $document){
             var month = parseInt(date[1]);
             var day = parseInt(date[0]);
 
-            if(month==parseInt(datetime[1])){
+            if(month==parseInt(datetime[1])){//if its the same month
                 if(day>=parseInt(datetime[0])){
                     days = day - parseInt(datetime[0]);
                 }
@@ -167,11 +170,11 @@ app.directive("outsideClick", ['$document', function( $document){
                     days = 365 - (parseInt(datetime[0])-day);
                 }
             }
-            else if(month>parseInt(datetime[1])){
+            else if(month>parseInt(datetime[1])){//if the birthDate month is bigger the today month
                 days = (month - parseInt(datetime[1]))*30;
                 days += (day - parseInt(datetime[0]));
             }
-            else{
+            else{//if the birthDate month is smaller the today month
 
                 days = parseInt(datetime[1]) - month;
                 days*=30;
@@ -192,7 +195,7 @@ app.directive("outsideClick", ['$document', function( $document){
             days = 0;
 
         }
-
+        //change background-color according to the index position on the list of users
         $scope.$on('onRepeatLast', function(scope, element, attrs){
             var colors =['#df547d','#fea579','#e5d58b','#30beb2'];
             for(var i= 0, j=0;i<scope.currentScope.users.length;i++){
@@ -202,6 +205,7 @@ app.directive("outsideClick", ['$document', function( $document){
                 $('#friends-'+i+'').css('background-color',colors[j++]);
             }
         });
+        //get and display the bDay wishes
         $scope.getBirthdayWishes = function(userFriend){
 
             console.log("getting getBirthdayWishes " , userFriend.friendName, " email", User.userEmail)
@@ -218,7 +222,7 @@ app.directive("outsideClick", ['$document', function( $document){
                     movePage('loading');
 
                     var index=2;
-                    var interval = window.setInterval(function(){
+                    var interval = window.setInterval(function(){//interval for changing img in loading page
                         if(index==4){
                             index=1;
                         }
@@ -234,7 +238,7 @@ app.directive("outsideClick", ['$document', function( $document){
             });
 
         };
-
+        //change colors and images on loading page
         function changeBackground(index) {
             console.log(index);
 
@@ -268,37 +272,43 @@ app.directive("outsideClick", ['$document', function( $document){
         $scope.showPhoto = function (index) {
             $scope._Index = index;
         };
+        // edit on wishes page
         $scope.editWish = function($event, wish){
             birthdayWish = angular.element($event.currentTarget)[0].innerHTML;
             console.log(birthdayWish);
             console.log("get edited");
         };
+        //change selected wish color
         $scope.editCSS = function($event){
             //need to solve this issue
             $scope.check = false;
             angular.element($event.target).parent().addClass('changeCSS');
         }
-
+        //move to confirm page
         $scope.moveToConfirmPage = function(){
             $scope.picture = $('.active')[0].children[0].currentSrc;
             console.log('moveToConfirmPage');
             movePage('confirm-page');
             $scope.wish = birthdayWish;
         }
+        //move to home page
         $scope.moveToHomePage = function(){
             console.log('moveToHomePage');
             movePage('login-page');
 
         }
+        //move to user friends page
         $scope.moveToUserFriends = function(){
             console.log('moveToUserFriends');
             movePage('user-friends');
         }
+        //move to ignore page
         $scope.moveToIgnoreList = function(){
             $('.notifications').css('background-image', "url(" + 'imgs/notification.png)');
             console.log('moveToIgnoreList');
             movePage('ignore-friends');
         }
+        //move to picture page
         $scope.moveToPicturePage = function(){
             $http.post(domain + "/getSharedPictures",
             { user : User.userEmail, friendName :  $scope.userFriend}).success(function(data){
@@ -308,12 +318,12 @@ app.directive("outsideClick", ['$document', function( $document){
                     movePage('picture-list');
             });  
         }
-
+        //move to the last page
         $scope.moveBack = function(){
             $scope.check = true;
             history.back();
         }
-
+        //show reminder icon on swipe left
         $scope.showReminer = function(index){
             $scope.direction = 'left';
             console.log(index);
@@ -332,7 +342,7 @@ app.directive("outsideClick", ['$document', function( $document){
 
             console.log("swiped left");
         }
-
+        //show archive icon on swipe right
         $scope.showArchive = function(index){
             $scope.direction = 'right';
             console.log(index)
@@ -352,7 +362,7 @@ app.directive("outsideClick", ['$document', function( $document){
             }
             console.log("swiped right")  ;
         }
-
+        //show delete icon on archive page on swipe
         $scope.showArchiveIgnore = function(index){
             console.log(index);
             if($('#' + index + '>img.restore-friend').hasClass('active')){
@@ -368,7 +378,7 @@ app.directive("outsideClick", ['$document', function( $document){
             }
 
         }
-
+        //show recall icon on swipe
         $scope.showRecallIgnore = function(index){
             console.log("recall")
             if($('#' + index + '>img.moveToArciveIgnore').hasClass('active')){
@@ -382,7 +392,7 @@ app.directive("outsideClick", ['$document', function( $document){
                 $('#' + index + '>img.restore-friend').addClass('active');
             }
         }
-        
+        //delete an user friend from the archive page
         $scope.deleteFriend = function(users, user, index){
             console.log(index);
             $http.post(domain + '/deleteFriend' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
@@ -403,7 +413,7 @@ app.directive("outsideClick", ['$document', function( $document){
 
             })
         }
-
+        //transfer an user from archive page to the friend user page
         $scope.restoreFriend = function(users, user, index){
 
             $http.post(domain + '/restoreFromArchive' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
@@ -425,38 +435,61 @@ app.directive("outsideClick", ['$document', function( $document){
 
             })
         }
+        //open notification div(desktop) or move to notification page
         $scope.openNotifications = function(){
-           /* if( $scope.notificationsNum == 0){
-                $scope.show = false;
-                $('body').css('opacity','1');
-                var wasHere = 1;
+
+
+            console.log(windowsize);
+            if (windowsize > 740) {//if the window is greater than 740px
+
+
+                 if( wasHere){
+                 $scope.show = false;
+                 $('body').css('opacity','1');
+                  wasHere = 0;
+
+                 }
+                 else{
+                 $('body').css('opacity','0.8');
+                 $scope.show = true;
+                 wasHere=1;
+                 }
 
             }
             else{
-                $scope.notificationsNum = 0;
-                $('body').css('opacity','0.8');
-                $scope.show = true;
-            }*/
-
-
                 movePage('notification-page');
+            }
+
 
         };
+        //click on logo on desktop mode
+        $scope.goHome = function(){
+
+            console.log(windowsize);
+            if (windowsize > 740) {
+
+                movePage('user-friends');
+            }
+           return;
+        }
+        //close notification page
         $scope.closeNotifications = function(){
             history.back();
 
         }
+        //close settings page
         $scope.closeSettings = function(){
             history.back();
 
         }
-        $scope.hideSideMenu = function() {
+        //hide the notification div
+        $scope.hide = function() {
                 $scope.show = false;
                 $('body').css('opacity','1');
                 console.log(wasHere);
 
         }
-
+        //return if user has bDay today, this week or this month
         function bDay(date){
             console.log(date);
             Date.prototype.today = function () {
@@ -464,7 +497,7 @@ app.directive("outsideClick", ['$document', function( $document){
             }
             var datetime = (new Date().today()).split('/');
             var date = date.split('/');
-            if(parseInt(date[1])==parseInt(datetime[1])){
+            if(parseInt(date[1])==parseInt(datetime[1])){//same month
                 if(parseInt(date[0])==parseInt(datetime[0])){
                     return 1;
                 }
@@ -476,7 +509,7 @@ app.directive("outsideClick", ['$document', function( $document){
                 }
                 return -1;
             }
-            else if(parseInt(date[1])-parseInt(datetime[1]) == 1){
+            else if(parseInt(date[1])-parseInt(datetime[1]) == 1){//following month
 
                 if(parseInt(date[0])+30-parseInt(datetime[0])<=7){
                     return 2;
@@ -490,7 +523,7 @@ app.directive("outsideClick", ['$document', function( $document){
 
         }
 
-
+        //add user to notification page
         $scope.addReminder = function($event, user, index){
 
             user.BirthdayReminderFlag = true;
@@ -512,7 +545,8 @@ app.directive("outsideClick", ['$document', function( $document){
                         console.log("found match ", checkUser.friendName, $scope.found = true);
                         return;
                     }
-                });   
+                });
+                    //add the user to today, this wee, this month section
                 if(bDayCategory==1 && $scope.found == false)
                 {
                     notificationTodayList.push(user);
@@ -525,7 +559,8 @@ app.directive("outsideClick", ['$document', function( $document){
                 }
                 else if(bDayCategory==3 && $scope.found == false){
                     notificationMonthList.push(user);
-                }             
+                }
+                //message on notification
                 $scope.alerts = [
                     { type: 'success', msg: 'נוספה תזכורת' }
                 ]; 
@@ -534,6 +569,7 @@ app.directive("outsideClick", ['$document', function( $document){
                 }, 3000);
             })
             }
+        //message on published
         $scope.published = function(){
             $scope.alerts = [
                 { type: 'success', msg: 'הברכה פורסמה בהצלחה' }
@@ -544,6 +580,7 @@ app.directive("outsideClick", ['$document', function( $document){
 
             }, 3000);
         }
+        //transfer user to archive page
         $scope.moveToArchive = function(users, user, index){
             // console.log(angular.element($event.target).parent());
             console.log(user);
@@ -562,6 +599,7 @@ app.directive("outsideClick", ['$document', function( $document){
                         return;
                     }
                 });
+                //checking if the user exist on the notification page and remove him
                 if($scope.found == true){
                     var bDayCategory = bDay(user.birthDate);
                     console.log("***************** ", bDayCategory);
@@ -585,6 +623,7 @@ app.directive("outsideClick", ['$document', function( $document){
                 $('#' + index + ' div.friend-img').css("display", "block");
                 $('#' + index + ' div.friend-days-left').css("padding-left", "10px");
                 $('#' + index + ' div.friend-name').css("padding-left", "0px");
+
                 $scope.alerts = [
                     { type: 'danger', msg: 'החבר הועבר לרשימת הארכיון' }
                 ]; 
@@ -593,51 +632,8 @@ app.directive("outsideClick", ['$document', function( $document){
                 }, 3000);
 
             })
-            /*need to update the DB in friendArchived*/
         }
     })
 
-    app.animation('.slide-animation', function () {
-        console.log("in animation")
-        return {
-        addClass: function (element, className, done) {
-            var scope = element.scope();
-            console.log("חליכלחדכג", className)
-            if (className != 'ng-hide') {
-                console.log("hide")
-                var finishPoint = element.parent().width();
-                if(scope.direction !== 'right') {
-                    finishPoint = -finishPoint;
-                }
-                TweenMax.to(element, 0.5, {left: finishPoint, onComplete: done });
-            }
-            else {
-                done();
-            }
-        },
-        removeClass: function (element, className, done) {
-            var scope = element.scope();
 
-            if (className == 'ng-hide') {
-                element.removeClass('ng-hide');
-
-                var startPoint = element.parent().width();
-                if(scope.direction === 'right') {
-                    startPoint = -startPoint;
-                }
-
-                TweenMax.set(element, { left: startPoint });
-                TweenMax.to(element, 0.5, {left: 0, onComplete: done });
-            }
-            else {
-                done();
-            }
-        }
-
-
-
-
-
-    };
-});
 
