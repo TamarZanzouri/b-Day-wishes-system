@@ -46,11 +46,9 @@ app.directive("outsideClick", ['$document', function( $document){
                 onDocumentClick = function(event){
 
                     if((event.target.id).substring(0,(event.target.id).length-1)== 'open'){
-                        console.log('notifications');
 
                     }
                     else {
-                        console.log('here');
                         $scope.$apply(scopeExpression);
 
                     }
@@ -86,32 +84,26 @@ app.directive("outsideClick", ['$document', function( $document){
         var windowsize = $window.width();
         //login with google+ function
         $scope.login = function () {
-            console.log("in login")
             GooglePlus.login().then(function (authResult) {
-                console.log(authResult);
 
                 GooglePlus.getUser().then(function (user) {
-                    console.log(user.email);
                     User.userEmail = user.email;
                     User.userName = user.name;
                     User.profileImage = user.picture;
 
                     $scope.user = User;
-                    console.log($scope.user);
                     movePage('user-friends');
                     //get the friends usres of the login user
                     $http.post(domain + "/create_user/", { user : $scope.user }).success(function(data){
                         //separate to ignore and users
                         userForNotification = data;
                         userForNotification.friendsMatch.forEach(function(item){
-                            console.log(item);
                             var daysLength = 0;
                             daysLength = bDay(item.birthDate);
                             //check if the friend supposed to be in notification page in one of todays, this week , this month sections
                             if(item.BirthdayReminderFlag == true && daysLength>0 && item.friendInArchive==false && item.deletedFriendFlag==false){
                                 notificationList.push(item);
-                                console.log(item);
-                                console.log("num of notifications:" +numOfNotifications);
+
                                 if(daysLength==1){
                                     notificationTodayList.push(item);
                                     numOfNotifications= numOfNotifications + 1;
@@ -138,14 +130,12 @@ app.directive("outsideClick", ['$document', function( $document){
                         $scope.weeks = notificationWeekList;
                         $scope.months = notificationMonthList;
                         $scope.notificationsUser = notificationTodayList;
-                        console.log(data.friendsMatch);
                         $scope.users = unIgnoreUsers;
                         $scope.ignors = ignoreList;
                     });
 
                 });
             }, function (err) {
-                console.log(err);
             });
         };
         // function which calculate how many days each user has until the bDay
@@ -180,7 +170,6 @@ app.directive("outsideClick", ['$document', function( $document){
                 days*=30;
                 days+= day -parseInt(datetime[0]);
             }
-            console.log(days);
             if(days == '0'){
                 return 'היום!';
             }
@@ -188,7 +177,6 @@ app.directive("outsideClick", ['$document', function( $document){
                 var str = 'עוד';
                 str+=' '+days+' ';
                 str+='ימים';
-                console.log(str);
                 return str;
 
             }
@@ -208,16 +196,13 @@ app.directive("outsideClick", ['$document', function( $document){
         //get and display the bDay wishes
         $scope.getBirthdayWishes = function(userFriend){
 
-            console.log("getting getBirthdayWishes " , userFriend.friendName, " email", User.userEmail)
             $scope.userFriend = userFriend.friendName;
             $scope.userFriendBirthday = userFriend.birthDate;
             $scope.name = userFriend.friendName;
             $scope.friendsBirthday = userFriend.birthDate;
             $scope.daysLeft = $scope.calculateDays(userFriend.birthDate);
-            console.log($scope.userFriend, $scope.userFriendBirthday)
             $http.post(domain + "/getMyFriendsBirthDayWishes",
                 { user : User.userEmail, friend :  userFriend.friendshipCatagory}).success(function(data){
-                    console.log(data);
                     $scope.wishes = data;
                     movePage('loading');
 
@@ -240,7 +225,6 @@ app.directive("outsideClick", ['$document', function( $document){
         };
         //change colors and images on loading page
         function changeBackground(index) {
-            console.log(index);
 
             var colors =['#CF3D6A','#30beb2','#df547d'];
             $('.change-welcome-txt').css('color',colors[index-1]);
@@ -275,8 +259,7 @@ app.directive("outsideClick", ['$document', function( $document){
         // edit on wishes page
         $scope.editWish = function($event, wish){
             birthdayWish = angular.element($event.currentTarget)[0].innerHTML;
-            console.log(birthdayWish);
-            console.log("get edited");
+
         };
         //change selected wish color
         $scope.editCSS = function($event){
@@ -287,33 +270,28 @@ app.directive("outsideClick", ['$document', function( $document){
         //move to confirm page
         $scope.moveToConfirmPage = function(){
             $scope.picture = $('.active')[0].children[0].currentSrc;
-            console.log('moveToConfirmPage');
             movePage('confirm-page');
             $scope.wish = birthdayWish;
         }
         //move to home page
         $scope.moveToHomePage = function(){
-            console.log('moveToHomePage');
             movePage('login-page');
 
         }
         //move to user friends page
         $scope.moveToUserFriends = function(){
-            console.log('moveToUserFriends');
             movePage('user-friends');
         }
         //move to ignore page
         $scope.moveToIgnoreList = function(){
             $('.notifications').css('background-image', "url(" + 'imgs/notification.png)');
-            console.log('moveToIgnoreList');
             movePage('ignore-friends');
         }
         //move to picture page
         $scope.moveToPicturePage = function(){
             $http.post(domain + "/getSharedPictures",
             { user : User.userEmail, friendName :  $scope.userFriend}).success(function(data){
-                    console.log("&&&&&&&&&&&&&&&&&&&", data);
-                    //console.log( $scope.photos = data);
+
                     $scope.photos = data;
                     movePage('picture-list');
             });  
@@ -326,7 +304,6 @@ app.directive("outsideClick", ['$document', function( $document){
         //show reminder icon on swipe left
         $scope.showReminer = function(index){
             $scope.direction = 'left';
-            console.log(index);
             if($('#' + index + '>img.moveToArcive').hasClass('active')){
                 $('#' + index + '>img.moveToArcive').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
@@ -334,45 +311,37 @@ app.directive("outsideClick", ['$document', function( $document){
                 $('#' + index + ' div.friend-name').css("padding-left", "0px");
             }
             else{
-                console.log($('#' + index + '.friend-days-left'));
                 $('#' + index + ' div.friend-days-left').css("display", "none");
                 $('#' + index).css("padding-right", "58px");
                 $('#' + index + '>img.addReminder').addClass('active');
             }
 
-            console.log("swiped left");
         }
         //show archive icon on swipe right
         $scope.showArchive = function(index){
             $scope.direction = 'right';
-            console.log(index)
             if($('#' + index + '>img.addReminder').hasClass('active')){
-                console.log("in if")
                 $('#' + index + '>img.addReminder').removeClass('active');
                 $('#' + index + ' div.friend-days-left').css("display", "block");
                 $('#' + index).css("padding-right", "0px");
             }
             else
             {
-                console.log("in else")
                 $('#' + index + ' div.friend-img').css("display", "none");
                 $('#' + index + ' div.friend-days-left').css("padding-left", "58px");
                 $('#' + index + ' div.friend-name').css("padding-left", "58px");
                 $('#' + index + '>img.moveToArcive').addClass('active');
             }
-            console.log("swiped right")  ;
         }
         //show delete icon on archive page on swipe
         $scope.showArchiveIgnore = function(index){
             console.log(index);
             if($('#' + index + '>img.restore-friend').hasClass('active')){
-                console.log("in if")
                 $('#' + index + '>img.restore-friend').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
                 $('#' + index + ' div.friend-name-ignore').css("padding-right", "17px");
             }
             else{
-                console.log("in else")
                 $('#' + index).css("padding-right", "58px");
                 $('#' + index + '>img.moveToArciveIgnore').addClass('active');                
             }
@@ -380,9 +349,7 @@ app.directive("outsideClick", ['$document', function( $document){
         }
         //show recall icon on swipe
         $scope.showRecallIgnore = function(index){
-            console.log("recall")
             if($('#' + index + '>img.moveToArciveIgnore').hasClass('active')){
-                console.log("in if")
                 $('#' + index + '>img.moveToArciveIgnore').removeClass('active');
                 $('#' + index).css("padding-right", "0px");
             }
@@ -394,12 +361,9 @@ app.directive("outsideClick", ['$document', function( $document){
         }
         //delete an user friend from the archive page
         $scope.deleteFriend = function(users, user, index){
-            console.log(index);
             $http.post(domain + '/deleteFriend' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
-                console.log(data);
-                console.log(user);
+
                 $scope.indexInArray = index.substring(index.length, index.length-1);
-                console.log("hhhhhhhhhhhhhh", index.substring(index.length, index.length-1));
                 $scope.ignors.splice($scope.indexInArray, 1);
                 $('#' + index + '>img.restore-friend').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
@@ -417,11 +381,9 @@ app.directive("outsideClick", ['$document', function( $document){
         $scope.restoreFriend = function(users, user, index){
 
             $http.post(domain + '/restoreFromArchive' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
-                console.log(data);
-                console.log(user)
+
                 $scope.users.push(user);
                 $scope.indexInArray = index.substring(index.length, index.length-1);
-                console.log("hhhhhhhhhhhhhh", index.substring(index.length, index.length-1));
                 $scope.ignors.splice($scope.indexInArray, 1);
                 $('#' + index + '>img.restore-friend').removeClass('active');
                 $('#' + index + ' div.friend-img').css("display", "block");
@@ -439,7 +401,6 @@ app.directive("outsideClick", ['$document', function( $document){
         $scope.openNotifications = function(){
 
 
-            console.log(windowsize);
             if (windowsize > 740) {//if the window is greater than 740px
 
 
@@ -465,7 +426,6 @@ app.directive("outsideClick", ['$document', function( $document){
         //click on logo on desktop mode
         $scope.goHome = function(){
 
-            console.log(windowsize);
             if (windowsize > 740) {
 
                 movePage('user-friends');
@@ -486,7 +446,6 @@ app.directive("outsideClick", ['$document', function( $document){
         $scope.hide = function() {
                 $scope.show = false;
                 $('body').css('opacity','1');
-                console.log(wasHere);
 
         }
         //return if user has bDay today, this week or this month
@@ -530,19 +489,15 @@ app.directive("outsideClick", ['$document', function( $document){
             $scope.found = false;
             $http.post(domain + '/updateReminderFlag' , 
                 {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
-                console.log(data);
                 $('#' + index + ' div.friend-days-left').css("display", "block");
                 $('.addReminder').removeClass('active');
                 $('#' + index).css("padding-right", "0px");
                 var bDayCategory = bDay(user.birthDate);
-                console.log("***************** ", bDayCategory);
-                console.log("listttttt " ,notificationList);
+
                 notificationList.forEach(function(checkUser){
-                    console.log(checkUser)
-                    console.log(checkUser.friendName);
+
                     if(checkUser.friendName === user.friendName){
                         $scope.found = true;
-                        console.log("found match ", checkUser.friendName, $scope.found = true);
                         return;
                     }
                 });
@@ -582,30 +537,21 @@ app.directive("outsideClick", ['$document', function( $document){
         }
         //transfer user to archive page
         $scope.moveToArchive = function(users, user, index){
-            // console.log(angular.element($event.target).parent());
-            console.log(user);
             $scope.indexInArray = index.substring(index.length, index.length-1);
-            console.log("hhhhhhhhhhhhhh", index.substring(index.length, index.length-1));
             $scope.found = false;
             $http.post(domain + '/addToArchive' , {friendName : user.friendName, userEmail : User.userEmail}).success(function(data){
-                console.log(data);                
-                // console.log("listttttt " ,notificationList);
                 notificationList.forEach(function(checkUser){
-                    console.log(checkUser)
-                    console.log(checkUser.friendName);
+
                     if(checkUser.friendName === user.friendName){
                         $scope.found = true;
-                        console.log("found match ", checkUser.friendName, $scope.found = true);
                         return;
                     }
                 });
                 //checking if the user exist on the notification page and remove him
                 if($scope.found == true){
                     var bDayCategory = bDay(user.birthDate);
-                    console.log("***************** ", bDayCategory);
                     if(bDayCategory==1)
                     {
-                        console.log("in first category")
                         notificationTodayList.splice($scope.indexInArray, 1);
                         numOfNotifications= numOfNotifications - 1;
                         $scope.notificationsNum = numOfNotifications;
