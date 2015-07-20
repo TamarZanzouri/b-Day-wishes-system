@@ -12,8 +12,9 @@ var User = {};
 var birthdayWish;
 var wasHere = 0;
 var app = angular.module('app', ['googleplus', 'ngAnimate', 'ngTouch', 'swipe', 'ui.bootstrap']);
-var domain = 'http://localhost:3000';
-//'http://mazal-tov.herokuapp.com';
+var domain = 'http://mazal-tov.herokuapp.com';
+//'http://localhost:3000';
+
 
 app.factory('UserService', function() {
   return {
