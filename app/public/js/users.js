@@ -401,7 +401,7 @@ app.directive("outsideClick", ['$document', function( $document){
         $scope.openNotifications = function(){
 
 
-            if (windowsize > 740) {//if the window is greater than 740px
+            if (windowsize > 992) {//if the window is greater than 740px
 
 
                  if( wasHere){

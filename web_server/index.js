@@ -1,14 +1,14 @@
 var mongoose = require('mongoose');
 var express = require('express');
 var bodyParser = require('body-parser')
-_ = require("underscore");
-var userWS = require('./modules/user_ws');
-var birthdayWishesWS = require('./modules/birthdayWishes_ws')
+_ = require("underscore");				//underscore for nodejs
+var userWS = require('./modules/user_ws');	//user module
+var birthdayWishesWS = require('./modules/birthdayWishes_ws') //birthday wishes module
 var mongopath = 'mongodb://db_usr:db_pass@ds031972.mongolab.com:31972/grades';
 var app = express();
 
-var birthday_schema = require('./models/birthdayWishesSchema').birthday_schema;
-var users_schema = require('./models/usersSchema').users_schema;
+var birthday_schema = require('./models/birthdayWishesSchema').birthday_schema;	//birthday wished schema
+var users_schema = require('./models/usersSchema').users_schema;				//user schema
 
 birhdayWishesSchema = mongoose.model('birthdayM', birthday_schema);
 usersSchema = mongoose.model('usersM', users_schema);
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 var options = {
 	db: { native_parser : true }
 }
-
+//db connections
 mongoose.connect(mongopath,options);
 
 db = mongoose.connection;
@@ -62,6 +62,7 @@ app.get('/', function(req, res){
 	});
 });
 
+//calling exported functions
 app.post('/create_user', userWS.create_user);
 
 app.post('/updateReminderFlag', userWS.updateReminderFlag);
